@@ -1,0 +1,18 @@
+version: "2"
+
+# Local development infraestructure dependencies
+services:
+  postgres:
+    image: postgres:10.4
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=123456
+    tmpfs:
+     - /var/lib/postgresql/data
+           
+  nginx:
+    image: nginx:alpine
+    network_mode: host
+    volumes:
+      - ./nginx/local.conf:/etc/nginx/conf.d/default.conf

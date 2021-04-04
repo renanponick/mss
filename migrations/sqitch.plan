@@ -1,0 +1,4 @@
+%syntax-version=1.0.0
+%project=InvestPlan
+
+1-init-db 2020-04-03T14:13:00Z Renan Ponick <warreir@gmail.com> # Initialize models
