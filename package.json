@@ -4,7 +4,7 @@
   "description": "Medical Support System",
   "main": "index.js",
   "repository": "https://github.com/renanponick/mss.git",
-  "author": "Renan Ponick <renan.ponic@ngi.com.br>",
+  "author": "Renan Ponick <ponickrenan@gmail.com>",
   "license": "MIT",
   "private": true,
   "devDependencies": {

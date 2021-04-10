@@ -1,4 +1,4 @@
-type User = {
+type CreateUser = {
     login: string
     password: string
     id?: string
@@ -6,9 +6,25 @@ type User = {
 }
 
 export type CreateDoctor = {
-    user: User
+    user: CreateUser
     name: string
     crx: string
     ufCrx: string
     cpf: string
+}
+
+type UpdateUser = {
+    login?: string
+    password?: string
+    id?: string
+    isActive?: boolean
+}
+
+export type UpdateDoctor = {
+    id: string
+    user?: UpdateUser
+    name?: string
+    crx?: string
+    ufCrx?: string
+    cpf?: string
 }

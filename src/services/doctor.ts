@@ -2,7 +2,7 @@ import { omit } from 'ramda'
 import { Service } from 'typedi'
 
 import DoctorRepository from '../repositories/doctor'
-import { CreateDoctor } from './types'
+import { CreateDoctor, UpdateDoctor } from './types'
 import UserService from './user'
 
 @Service()
@@ -27,7 +27,7 @@ export default class DoctorService {
         return this.repository.createAndSave(doctor)
     }
 
-    async update(fields: any) {
+    async update(fields: UpdateDoctor) {
         const query = { id: fields.id }
 
         const doctor = await this.repository
@@ -37,6 +37,19 @@ export default class DoctorService {
             ...query,
             ...doctor,
             ...fields
+        })
+    }
+
+    async delete(id: string) {
+        const query = { id }
+
+        const doctor = await this.repository
+            .findOneOrFail({ where: query })
+
+        return this.repository.save({
+            ...query,
+            ...doctor,
+            isActive: false
         })
     }
 
