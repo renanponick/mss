@@ -8,8 +8,6 @@ import PharmacyService from './services/pharmacy'
 import PrescriptionService from './services/prescription'
 import UserService from './services/user'
 import { CreateDoctor, UpdateDoctor } from './type'
-import { APIBadRequestError } from './errors/error'
-
 const app = express();
 
 const doctorService = new DoctorService()
@@ -29,38 +27,37 @@ app.get("/ping", async (_: Request, res: Response) => {
 
 // Doctor
 app.get("/doctor/:doctorId", async (req: Request, res: Response) => {
-    let result
+    const doctorId = req.params.doctorId
     try {
-        result = await doctorService.find(req.params.doctorId)
+        const result = await doctorService.find(doctorId)
+        res.send(result)
     }catch (err){
-        console.log(err)
-        result = err
+        res.status(404).send({
+            message: "Doutor não encontrado. ID: " + doctorId,
+            err
+        });
     }
-    res.json({ result })
 });
 
-/*app.get("/doctor/user/:idUser", async (req: Request, res: Response) => {
-    const result = await doctorService.findByUserId()
-    res.json({ message: "retorno" })
-});*/
-
 app.get("/doctors", async (_: Request, res: Response) => {
-    let result
     try {
-        result = await doctorService.findAll()
+        const result = await doctorService.findAll()
+        res.send(result)
     }catch (err){
-        console.log(err)
-        result = err
+        res.status(404).send({
+            message: "Doutores não encontrados.",
+            err
+        });
     }
-    res.json({ result })
 });
 
 app.post("/doctor", async (req: Request, res: Response) => {
     const body = req.body
     if (!CreateDoctor.is(body)) {
-        throw new APIBadRequestError('Dados faltantes no corpo da requisição. Favor conferir.')
+        res.status(400).send({
+            message: "Dados faltantes no corpo da requisição. Favor conferir."
+        });
     }
-
     const input = {
         user: {
             login: body.user.login,
@@ -71,24 +68,61 @@ app.post("/doctor", async (req: Request, res: Response) => {
         ufCrx: body.ufCrx,
         cpf: body.cpf,
     }
-    const result = await doctorService.create(input)
-
-    res.json({ result })
+    try{
+        const result = await doctorService.create(input)
+        res.send(result)
+    }catch(err){
+        res.status(500).send({
+            message: "Erro ao cadastrar doutor.",
+            err
+        });
+    }
 });
 
 app.put("/doctor/:doctorId", async (req: Request, res: Response) => {
     const body = req.body
 
-    if(!req.params.doctorId){
-        throw new APIBadRequestError('Favor informar o identificador do doutor.')
-    }
     if (!UpdateDoctor.is(body)) {
-        throw new APIBadRequestError('Dados faltantes no corpo da requisição. Favor conferir.')
+        res.status(400).send({
+            message: "Dados faltantes no corpo da requisição. Favor conferir."
+        });
     }
 
-    const result = await doctorService.update(req)
-    res.json({ message: "retorno" })
+    const input = {
+        id: req.params.doctorId,
+        user: {
+            login: body.user?.login,
+            password: body.user?.password,
+        },
+        name: body.name,
+        crx: body.crx,
+        ufCrx: body.ufCrx,
+        cpf: body.cpf
+    }
+    try{
+        const result = await doctorService.update(input)
+        res.send(result)
+    }catch(err){
+        res.status(500).send({
+            message: "Erro ao alterar doutor.",
+            err
+        });
+    }
 });
+
+app.delete("/doctor/:doctorId", async (req: Request, res: Response) => {
+    try{
+        const result = await doctorService.delete(req.params.doctorId)
+        res.send(result)
+    }catch(err){
+        res.status(500).send({
+            message: "Erro ao excluir doutor.",
+            err
+        });
+    }
+});
+
+
 
 // Phanrmacy
 app.get("/pharmacy/:pharmacyId" , async (req: Request, res: Response) => {
