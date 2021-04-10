@@ -13,6 +13,7 @@ export default class UserRepository extends Repository<User> {
 
     async createAndSave(fields: object) {
         const entity = plainToClass(User, fields)
+        console.log(Repository.toString())
         console.log(entity)
         return this.save(entity)
     }

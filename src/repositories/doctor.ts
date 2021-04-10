@@ -1,5 +1,6 @@
 import { EntityRepository, Repository } from 'typeorm'
 import Doctor from '../models/doctor'
+import { plainToClass } from 'class-transformer'
 
 @EntityRepository(Doctor)
 export default class DoctorRepository extends Repository<Doctor> {
@@ -10,8 +11,10 @@ export default class DoctorRepository extends Repository<Doctor> {
     }
 
     async createAndSave(fields: object) {
-        console.log(fields)
-        return this.save(fields)
+        const entity = plainToClass(Doctor, fields)
+        console.log(entity)
+        console.log(this)
+        return this.save(entity)
     }
 
 }

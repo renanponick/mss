@@ -1,4 +1,5 @@
 %syntax-version=1.0.0
-%project=InvestPlan
+%project=mss
 
-1-init-db 2020-04-03T14:13:00Z Renan Ponick <warreir@gmail.com> # Initialize models
+1-init-db 2021-04-03T14:13:00Z Renan Ponick <warreir@gmail.com> # Initialize models
+2-modify-models 2021-04-10T10:23:00Z Renan Ponick <warreir@gmail.com> # Modify models
