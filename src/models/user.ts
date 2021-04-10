@@ -19,8 +19,8 @@ export default class User {
     )
     id: string
 
-    @Column('boolean', { name: 'is_active' } )
-    isActive: string
+    @Column('boolean', { name: 'is_active', default: true } )
+    isActive: boolean
 
     @Column('text')
     login: string

@@ -10,6 +10,7 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "strictPropertyInitialization": false,
+    "isolatedModules": false,
     "lib": [
       "es2020.string",
       "esnext",

@@ -1,12 +1,10 @@
-import { Inject, Service } from 'typedi'
-import { InjectRepository } from 'typeorm-typedi-extensions'
+import { Service } from 'typedi'
 import PharmacyRepository from '../repositories/pharmacy'
 
 @Service()
 export default class PharmacyService {
 
-    @InjectRepository(PharmacyRepository)
-    private readonly repository: PharmacyRepository
+    private repository = new PharmacyRepository()
 
     async create(fields: any) {
         return this.repository.createAndSave(fields)

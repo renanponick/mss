@@ -1,7 +1,6 @@
 import { EntityRepository, Repository } from 'typeorm'
 import Doctor from '../models/doctor'
 
-
 @EntityRepository(Doctor)
 export default class DoctorRepository extends Repository<Doctor> {
 
@@ -11,6 +10,7 @@ export default class DoctorRepository extends Repository<Doctor> {
     }
 
     async createAndSave(fields: object) {
+        console.log(fields)
         return this.save(fields)
     }
 

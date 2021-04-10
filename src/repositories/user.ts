@@ -1,4 +1,5 @@
 import { EntityRepository, Repository } from 'typeorm'
+import { plainToClass } from 'class-transformer'
 
 import User from '../models/user'
 
@@ -11,7 +12,9 @@ export default class UserRepository extends Repository<User> {
     }
 
     async createAndSave(fields: object) {
-        return this.save(fields)
+        const entity = plainToClass(User, fields)
+        console.log(entity)
+        return this.save(entity)
     }
 
 }

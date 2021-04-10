@@ -60,6 +60,7 @@ app.post("/doctor", async (req: Request, res: Response) => {
     if (!CreateDoctor.is(body)) {
         throw new APIBadRequestError('Dados faltantes no corpo da requisição. Favor conferir.')
     }
+
     const input = {
         user: {
             login: body.user.login,

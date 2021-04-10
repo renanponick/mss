@@ -2,7 +2,6 @@ import {
     Column, 
     Entity,
     ManyToOne,
-    OneToOne,
     PrimaryColumn
 } from 'typeorm'
 import { CreateDateColumn, JoinOnTableId, UpdateDateColumn } from './decorators'

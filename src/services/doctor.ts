@@ -1,6 +1,5 @@
 import { omit } from 'ramda'
-import { Inject, Service } from 'typedi'
-import { InjectRepository } from 'typeorm-typedi-extensions'
+import { Service } from 'typedi'
 
 import DoctorRepository from '../repositories/doctor'
 import { CreateDoctor } from './types'
@@ -9,11 +8,8 @@ import UserService from './user'
 @Service()
 export default class DoctorService {
 
-    @InjectRepository(DoctorRepository)
-    private readonly repository: DoctorRepository
-
-    @Inject(_ => UserService)
-    users: UserService
+    private repository = new DoctorRepository()
+    private users = new UserService()
 
     async create(fields: CreateDoctor) {
         const input = {
