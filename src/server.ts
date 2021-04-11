@@ -19,6 +19,11 @@ const userService = new UserService()
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }))
 
+function messageError(req: string){
+    return `Não foi possivel concluir ${req}.\nPor favor, tente novamente mais tarde`
+}
+const message = 'Dados faltantes no corpo da requisição. Favor conferir.'
+
 app.get("/ping", async (_: Request, res: Response) => {
     log.info("Call route /ping")
 
@@ -33,7 +38,7 @@ app.get("/doctor/:doctorId", async (req: Request, res: Response) => {
         res.send(result)
     }catch (err){
         res.status(404).send({
-            message: "Doutor não encontrado. ID: " + doctorId,
+            message: messageError(`a busca, doutor com id ${doctorId} não encontrado`),
             err
         });
     }
@@ -45,7 +50,7 @@ app.get("/doctors", async (_: Request, res: Response) => {
         res.send(result)
     }catch (err){
         res.status(404).send({
-            message: "Doutores não encontrados.",
+            message: messageError('a busca'),
             err
         });
     }
@@ -54,9 +59,7 @@ app.get("/doctors", async (_: Request, res: Response) => {
 app.post("/doctor", async (req: Request, res: Response) => {
     const body = req.body
     if (!CreateDoctor.is(body)) {
-        res.status(400).send({
-            message: "Dados faltantes no corpo da requisição. Favor conferir."
-        });
+        res.status(400).send({ message });
     }
     const input = {
         user: {
@@ -73,7 +76,7 @@ app.post("/doctor", async (req: Request, res: Response) => {
         res.send(result)
     }catch(err){
         res.status(500).send({
-            message: "Erro ao cadastrar doutor.",
+            message: messageError('o cadastro'),
             err
         });
     }
@@ -83,9 +86,7 @@ app.put("/doctor/:doctorId", async (req: Request, res: Response) => {
     const body = req.body
 
     if (!UpdateDoctor.is(body)) {
-        res.status(400).send({
-            message: "Dados faltantes no corpo da requisição. Favor conferir."
-        });
+        res.status(400).send({ message });
     }
 
     const input = {
@@ -104,7 +105,7 @@ app.put("/doctor/:doctorId", async (req: Request, res: Response) => {
         res.send(result)
     }catch(err){
         res.status(500).send({
-            message: "Erro ao alterar doutor.",
+            message: messageError('a alteração'),
             err
         });
     }
@@ -116,11 +117,12 @@ app.delete("/doctor/:doctorId", async (req: Request, res: Response) => {
         res.send(result)
     }catch(err){
         res.status(500).send({
-            message: "Erro ao excluir doutor.",
+            message: messageError('a exclusão'),
             err
         });
     }
 });
+
 
 
 
