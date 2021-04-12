@@ -1,23 +1,24 @@
 import { Service } from 'typedi'
+import { getCustomRepository } from 'typeorm'
 
 import UserRepository from '../repositories/user'
 
 @Service()
 export default class UserService {
 
-    private repository = new UserRepository()
-
     async create(fields: any) {
-        return this.repository.createAndSave(fields)
+        const repository = getCustomRepository(UserRepository)
+        return repository.createAndSave(fields)
     }
 
     async update(fields: any) {
+        const repository = getCustomRepository(UserRepository)
         const query = { id: fields.id }
 
-        const user = await this.repository
+        const user = await repository
             .findOneOrFail({ where: query })
 
-        return this.repository.save({
+        return repository.save({
             ...query,
             ...user,
             ...fields
@@ -25,21 +26,24 @@ export default class UserService {
     }
 
     async remove(id: string) {
+        const repository = getCustomRepository(UserRepository)
         const query = { id }
-        const user = await this.repository.findOneOrFail(query)
-        await this.repository.remove({ ...user })
+        const user = await repository.findOneOrFail(query)
+        await repository.remove({ ...user })
 
         return user
     }
 
     async find(id: string) {
+        const repository = getCustomRepository(UserRepository)
         const query = { id }
 
-        return this.repository.findOneOrFail({ where: query })
+        return repository.findOneOrFail({ where: query })
     }
 
     async findAll() {
-        return this.repository.findAll()
+        const repository = getCustomRepository(UserRepository)
+        return repository.findAll()
     }
 
 }

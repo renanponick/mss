@@ -6,15 +6,14 @@ import User from '../models/user'
 @EntityRepository(User)
 export default class UserRepository extends Repository<User> {
 
-    async findAll() {
-        const query = this.createQueryBuilder('user')
-        return query.getMany()
+    async findAll() { 
+        return this
+            .createQueryBuilder('user')
+            .getMany()
     }
 
     async createAndSave(fields: object) {
         const entity = plainToClass(User, fields)
-        console.log(Repository.toString())
-        console.log(entity)
         return this.save(entity)
     }
 

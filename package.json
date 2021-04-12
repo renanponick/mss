@@ -73,6 +73,7 @@
     "dev:down": "docker-compose down",
     "dev:up": "docker-compose up -d",
     "dev:init": "run-s dev:down dev:up",
-    "start": "yarn build && node build/src/server.js"
+    "start": "yarn build && node build/src/server.js",
+    "dev": "ts-node-dev --respawn --transpileOnly src/server.ts"
   }
 }
