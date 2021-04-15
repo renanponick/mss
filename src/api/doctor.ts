@@ -9,25 +9,17 @@ export default class DoctorApi {
 
     async createDoctor(req: Request, res: Response) {
         const body = req.body
+
         if (!CreateDoctor.is(body)) {
             res.status(400).send({ erroData })
         }
-        const input = {
-            user: {
-                login: body.user.login,
-                password: body.user.password,
-            },
-            name: body.name,
-            crx: body.crx,
-            ufCrx: body.ufCrx,
-            cpf: body.cpf,
-        }
+
         try {
-            const result = await this.doctorService.create(input)
+            const result = await this.doctorService.create(body)
             res.send(result)
         } catch (err) {
             res.status(500).send({
-                message: messageError('o cadastro'),
+                message: messageError(1),
                 err
             })
         }
@@ -40,23 +32,12 @@ export default class DoctorApi {
             res.status(400).send({ erroData })
         }
 
-        const input = {
-            id: req.params.doctorId,
-            user: {
-                login: body.user?.login,
-                password: body.user?.password,
-            },
-            name: body.name,
-            crx: body.crx,
-            ufCrx: body.ufCrx,
-            cpf: body.cpf
-        }
         try {
-            const result = await this.doctorService.update(input)
+            const result = await this.doctorService.update(body)
             res.send(result)
         } catch (err) {
             res.status(500).send({
-                message: messageError('a alteração'),
+                message: messageError(2),
                 err
             })
         }
@@ -69,7 +50,7 @@ export default class DoctorApi {
             res.send(result)
         } catch (err) {
             res.status(404).send({
-                message: messageError(`a busca, doutor com id ${doctorId} não encontrado`),
+                message: messageError(4, `Doutor com id ${doctorId} não encontrado.`),
                 err
             })
         }
@@ -81,7 +62,7 @@ export default class DoctorApi {
             res.send(result)
         } catch (err) {
             res.status(404).send({
-                message: messageError('a busca'),
+                message: messageError(4),
                 err
             })
         }

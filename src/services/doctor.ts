@@ -3,7 +3,7 @@ import { Service } from 'typedi'
 import { getCustomRepository } from 'typeorm'
 
 import DoctorRepository from '../repositories/doctor'
-import { CreateDoctor, UpdateDoctor } from './types'
+import { CreateDoctor, UpdateDoctor } from '../type'
 import UserService from './user'
 
 @Service()
