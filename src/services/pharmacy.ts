@@ -1,4 +1,5 @@
 import { Service } from 'typedi'
+import { CreatePharmacy, UpdatePharmacy } from '../type'
 import PharmacyRepository from '../repositories/pharmacy'
 
 @Service()
@@ -6,11 +7,11 @@ export default class PharmacyService {
 
     private repository = new PharmacyRepository()
 
-    async create(fields: any) {
+    async create(fields: CreatePharmacy) {
         return this.repository.createAndSave(fields)
     }
 
-    async update(fields: any) {
+    async update(fields: UpdatePharmacy) {
         const query = { id: fields.id }
 
         const pharmacy = await this.repository

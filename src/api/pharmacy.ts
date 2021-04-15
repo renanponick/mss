@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import { erroData, messageError } from '../error'
 
 import PharmacyService from "../services/pharmacy"
-import { CreateDoctor } from '../type'
+import { CreatePharmacy, UpdatePharmacy } from '../type'
 
 export default class PharmacyApi {
     private pharmacyService = new PharmacyService()

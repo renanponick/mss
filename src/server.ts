@@ -72,7 +72,7 @@ app.get("/patients", binder(patientService, 'getPatients'))
 // Prescription
 app.post("/prescription", binder(prescriptionService, 'createPrescription'))
 app.put("/prescription/:prescriptionId", binder(prescriptionService, 'updatePrescription'))
-app.delete("/prescription", binder(prescriptionService, 'deletePrescription'))
+app.delete("/prescription/:prescriptionId", binder(prescriptionService, 'deletePrescription'))
 app.get("/prescription/:prescriptionId", binder(prescriptionService, 'getPrescription'))
 app.get("/prescriptions", binder(prescriptionService, 'getPrescriptions'))//[authJwt.verifyToken, authJwt.isDoutor],
 /*app.get("/prescription/patient/:patientId", binder(prescriptionService,'getPrescriptionBy'))
