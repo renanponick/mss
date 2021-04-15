@@ -8,7 +8,7 @@ import UserService from './user'
 
 @Service()
 export default class DoctorService {
-        
+
     async create(fields: CreateDoctor) {
         const repository = getCustomRepository(DoctorRepository)
         const users: UserService = new UserService()
@@ -38,20 +38,6 @@ export default class DoctorService {
             ...query,
             ...doctor,
             ...fields
-        })
-    }
-
-    async delete(id: string) {
-        const repository = getCustomRepository(DoctorRepository)
-        const query = { id }
-
-        const doctor = await repository
-            .findOneOrFail({ where: query })
-
-        return repository.save({
-            ...query,
-            ...doctor,
-            isActive: false
         })
     }
 

@@ -22,10 +22,10 @@ export default class DoctorApi {
             ufCrx: body.ufCrx,
             cpf: body.cpf,
         }
-        try{
+        try {
             const result = await this.doctorService.create(input)
             res.send(result)
-        }catch(err){
+        } catch (err) {
             res.status(500).send({
                 message: messageError('o cadastro'),
                 err
@@ -35,11 +35,11 @@ export default class DoctorApi {
 
     async updateDoctor(req: Request, res: Response) {
         const body = req.body
-    
+
         if (!UpdateDoctor.is(body)) {
             res.status(400).send({ erroData })
         }
-    
+
         const input = {
             id: req.params.doctorId,
             user: {
@@ -51,24 +51,12 @@ export default class DoctorApi {
             ufCrx: body.ufCrx,
             cpf: body.cpf
         }
-        try{
+        try {
             const result = await this.doctorService.update(input)
             res.send(result)
-        }catch(err){
+        } catch (err) {
             res.status(500).send({
                 message: messageError('a alteração'),
-                err
-            })
-        }
-    }
-
-    async deleteDoctor(req: Request, res: Response) {
-        try{
-            const result = await this.doctorService.delete(req.params.doctorId)
-            res.send(result)
-        }catch(err){
-            res.status(500).send({
-                message: messageError('a exclusão'),
                 err
             })
         }
@@ -79,7 +67,7 @@ export default class DoctorApi {
         try {
             const result = await this.doctorService.find(doctorId)
             res.send(result)
-        }catch (err){
+        } catch (err) {
             res.status(404).send({
                 message: messageError(`a busca, doutor com id ${doctorId} não encontrado`),
                 err
@@ -91,7 +79,7 @@ export default class DoctorApi {
         try {
             const result = await this.doctorService.findAll()
             res.send(result)
-        }catch (err){
+        } catch (err) {
             res.status(404).send({
                 message: messageError('a busca'),
                 err

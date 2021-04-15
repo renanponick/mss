@@ -4,17 +4,17 @@ import log from './logger'
 import { delay, race } from 'bluebird'
 import dbConnection from './database'
 
-import PatientService from './services/patient'
-import PharmacyService from './services/pharmacy'
-import PrescriptionService from './services/prescription'
-import UserService from './services/user'
 import { healthCheck } from './health-check'
 import DoctorApi from './api/doctor'
+import PatientApi from './api/patient'
+import PharmacyApi from './api/pharmacy'
+import PrescriptionApi from './api/prescription'
+import UserApi from './api/user'
 
 async function gracefulExit(signal: NodeJS.Signals) {
     log.info(`Signal "${signal}" received, shutting down...`)
     const connection = await dbConnection
-    
+
     await race([delay(5000), connection.close()])
     process.exit(0)
 }
@@ -27,10 +27,10 @@ process.on('SIGINT', gracefulExit)
 const app = express()
 
 const doctorApi = new DoctorApi()
-const patientService = new PatientService()
-const pharmacyService = new PharmacyService()
-const prescriptionService = new PrescriptionService()
-const userService = new UserService()
+const pharmacyService = new PharmacyApi()
+const patientService = new PatientApi()
+const prescriptionService = new PrescriptionApi()
+const userService = new UserApi()
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -44,121 +44,45 @@ app.get("/ping", async (_: Request, res: Response) => {
 
 app.get("/health-check", healthCheck)
 
-const binder = (api: any, method: string) => 
+const binder = (api: any, method: string) =>
     async (req: Request, res: Response) => {
         api[method](req, res)
     }
 
 // Doctor
-app.get("/doctor/:doctorId", binder(doctorApi,'getDoctor'))
-app.get("/doctors", binder(doctorApi,'getDoctors'))
-app.post("/doctor", binder(doctorApi,'createDoctor'))
-app.put("/doctor/:doctorId", binder(doctorApi,'updateDoctor'))
-app.delete("/doctor/:doctorId", binder(doctorApi,'deleteDoctor'))
-
-
+app.post("/doctor", binder(doctorApi, 'createDoctor'))
+app.put("/doctor/:doctorId", binder(doctorApi, 'updateDoctor'))
+app.get("/doctor/:doctorId", binder(doctorApi, 'getDoctor'))
+app.get("/doctors", binder(doctorApi, 'getDoctors'))
 
 // Phanrmacy
-app.get("/pharmacy/:pharmacyId" , async (req: Request, res: Response) => {
-    const result = await pharmacyService.find(req.params.pharmacyId)
-    res.json({ message: "retorno" })
-})
-    
-/*app.get("/pharmacy/user/:userId", async (req: Request, res: Response) => {
-    const result = await pharmacyService.findByUserId()
-    res.json({ message: "retorno" })
-})*/
-
-app.get("/pharmacies", async (_: Request, res: Response) => {
-    const result = await pharmacyService.findAll()
-    res.json({ message: "retorno" })
-})
-
-app.post("/pharmacy", async (req: Request, res: Response) => {
-    const result = await pharmacyService.create(req)
-    res.json({ message: "retorno" })
-})
-
-app.put("/pharmacy/:pharmacyId", async (req: Request, res: Response) => {
-    const result = await pharmacyService.update(req)
-    res.json({ message: "retorno" })
-})
+/*app.get("/pharmacy/user/:userId", binder(pharmacyService,'getDoctor'))*/
+app.post("/pharmacy", binder(pharmacyService, 'createPharmacy'))
+app.put("/pharmacy/:pharmacyId", binder(pharmacyService, 'updatePharmacy'))
+app.get("/pharmacy/:pharmacyId", binder(pharmacyService, 'getPharmacy'))
+app.get("/pharmacies", binder(pharmacyService, 'getPharmacies'))
 
 // Patient
-
-app.get("/patient/:patientId", async (req: Request, res: Response) => {
-    const result = await patientService.find(req.params.pharmacyId)
-    res.json({ message: "retorno" })
-})
-
-/*app.get("/pacientes/user/:idUsuario", async (req: Request, res: Response) => {
-    const result = await patientService.findByUserId()
-    res.json({ message: "retorno" })
-})*/
-
-app.get("/patients", async (_: Request, res: Response) => {
-    const result = await patientService.findAll()
-    res.json({ message: "retorno" })
-})
-
-app.post("/patient", async (req: Request, res: Response) => {
-    const result = await patientService.create(req)
-    res.json({ message: "retorno" })
-})
-
-app.put("/patient/:patientId", async (req: Request, res: Response) => {
-    const result = await patientService.update(req)
-    res.json({ message: "retorno" })
-})
+app.post("/patient", binder(patientService, 'createPatient'))
+app.put("/patient/:patientId", binder(patientService, 'updatePatient'))
+app.get("/patient/:patientId", binder(patientService, 'getPatient'))
+app.get("/patients", binder(patientService, 'getPatients'))
+/*app.get("/pacientes/user/:idUsuario", binder(patientService,'getDoctor'))*/
 
 // Prescription
-app.get("/prescription/:prescriptionId", async (req: Request, res: Response) => {
-    const result = await prescriptionService.find(req.params.pharmacyId)
-    res.json({ message: "retorno" })
-})
-/*
-app.get("/prescription/patient/:patientId", async (req: Request, res: Response) => {
-    const result = await prescriptionService.findByPaciente()
-    res.json({ message: "retorno" })
-})
-
-app.get("/prescription/doctor/:doctorId", async (req: Request, res: Response) => {
-    const result = await prescriptionService.findByDoutor()
-    res.json({ message: "retorno" })
-})
-
-app.get("/prescription/pharmacy/:pharmacyId", async (req: Request, res: Response) => {
-    const result = await prescriptionService.findByFarmacia()
-    res.json({ message: "retorno" })
-})
-*/
-app.get("/prescriptions", async (_: Request, res: Response) => {
-    const result = await prescriptionService.findAll()
-    res.json({ message: "retorno" })
-})
-//[authJwt.verifyToken, authJwt.isDoutor],
-app.post("/prescription", async (req: Request, res: Response) => {
-    const result = await prescriptionService.create(req)
-    res.json({ message: "retorno" })
-})
-
-app.put("/prescription/:prescriptionId", async (req: Request, res: Response) => {
-    const result = await prescriptionService.update(req)
-    res.json({ message: "retorno" })
-})
-
-app.delete("/prescription", async (req: Request, res: Response) => {
-    const result = await prescriptionService.remove(req.params.userId)
-    res.json({ message: "retorno" })
-})
+app.post("/prescription", binder(prescriptionService, 'createPrescription'))
+app.put("/prescription/:prescriptionId", binder(prescriptionService, 'updatePrescription'))
+app.delete("/prescription", binder(prescriptionService, 'deletePrescription'))
+app.get("/prescription/:prescriptionId", binder(prescriptionService, 'getPrescription'))
+app.get("/prescriptions", binder(prescriptionService, 'getPrescriptions'))//[authJwt.verifyToken, authJwt.isDoutor],
+/*app.get("/prescription/patient/:patientId", binder(prescriptionService,'getPrescriptionBy'))
+app.get("/prescription/doctor/:doctorId", binder(prescriptionService,'getPrescriptionBy'))
+app.get("/prescription/pharmacy/:pharmacyId", binder(prescriptionService,'getPrescriptionBy'))*/
 
 // User
-//app.post("/signin", UserService.signIn)
+//app.post("/signin", binder(userService,'getDoctor'))
+app.delete("/userId", binder(userService, 'getDoctor'))
 
-app.delete("/userId", async (req: Request, res: Response) => {
-    const result = await userService.remove(req.params.userId)
-    res.json({ message: "retorno" })
-})
 
 async function run() {
     await dbConnection
