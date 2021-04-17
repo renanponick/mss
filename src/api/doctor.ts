@@ -27,6 +27,7 @@ export default class DoctorApi {
 
     async updateDoctor(req: Request, res: Response) {
         const body = req.body
+        body.id = req.params.doctorId
 
         if (!UpdateDoctor.is(body)) {
             res.status(400).send({ erroData })
