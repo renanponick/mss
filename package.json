@@ -40,12 +40,14 @@
     "yargs": "15.0.2"
   },
   "dependencies": {
+    "@types/swagger-ui-express": "4.1.2",
     "apollo-server-express": "2.9.7",
     "bluebird": "3.7.1",
     "change-case": "3.1.0",
     "cookie-parser": "1.4.4",
     "date-fns": "2.14.0",
     "express": "4.17.1",
+    "express-openapi": "8.0.0",
     "helmet": "3.21.2",
     "jwt-decode": "3.1.2",
     "pg": "7.12.1",
@@ -53,6 +55,8 @@
     "redis": "2.8.0",
     "reflect-metadata": "0.1.13",
     "superagent": "5.1.2",
+    "swagger-ui": "3.47.1",
+    "swagger-ui-express": "4.1.6",
     "typedi": "0.8.0",
     "typeorm": "0.2.29",
     "typeorm-typedi-extensions": "0.2.3",
