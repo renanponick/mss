@@ -20,6 +20,11 @@ export default class AuthToken {
             throw new Error("UNAUTHENTICATED")
         }
 
+        /*if(!user.isActive){
+            console.log('desativado')
+            throw new Error("UNAUTHENTICATED")
+        }*/
+
         const header = JSON.stringify({
             'alg': 'HS256',
             'typ': 'JWT'
