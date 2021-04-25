@@ -30,7 +30,7 @@ export function messageError(req: number, complement?: string){
             message = `Seu usuário não ter permissão para acessa esta rotina.`
             break
         case 9:
-            message += `. ${complement}`
+            message = `Usuário desativado.`
             break
         default:
             message += `. ${complement}`

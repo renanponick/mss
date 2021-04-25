@@ -26,10 +26,17 @@ export default class UserApi {
         return
     }
 
-    async deletePrescription(req: Request, res: Response) {
-        const result = await this.userService.remove(req.params.userId)
-        res.send({ message: "retorno" })
-    }
+    async removeUser(req: Request, res: Response) {
+        const authUser = req.body.userId
+        const userId = req.params.userId
 
+        if(userId != authUser){
+            res.status(404).send({ message: messageError(8) })
+            return
+        }
+
+        const result = await this.userService.remove(userId)
+        res.send({ message: result })
+    }
     
 }

@@ -9,7 +9,6 @@ export default class UserService {
 
     async hashPassword(plainPassword: string) {
         if (plainPassword === '') {
-            // The password should not be empty
             throw new Error('A senha não pode ser vazia')
         }
 
@@ -43,10 +42,15 @@ export default class UserService {
     async remove(id: string) {
         const repository = getCustomRepository(UserRepository)
         const query = { id }
-        const user = await repository.findOneOrFail(query)
-        await repository.remove({ ...user })
 
-        return user
+        const user = await repository
+            .findOneOrFail({ where: query })
+
+        return repository.save({
+            ...query,
+            ...user,
+            isActive: false
+        })
     }
 
     async find(id: string) {

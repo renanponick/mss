@@ -56,9 +56,9 @@ const binder = (api: any, method: string) =>
 
 // Doctor
 app.post("/mss/v1/doctor", binder(doctorApi, 'createDoctor'))
-app.put("/mss/v1/doctor/:doctorId", AuthMiddleware(0), binder(doctorApi, 'updateDoctor'))
-app.get("/mss/v1/doctor/:doctorId", AuthMiddleware(0), binder(doctorApi, 'getDoctor'))
-app.get("/mss/v1/doctors", AuthMiddleware(0), binder(doctorApi, 'getDoctors'))
+app.put("/mss/v1/doctor/:doctorId", AuthMiddleware([0]), binder(doctorApi, 'updateDoctor'))
+app.get("/mss/v1/doctor/:doctorId", AuthMiddleware([0]), binder(doctorApi, 'getDoctor'))
+app.get("/mss/v1/doctors", AuthMiddleware([0]), binder(doctorApi, 'getDoctors'))
 
 // Phanrmacy
 /*app.get("/mss/v1/pharmacy/user/:userId", binder(pharmacyService,'getDoctor'))*/
@@ -86,7 +86,7 @@ app.get("/mss/v1/prescription/pharmacy/:pharmacyId", binder(prescriptionService,
 
 // User
 app.post("/mss/v1/signin", binder(userService, 'loginAuthUser'))
-app.delete("/mss/v1/userId", binder(userService, 'getDoctor'))
+app.delete("/mss/v1/removeUser/:userId", AuthMiddleware([0,1,2]), binder(userService, 'removeUser'))
 
 
 async function run() {

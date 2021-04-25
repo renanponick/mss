@@ -5,10 +5,9 @@ import { getCustomRepository } from 'typeorm'
 import jwt from 'jsonwebtoken'
 import { messageError } from '../../error'
 
-function middleware(userType: number): RequestHandler {
+function middleware(types: number[]): RequestHandler {
     return async (req, res, next) => {
         const header = req.get('authorization')
-        console.log(header)
         if (!header) {
             res.status(401).send({ message: messageError(7) })
             return
@@ -41,8 +40,17 @@ function middleware(userType: number): RequestHandler {
             res.status(401).send({ message: messageError(7) })
             return
         }
-        if(parseInt(type) != userType){
+
+        const userType = parseInt(type)
+        const findType = types.find(type => type === userType)
+
+        if(findType === undefined){
             res.status(404).send({ message: messageError(8) })
+            return
+        }
+
+        if(!user.isActive){
+            res.status(404).send({ message: messageError(9) })
             return
         }
         req.body.userId = user.id
