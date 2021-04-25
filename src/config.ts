@@ -27,6 +27,7 @@ type CacheConfig =
     | { kind: 'disabled' }
 
 type Config = {
+    secret: string
     port: number
     endpoint: string
     developmentResolver: boolean
@@ -90,6 +91,7 @@ function getCacheConfig(): CacheConfig {
 }
 
 const defaultConfig: Config = {
+    secret: 'h9wPkXXXtZ',
     port: Number(process.env.PORT) || 8080,
     endpoint: endpoint || 'http://localhost:8081',
     developmentResolver: true,

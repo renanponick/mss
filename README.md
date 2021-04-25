@@ -10,6 +10,9 @@ medical system support
 
 ```bash
 yarn
+yarn init
+yarn setup
+yarn dev
 ```
 
 ## Branches e Commits

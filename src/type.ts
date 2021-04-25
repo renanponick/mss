@@ -1,9 +1,21 @@
 import * as t from 'io-ts'
 
+export const AuthUser =  t.intersection([
+    t.type({
+        login: t.string,
+        password: t.string,
+    }),
+    t.partial({
+        type: t.number
+    })
+])
+
+export type AuthUser = t.TypeOf<typeof AuthUser>
+
 const User = t.intersection([
     t.type({
         login: t.string,
-        password: t.string
+        password: t.string,
     }),
     t.partial({
         id: t.string,

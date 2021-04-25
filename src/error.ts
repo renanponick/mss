@@ -18,16 +18,16 @@ export function messageError(req: number, complement?: string){
             message += ` a consulta. ${complement}`
             break
         case 5:
-            message += `. ${complement}`
+            message = `Dados inválidos ou faltantes no corpo da requisição, favor conferir. ${complement}`
             break
         case 6:
-            message += `. ${complement}`
+            message += ` o login, pois há dados faltantes.${complement}`
             break
         case 7:
-            message += `. ${complement}`
+            message += ` o login, pois login ou senha não conferem.`
             break
         case 8:
-            message += `. ${complement}`
+            message = `Seu usuário não ter permissão para acessa esta rotina.`
             break
         case 9:
             message += `. ${complement}`
@@ -40,5 +40,3 @@ export function messageError(req: number, complement?: string){
 
     return message
 }
-
-export const erroData = ''

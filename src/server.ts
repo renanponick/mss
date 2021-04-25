@@ -14,6 +14,7 @@ import PatientApi from './api/patient'
 import PharmacyApi from './api/pharmacy'
 import PrescriptionApi from './api/prescription'
 import UserApi from './api/user'
+import AuthMiddleware from './middlewares/auth'
 
 async function gracefulExit(signal: NodeJS.Signals) {
     log.info(`Signal "${signal}" received, shutting down...`)
@@ -55,9 +56,9 @@ const binder = (api: any, method: string) =>
 
 // Doctor
 app.post("/mss/v1/doctor", binder(doctorApi, 'createDoctor'))
-app.put("/mss/v1/doctor/:doctorId", binder(doctorApi, 'updateDoctor'))
-app.get("/mss/v1/doctor/:doctorId", binder(doctorApi, 'getDoctor'))
-app.get("/mss/v1/doctors", binder(doctorApi, 'getDoctors'))
+app.put("/mss/v1/doctor/:doctorId", AuthMiddleware(0), binder(doctorApi, 'updateDoctor'))
+app.get("/mss/v1/doctor/:doctorId", AuthMiddleware(0), binder(doctorApi, 'getDoctor'))
+app.get("/mss/v1/doctors", AuthMiddleware(0), binder(doctorApi, 'getDoctors'))
 
 // Phanrmacy
 /*app.get("/mss/v1/pharmacy/user/:userId", binder(pharmacyService,'getDoctor'))*/
@@ -78,13 +79,13 @@ app.post("/mss/v1/prescription", binder(prescriptionService, 'createPrescription
 app.put("/mss/v1/prescription/:prescriptionId", binder(prescriptionService, 'updatePrescription'))
 app.delete("/mss/v1/prescription/:prescriptionId", binder(prescriptionService, 'deletePrescription'))
 app.get("/mss/v1/prescription/:prescriptionId", binder(prescriptionService, 'getPrescription'))
-app.get("/mss/v1/prescriptions", binder(prescriptionService, 'getPrescriptions'))//[authJwt.verifyToken, authJwt.isDoutor],
-/*app.get("/mss/v1/prescription/patient/:patientId", binder(prescriptionService,'getPrescriptionBy'))
+app.get("/mss/v1/prescriptions", binder(prescriptionService, 'getPrescriptions'))
+app.get("/mss/v1/prescription/patient/:patientId", binder(prescriptionService,'getPrescriptionBy'))
 app.get("/mss/v1/prescription/doctor/:doctorId", binder(prescriptionService,'getPrescriptionBy'))
-app.get("/mss/v1/prescription/pharmacy/:pharmacyId", binder(prescriptionService,'getPrescriptionBy'))*/
+app.get("/mss/v1/prescription/pharmacy/:pharmacyId", binder(prescriptionService,'getPrescriptionBy'))
 
 // User
-//app.post("/mss/v1/signin", binder(userService,'getDoctor'))
+app.post("/mss/v1/signin", binder(userService, 'loginAuthUser'))
 app.delete("/mss/v1/userId", binder(userService, 'getDoctor'))
 
 
