@@ -1,14 +1,29 @@
 import { Service } from 'typedi'
 import { getCustomRepository } from 'typeorm'
-
+import bcrypt from 'bcrypt'
 import UserRepository from '../repositories/user'
+import { AuthUser } from '../type'
 
 @Service()
 export default class UserService {
 
-    async create(fields: any) {
+    async hashPassword(plainPassword: string) {
+        if (plainPassword === '') {
+            // The password should not be empty
+            throw new Error('A senha não pode ser vazia')
+        }
+
+        return bcrypt.hash(plainPassword, 10)
+    }
+
+    async create(fields: AuthUser) {
         const repository = getCustomRepository(UserRepository)
-        return repository.createAndSave(fields)
+        const password = await this.hashPassword(fields.password)
+
+        return repository.createAndSave({
+            ...fields,
+            password
+        })
     }
 
     async update(fields: any) {

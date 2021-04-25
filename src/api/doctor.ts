@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { erroData, messageError } from '../error'
+import { messageError } from '../error'
 
 import DoctorService from "../services/doctor"
 import { CreateDoctor, UpdateDoctor } from '../type'
@@ -11,7 +11,7 @@ export default class DoctorApi {
         const body = req.body
 
         if (!CreateDoctor.is(body)) {
-            res.status(400).send({ erroData })
+            res.status(400).send({ message: messageError(5) })
         }
 
         try {
@@ -29,8 +29,8 @@ export default class DoctorApi {
         const body = req.body
         body.id = req.params.doctorId
 
-        if (!UpdateDoctor.is(body)) {
-            res.status(400).send({ erroData })
+        if (!UpdateDoctor.is(body) || !req.params.doctorId) {
+            res.status(400).send({ message: messageError(5) })
         }
 
         try {
@@ -46,6 +46,11 @@ export default class DoctorApi {
 
     async getDoctor(req: Request, res: Response) {
         const doctorId = req.params.doctorId
+
+        if (!doctorId) {
+            res.status(400).send({ message: messageError(5) })
+        }
+
         try {
             const result = await this.doctorService.find(doctorId)
             res.send(result)
