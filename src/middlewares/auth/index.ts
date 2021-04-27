@@ -5,7 +5,7 @@ import { getCustomRepository } from 'typeorm'
 import jwt from 'jsonwebtoken'
 import { messageError } from '../../error'
 
-function middleware(types: number[]): RequestHandler {
+function middleware(types: number[], reactive = false): RequestHandler {
     return async (req, res, next) => {
         const header = req.get('authorization')
         if (!header) {
@@ -49,7 +49,10 @@ function middleware(types: number[]): RequestHandler {
             return
         }
 
-        if(!user.isActive){
+        if(
+            !user.isActive
+            && !reactive
+        ){
             res.status(404).send({ message: messageError(9) })
             return
         }

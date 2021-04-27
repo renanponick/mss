@@ -86,6 +86,7 @@ app.get("/mss/v1/prescription/pharmacy/:pharmacyId", binder(prescriptionService,
 
 // User
 app.post("/mss/v1/signin", binder(userService, 'loginAuthUser'))
+app.put("/mss/v1/updateUser/:userId", AuthMiddleware([0,1,2], true), binder(userService, 'updateUser'))
 app.delete("/mss/v1/removeUser/:userId", AuthMiddleware([0,1,2]), binder(userService, 'removeUser'))
 
 

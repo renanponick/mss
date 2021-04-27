@@ -2,7 +2,8 @@ import { Service } from 'typedi'
 import { getCustomRepository } from 'typeorm'
 import bcrypt from 'bcrypt'
 import UserRepository from '../repositories/user'
-import { AuthUser } from '../type'
+import { AuthUser, UpdateUser } from '../type'
+import { omit } from 'ramda'
 
 @Service()
 export default class UserService {
@@ -19,24 +20,34 @@ export default class UserService {
         const repository = getCustomRepository(UserRepository)
         const password = await this.hashPassword(fields.password)
 
-        return repository.createAndSave({
+        const result = await repository.createAndSave({
             ...fields,
             password
         })
+
+        return omit(['password'], result)
     }
 
-    async update(fields: any) {
+    async update(fields: UpdateUser) {
         const repository = getCustomRepository(UserRepository)
-        const query = { id: fields.id }
+        const query = { id: fields.userId }
 
         const user = await repository
             .findOneOrFail({ where: query })
 
-        return repository.save({
+        if(!await bcrypt.compare(fields.lastPassword, user.password)){
+            throw new Error('A senha anterior não confere')
+        }
+
+        const password = await this.hashPassword(fields.password)
+        const result = await repository.save({
             ...query,
             ...user,
-            ...fields
+            password,
+            isActive: true
         })
+
+        return omit(['password'], result)
     }
 
     async remove(id: string) {
@@ -46,11 +57,13 @@ export default class UserService {
         const user = await repository
             .findOneOrFail({ where: query })
 
-        return repository.save({
+        const result = await repository.save({
             ...query,
             ...user,
             isActive: false
         })
+
+        return omit(['password'], result)
     }
 
     async find(id: string) {

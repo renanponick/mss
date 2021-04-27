@@ -2,7 +2,8 @@ import {
     Column,
     Entity, 
     OneToOne, 
-    PrimaryColumn
+    PrimaryColumn,
+    Unique
 } from 'typeorm'
 
 import { CreateDateColumn } from './decorators'
@@ -11,6 +12,7 @@ import Patient from './patient'
 import Pharmacy from './pharmacy'
 
 @Entity('user')
+@Unique(['login'])
 export default class User {
 
     @PrimaryColumn(
