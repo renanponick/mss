@@ -12,6 +12,14 @@ export const AuthUser =  t.intersection([
 
 export type AuthUser = t.TypeOf<typeof AuthUser>
 
+export const UpdateUser = t.type({
+    userId: t.string,
+    password: t.string,
+    lastPassword: t.string
+})
+
+export type UpdateUser = t.TypeOf<typeof UpdateUser>
+
 const User = t.intersection([
     t.type({
         login: t.string,

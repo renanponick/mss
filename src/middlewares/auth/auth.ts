@@ -5,6 +5,7 @@ import { AuthUser } from '../../type'
 import UserRepository from '../../repositories/user'
 import { Service } from 'typedi'
 import { getCustomRepository } from 'typeorm'
+import { APIError } from '../../errors/error'
 
 @Service()
 export default class AuthToken {
@@ -17,13 +18,12 @@ export default class AuthToken {
         const user = await repository.getByLogin(login)
 
         if (!await bcrypt.compare(pass, user.password)) {
-            throw new Error("UNAUTHENTICATED")
+            throw new APIError("UNAUTHENTICATED")
         }
 
-        /*if(!user.isActive){
-            console.log('desativado')
-            throw new Error("UNAUTHENTICATED")
-        }*/
+        if(!user.isActive){
+            throw new APIError("UNAUTHENTICATED")
+        }
 
         const header = JSON.stringify({
             'alg': 'HS256',

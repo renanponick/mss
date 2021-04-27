@@ -1,9 +1,10 @@
 import { Request, Response } from 'express'
 import { messageError } from '../error'
 import AuthToken from '../middlewares/auth/auth'
+import bcrypt from 'bcrypt'
 
 import UserService from "../services/user"
-import { AuthUser } from '../type'
+import { AuthUser, UpdateUser } from '../type'
 
 export default class UserApi {
 
@@ -21,9 +22,33 @@ export default class UserApi {
 
             res.send({token})
         } catch (error) {
-            messageError(7, error)
+            res.status(404).send({ message: messageError(7) })
+            return
         }
         return
+    }
+
+    async updateUser(req: Request, res: Response) {
+        const body = req.body
+        const userId = req.params.userId
+        const authUser = body.userId
+    
+        if(!UpdateUser.is(body)){
+            res.status(404).send({ message: messageError(7) })
+            return
+        }
+        
+        if(userId != authUser){
+            res.status(404).send({ message: messageError(8) })
+            return
+        }
+
+        try {
+            const result = await this.userService.update(body)
+            res.send({ message: result })
+        } catch (error) {
+            res.status(400).send({ message: error })
+        }
     }
 
     async removeUser(req: Request, res: Response) {

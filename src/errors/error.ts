@@ -82,8 +82,6 @@ class APIError extends Error {
         this.detailedMessage = detailedMessage
         this.statusCode = status
         this.usedPayload = payload
-        // TODO: change this when create the errors doc
-        this.helpUrl = 'https://app.swaggerhub.com/apis/jacksjm/quirons/1.0.0'
 
         // Recomendation for Built-ins, see the TypeScript Wiki
         // tslint:disable-next-line: max-line-length
