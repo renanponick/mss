@@ -1,6 +1,7 @@
 import { Either } from 'fp-ts/lib/Either'
 import * as t from 'io-ts'
 import { PathReporter } from 'io-ts/lib/PathReporter'
+import logger from '../logger'
 
 // Recomendation of io-ts docs to create an union of literal strings
 const ErrorCodeKey = t.keyof({

@@ -97,11 +97,17 @@ export const CreatePrescription = t.type({
     note: t.string,
     validity: t.string,
     doctorId: t.string,
-    patientId: t.string,
-    address: t.string
+    patientId: t.string
 })
 
 export type CreatePrescription = t.TypeOf<typeof CreatePrescription>
+
+export const TakePrescription = t.type({
+    id: t.string,
+    pharmacyId: t.string,
+})
+
+export type TakePrescription = t.TypeOf<typeof TakePrescription>
 
 export const UpdatePrescription = t.partial({
     id: t.string,
@@ -111,8 +117,7 @@ export const UpdatePrescription = t.partial({
     note: t.string,
     validity: t.string,
     doctorId: t.string,
-    patientId: t.string,
-    pharmacyId: t.string
+    patientId: t.string
 })
 
 export type UpdatePrescription = t.TypeOf<typeof UpdatePrescription>

@@ -2,14 +2,15 @@ import { Request, Response } from 'express'
 import { messageError } from '../error'
 
 import PrescriptionService from "../services/prescription"
-import { CreatePrescription, UpdatePrescription } from '../type'
+import { CreatePrescription, TakePrescription, UpdatePrescription } from '../type'
 
 export default class PrescriptionApi {
+
     private prescriptionService = new PrescriptionService()
 
     async createPrescription(req: Request, res: Response) {
         const body = req.body
-        
+
         if (!CreatePrescription.is(body)) {
             res.status(400).send({ message: messageError(5) })
         }
@@ -20,7 +21,25 @@ export default class PrescriptionApi {
         } catch (err) {
             res.status(500).send({
                 message: messageError(1),
-                err
+                err: err.message
+            })
+        }
+    }
+
+    async takePrescription(req: Request, res: Response) {
+        const body = req.body
+        body.id = req.params.prescriptionId
+
+        if (!TakePrescription.is(body)) {
+            res.status(400).send({ message: messageError(5) })
+        }
+        try {
+            const result = await this.prescriptionService.takePrescription(body)
+            res.send(result)
+        } catch (err) {
+            res.status(500).send({
+                message: messageError(2),
+                err: err.message
             })
         }
     }
@@ -28,18 +47,18 @@ export default class PrescriptionApi {
     async updatePrescription(req: Request, res: Response) {
         const body = req.body
         body.id = req.params.prescriptionId
-        
-        if (!UpdatePrescription.is(body) || !req.params.prescriptionId) {
+
+        if (!UpdatePrescription.is(body)) {
             res.status(400).send({ message: messageError(5) })
         }
-        
+
         try {
             const result = await this.prescriptionService.update(body)
             res.send(result)
         } catch (err) {
             res.status(500).send({
                 message: messageError(2),
-                err
+                err: err.message
             })
         }
     }
@@ -47,7 +66,7 @@ export default class PrescriptionApi {
     async deletePrescription(req: Request, res: Response) {
         const prescriptionId = req.params.prescriptionId
 
-        if(!prescriptionId){
+        if (!prescriptionId) {
             res.status(400).send({ message: messageError(5) })
         }
 
@@ -57,55 +76,36 @@ export default class PrescriptionApi {
         } catch (err) {
             res.status(500).send({
                 message: messageError(3),
-                err
+                err: err.message
             })
         }
     }
 
     async getPrescription(req: Request, res: Response) {
-        const prescriptionId = req.params.prescriptionId
-
         try {
-            const result = await this.prescriptionService.find(prescriptionId)
+            const userId = req.body.userId
+            const prescriptionId = req.params.prescriptionId
+            const result = await this.prescriptionService
+                .getPrescription(userId, prescriptionId)
             res.send(result)
         } catch (err) {
             res.status(500).send({
                 message: messageError(4),
-                err
+                err: err.message
             })
         }
     }
 
-    async getPrescriptions(_: Request, res: Response) {
+    async getPrescriptions(req: Request, res: Response) {
         try {
-            const result = await this.prescriptionService.findAll()
+            const result = await this.prescriptionService.getPrescriptions(req.body.userId)
             res.send(result)
         } catch (err) {
             res.status(500).send({
                 message: messageError(4),
-                err
+                err: err.message
             })
         }
     }
 
-    async getPrescriptionBy(req: Request, res: Response) {
-        const body = req.body
-        console.log(req.params)
-        /*
-        if (!CreateDoctor.is(body)) {
-            res.status(400).send({ message: messageError(5) })
-        }
-
-        const result = await this.prescriptionService.findByPaciente()
-        
-        try {
-            const result = await this.doctorService.create(body)
-            res.send(result)
-        } catch (err) {
-            res.status(500).send({
-                message: messageError('o cadastro'),
-                err
-            })
-        }*/
-    }
 }

@@ -2,5 +2,4 @@
 %project=mss
 
 1-init-db 2021-04-03T14:13:00Z Renan Ponick <warreir@gmail.com> # Initialize models
-2-modify-models 2021-04-10T10:23:00Z Renan Ponick <warreir@gmail.com> # Modify models
-3-modify-user 2021-04-26T20:43:00Z Renan Ponick <warreir@gmail.com> # Modify user
+2-modify-user 2021-04-26T20:43:00Z Renan Ponick <warreir@gmail.com> # Modify user

@@ -1,6 +1,7 @@
 import { Service } from 'typedi'
 import { CreatePatient, UpdatePatient } from '../type'
 import PatientRepository from '../repositories/patient'
+import { getCustomRepository } from 'typeorm'
 
 @Service()
 export default class PatientService {
@@ -22,6 +23,13 @@ export default class PatientService {
             ...patient,
             ...fields
         })
+    }
+
+    async findUser(userId: string) {
+        const repository = getCustomRepository(PatientRepository)
+        const query = { userId }
+
+        return repository.findOneOrFail({ where: query })
     }
 
     async find(id: string) {

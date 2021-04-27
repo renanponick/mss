@@ -41,6 +41,13 @@ export default class DoctorService {
         })
     }
 
+    async findUser(userId: string) {
+        const repository = getCustomRepository(DoctorRepository)
+        const query = { userId }
+
+        return repository.findOneOrFail({ where: query })
+    }
+
     async find(id: string) {
         const repository = getCustomRepository(DoctorRepository)
         const query = { id }

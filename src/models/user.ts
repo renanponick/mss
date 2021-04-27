@@ -30,8 +30,8 @@ export default class User {
     @Column('text')
     password: string
 
-    @Column('text')
-    type: string
+    @Column('int')
+    type: number
 
     @CreateDateColumn()
     createdAt: Date

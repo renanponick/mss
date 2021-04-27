@@ -20,7 +20,7 @@ export default class DoctorApi {
         } catch (err) {
             res.status(500).send({
                 message: messageError(1),
-                err
+                err: err.message
             })
         }
     }
@@ -39,7 +39,7 @@ export default class DoctorApi {
         } catch (err) {
             res.status(500).send({
                 message: messageError(2),
-                err
+                err: err.message
             })
         }
     }
@@ -57,7 +57,7 @@ export default class DoctorApi {
         } catch (err) {
             res.status(404).send({
                 message: messageError(4, `Doutor com id ${doctorId} não encontrado.`),
-                err
+                err: err.message
             })
         }
     }
@@ -69,7 +69,7 @@ export default class DoctorApi {
         } catch (err) {
             res.status(404).send({
                 message: messageError(4),
-                err
+                err: err.message
             })
         }
     }

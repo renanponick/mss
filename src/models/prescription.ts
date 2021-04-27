@@ -18,6 +18,15 @@ export default class Prescription{
     )
     id: string
 
+    @Column('uuid', { name: 'patient_id' })
+    patientId: string
+
+    @Column('uuid', { name: 'doctor_id' })
+    doctorId: string
+
+    @Column('uuid', { name: 'pharmacy_id', nullable: true })
+    pharmacyId: string
+
     @Column('text')
     composed: string
 

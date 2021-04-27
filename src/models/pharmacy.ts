@@ -21,7 +21,7 @@ export default class Pharmacy{
     @Column('uuid', { name: 'user_id' })
     userId: string
 
-    @Column('text')
+    @Column('text', { name: 'social_name' })
     socialName: string
 
     @Column('text')
