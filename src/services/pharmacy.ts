@@ -1,6 +1,7 @@
 import { Service } from 'typedi'
 import { CreatePharmacy, UpdatePharmacy } from '../type'
 import PharmacyRepository from '../repositories/pharmacy'
+import { getCustomRepository } from 'typeorm'
 
 @Service()
 export default class PharmacyService {
@@ -22,6 +23,13 @@ export default class PharmacyService {
             ...pharmacy,
             ...fields
         })
+    }
+
+    async findUser(userId: string) {
+        const repository = getCustomRepository(PharmacyRepository)
+        const query = { userId }
+
+        return repository.findOneOrFail({ where: query })
     }
 
     async find(id: string) {

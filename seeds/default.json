@@ -4,8 +4,24 @@
         "rows": [
             {
                 "id": "c85570e8-89d0-11eb-a43d-e37781ba023d",
-                "login": "Medic",
-                "type": "0",
+                "login": "doctor",
+                "type": 0,
+                "password": "$2b$10$E4nt2ahNUEHXYTofHEIwAOzkDz9q4c6NtIFG6RnpsUONUvUgwTEru",
+                "created_at": "2021-03-20T19:59:39.677Z",
+                "is_active": true
+            },
+            {
+                "id": "c4a41b1c-a6e9-11eb-8317-179d314b887c",
+                "login": "phar",
+                "type": 2,
+                "password": "$2b$10$E4nt2ahNUEHXYTofHEIwAOzkDz9q4c6NtIFG6RnpsUONUvUgwTEru",
+                "created_at": "2021-03-20T19:59:39.677Z",
+                "is_active": true
+            },
+            {
+                "id": "c4a2b9fc-a6e9-11eb-8317-ef2708a65201",
+                "login": "patient",
+                "type": 1,
                 "password": "$2b$10$E4nt2ahNUEHXYTofHEIwAOzkDz9q4c6NtIFG6RnpsUONUvUgwTEru",
                 "created_at": "2021-03-20T19:59:39.677Z",
                 "is_active": true
@@ -24,6 +40,51 @@
                 "cpf": "123.456.789-32",
                 "created_at": "2021-03-20T19:59:39.677Z",
                 "updated_at": "2021-03-20T19:59:39.677Z"
+            }
+        ]
+    },
+    {
+        "name": "public.pharmacy",
+        "rows": [
+            {
+                "id": "aa7c9228-a6e9-11eb-a825-2b3ce0086693",
+                "user_id": "c4a41b1c-a6e9-11eb-8317-179d314b887c",
+                "social_name": "Precinho baixo",
+                "cnpj": "41.041.717/0001-69",
+                "address": "Rua SC - Jvll",
+                "created_at": "2021-03-20T19:59:39.677Z",
+                "updated_at": "2021-03-20T19:59:39.677Z"
+            }
+        ]
+    },
+    {
+        "name": "public.patient",
+        "rows": [
+            {
+                "id": "860a4700-a6e9-11eb-82b6-2bc550c71cf0",
+                "user_id": "c4a2b9fc-a6e9-11eb-8317-ef2708a65201",
+                "name": "João",
+                "cpf": "625.803.820-46",
+                "address": "Rua SC nº 123 - Jvll",
+                "created_at": "2021-03-20T19:59:39.677Z",
+                "updated_at": "2021-03-20T19:59:39.677Z"
+            }
+        ]
+    },
+    {
+        "name": "public.prescription",
+        "rows": [
+            {
+                "id": "f5402e86-a6f4-11eb-a44d-639077f1f0bd",
+                "composed": "Paracetamol 200ml",
+                "dosage": "1 a cada 2 dias",
+                "times_day": 1,
+                "note": "Não tomar com Vinho",
+                "doctor_id": "aa7ef6ee-a6e9-11eb-a825-173e511d6e4a",
+                "patient_id": "860a4700-a6e9-11eb-82b6-2bc550c71cf0",
+                "validity": "2021-03-20 19:59:39.677+00",
+                "created_at": "2021-04-27T01:07:38.171Z",
+                "updated_at": "2021-04-27T01:07:38.171Z"
             }
         ]
     }

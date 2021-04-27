@@ -21,8 +21,8 @@ export default class UserApi {
             const token = await this.auth.generateToken(body)
 
             res.send({token})
-        } catch (error) {
-            res.status(404).send({ message: messageError(7) })
+        } catch (err) {
+            res.status(404).send({ message: messageError(7, err.message) })
             return
         }
         return
@@ -46,8 +46,8 @@ export default class UserApi {
         try {
             const result = await this.userService.update(body)
             res.send({ message: result })
-        } catch (error) {
-            res.status(400).send({ message: error })
+        } catch (err) {
+            res.status(400).send({ message: err.message })
         }
     }
 

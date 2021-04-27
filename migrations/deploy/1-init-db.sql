@@ -46,7 +46,7 @@ CREATE TABLE "public"."user" (
     "login" text NOT NULL,
     "password" text NOT NULL,
     "is_active" boolean NOT NULL DEFAULT true,
-    "type" text NOT NULL,
+    "type" integer NOT NULL,
     "created_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
     CONSTRAINT "user_pkey" PRIMARY KEY ("id")
 );
