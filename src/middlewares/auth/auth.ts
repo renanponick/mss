@@ -2,20 +2,19 @@ import config from '../../config'
 import crypto from 'crypto'
 import bcrypt from 'bcrypt'
 import { AuthUser } from '../../type'
-import UserRepository from '../../repositories/user'
+import UserService from '../../services/user'
 import { Service } from 'typedi'
-import { getCustomRepository } from 'typeorm'
 import { APIError } from '../../errors/error'
 
 @Service()
 export default class AuthToken {
 
+    private users = new UserService()
+
     public async generateToken(fields: AuthUser) {
         const login = fields.login
         const pass = fields.password
-
-        const repository = getCustomRepository(UserRepository)
-        const user = await repository.getByLogin(login)
+        const user = await this.users.getByLogin(login)
 
         if (!await bcrypt.compare(pass, user.password)) {
             throw new APIError("UNAUTHENTICATED")

@@ -1,9 +1,8 @@
 import config from '../../config'
 import { RequestHandler } from 'express'
-import UserRepository from '../../repositories/user'
-import { getCustomRepository } from 'typeorm'
 import jwt from 'jsonwebtoken'
 import { messageError } from '../../error'
+import UserService from '../../services/user'
 
 function middleware(types: number[], reactive = false): RequestHandler {
     return async (req, res, next) => {
@@ -34,9 +33,9 @@ function middleware(types: number[], reactive = false): RequestHandler {
         }
         
         const [_, login, password, type] = match
-        const repository = getCustomRepository(UserRepository)
         try {
-            const user = await repository.getByLogin(login)
+            const users = new UserService()
+            const user = await users.getByLogin(login)
             if (password.match(user.password)) {
                 res.status(401).send({ message: messageError(7) })
                 return

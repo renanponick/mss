@@ -78,4 +78,9 @@ export default class UserService {
         return repository.findAll()
     }
 
+    async getByLogin(login: string) {
+        const repository = getCustomRepository(UserRepository)
+        return repository.getByLogin(login)
+    }
+
 }

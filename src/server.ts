@@ -54,20 +54,20 @@ const binder = (api: any, method: string) =>
         api[method](req, res)
     }
 
-// Doctor
+// Doctor - 0
 app.post("/mss/v1/doctor", binder(doctorApi, 'createDoctor'))
 app.put("/mss/v1/doctor/:doctorId", AuthMiddleware([0]), binder(doctorApi, 'updateDoctor'))
 app.get("/mss/v1/doctor/:doctorId", AuthMiddleware([0]), binder(doctorApi, 'getDoctor'))
 app.get("/mss/v1/doctors", AuthMiddleware([0]), binder(doctorApi, 'getDoctors'))
 
-// Phanrmacy
+// Phanrmacy - 2
 /*app.get("/mss/v1/pharmacy/user/:userId", binder(pharmacyService,'getDoctor'))*/
 app.post("/mss/v1/pharmacy", binder(pharmacyService, 'createPharmacy'))
 app.put("/mss/v1/pharmacy/:pharmacyId", binder(pharmacyService, 'updatePharmacy'))
 app.get("/mss/v1/pharmacy/:pharmacyId", binder(pharmacyService, 'getPharmacy'))
 app.get("/mss/v1/pharmacies", binder(pharmacyService, 'getPharmacies'))
 
-// Patient
+// Patient - 1
 app.post("/mss/v1/patient", binder(patientService, 'createPatient'))
 app.put("/mss/v1/patient/:patientId", binder(patientService, 'updatePatient'))
 app.get("/mss/v1/patient/:patientId", binder(patientService, 'getPatient'))
