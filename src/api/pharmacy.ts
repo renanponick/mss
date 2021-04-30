@@ -44,7 +44,7 @@ export default class PharmacyApi {
         }
     }
 
-    async getpharmacy(req: Request, res: Response) {
+    async getPharmacy(req: Request, res: Response) {
         const pharmacyId = req.params.pharmacyId
 
         if (!pharmacyId) {
@@ -62,7 +62,7 @@ export default class PharmacyApi {
         }
     }
 
-    async getpharmacys(_: Request, res: Response) {
+    async getPharmacies(_: Request, res: Response) {
         try {
             const result = await this.PharmacyService.findAll()
             res.send(result)

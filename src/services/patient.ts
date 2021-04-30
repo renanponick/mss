@@ -48,6 +48,13 @@ export default class PatientService {
         return repository.findOneOrFail({ where: query })
     }
 
+    async findByCpf(cpf: string) {
+        const repository = getCustomRepository(PatientRepository)
+        const query = { cpf }
+
+        return repository.findOneOrFail({ where: query })
+    }
+
     async find(id: string) {
         const repository = getCustomRepository(PatientRepository)
         const query = { id }
