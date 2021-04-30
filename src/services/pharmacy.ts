@@ -1,24 +1,40 @@
+import { omit } from 'ramda'
 import { Service } from 'typedi'
-import { CreatePharmacy, UpdatePharmacy } from '../type'
-import PharmacyRepository from '../repositories/pharmacy'
 import { getCustomRepository } from 'typeorm'
+
+import PharmacyRepository from '../repositories/pharmacy'
+import { CreatePharmacy, UpdatePharmacy } from '../type'
+import UserService from './user'
 
 @Service()
 export default class PharmacyService {
 
-    private repository = new PharmacyRepository()
-
     async create(fields: CreatePharmacy) {
-        return this.repository.createAndSave(fields)
+        const repository = getCustomRepository(PharmacyRepository)
+        const users: UserService = new UserService()
+        const input = {
+            login: fields.user.login,
+            password: fields.user.password,
+            type: 2
+        }
+        const user = await users.create(input)
+
+        const pharmacy = {
+            userId: user.id,
+            ...omit(['user'], fields)
+        }
+
+        return repository.createAndSave(pharmacy)
     }
 
     async update(fields: UpdatePharmacy) {
+        const repository = getCustomRepository(PharmacyRepository)
         const query = { id: fields.id }
 
-        const pharmacy = await this.repository
+        const pharmacy = await repository
             .findOneOrFail({ where: query })
 
-        return this.repository.save({
+        return repository.save({
             ...query,
             ...pharmacy,
             ...fields
@@ -33,13 +49,15 @@ export default class PharmacyService {
     }
 
     async find(id: string) {
+        const repository = getCustomRepository(PharmacyRepository)
         const query = { id }
 
-        return this.repository.findOneOrFail({ where: query })
+        return repository.findOneOrFail({ where: query })
     }
 
     async findAll() {
-        return this.repository.findAll()
+        const repository = getCustomRepository(PharmacyRepository)
+        return repository.findAll()
     }
 
 }
