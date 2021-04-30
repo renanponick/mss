@@ -32,8 +32,8 @@ process.on('SIGINT', gracefulExit)
 const app = express()
 
 const doctorApi = new DoctorApi()
-const pharmacyService = new PharmacyApi()
-const patientService = new PatientApi()
+const pharmacyApi = new PharmacyApi()
+const patientApi = new PatientApi()
 const prescriptionService = new PrescriptionApi()
 const userService = new UserApi()
 
@@ -61,18 +61,17 @@ app.get("/mss/v1/doctor/:doctorId", AuthMiddleware([0]), binder(doctorApi, 'getD
 app.get("/mss/v1/doctors", AuthMiddleware([0]), binder(doctorApi, 'getDoctors'))
 
 // Phanrmacy - 2
-/*app.get("/mss/v1/pharmacy/user/:userId", binder(pharmacyService,'getDoctor'))*/
-app.post("/mss/v1/pharmacy", binder(pharmacyService, 'createPharmacy'))
-app.put("/mss/v1/pharmacy/:pharmacyId", binder(pharmacyService, 'updatePharmacy'))
-app.get("/mss/v1/pharmacy/:pharmacyId", binder(pharmacyService, 'getPharmacy'))
-app.get("/mss/v1/pharmacies", binder(pharmacyService, 'getPharmacies'))
+app.post("/mss/v1/pharmacy", binder(pharmacyApi, 'createPharmacy'))
+app.put("/mss/v1/pharmacy/:pharmacyId", binder(pharmacyApi, 'updatePharmacy'))
+app.get("/mss/v1/pharmacy/:pharmacyId", binder(pharmacyApi, 'getPharmacy'))
+app.get("/mss/v1/pharmacies", AuthMiddleware([2]), binder(pharmacyApi, 'getPharmacies'))
+
 
 // Patient - 1
-app.post("/mss/v1/patient", binder(patientService, 'createPatient'))
-app.put("/mss/v1/patient/:patientId", binder(patientService, 'updatePatient'))
-app.get("/mss/v1/patient/:patientId", binder(patientService, 'getPatient'))
-app.get("/mss/v1/patients", binder(patientService, 'getPatients'))
-/*app.get("/mss/v1/pacientes/user/:idUsuario", binder(patientService,'getDoctor'))*/
+app.post("/mss/v1/patient", binder(patientApi, 'createPatient'))
+app.put("/mss/v1/patient/:patientId", binder(patientApi, 'updatePatient'))
+app.get("/mss/v1/patient/:patientId", binder(patientApi, 'getPatient'))
+app.get("/mss/v1/patients", AuthMiddleware([1]), binder(patientApi, 'getPatients'))
 
 // Prescription
 app.post("/mss/v1/prescription", AuthMiddleware([0]), binder(prescriptionService, 'createPrescription'))
