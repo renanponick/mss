@@ -62,6 +62,24 @@ export default class PatientApi {
         }
     }
 
+    async getPatientByCpf(req: Request, res: Response) {
+        const cpf = req.params.cpf
+
+        if (!cpf) {
+            res.status(400).send({ message: messageError(5) })
+        }
+
+        try {
+            const result = await this.patientService.findByCpf(cpf)
+            res.send(result)
+        } catch (err) {
+            res.status(404).send({
+                message: messageError(4, `Paciente com CPF: ${cpf} não encontrado.`),
+                err: err.message
+            })
+        }
+    }
+
     async getPatients(_: Request, res: Response) {
         try {
             const result = await this.patientService.findAll()
