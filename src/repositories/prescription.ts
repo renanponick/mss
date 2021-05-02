@@ -12,7 +12,6 @@ export default class PrescriptionRepository extends Repository<Prescription> {
 
     async createAndSave(fields: object) {
         const entity = plainToClass(Prescription, fields)
-        console.log(entity)
         return this.save(entity)
     }
 
