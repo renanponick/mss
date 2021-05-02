@@ -1,59 +1,48 @@
 import {
     user,
-    newUser,
     propertiesError
 } from "./objects"
 
-export const pathDoctor = {
+export const pathLoginUser = {
     post: {
-        tags: ['doctor'],
+        tags: ['user'],
         summary: 'Login with an user',
         operationId: 'login',
-        parameters: [
-            {
+        parameters: [{
                 in: 'body',
                 name: 'login',
                 schema: {
                     type: 'object',
                     properties: user,
                 }
-            }
-        ],
+        }],
         responses: {
             200: {
                 description: 'Logged in user',
                 schema: {
                     type: 'object',
                     properties: {
-                        toekn: {
+                        token: {
                             type: 'string',
                         }
                     }
                 }
-            },
-            400: {
-                description: `Exemple 400.`,
-                schema: propertiesError
-            },
-            403: {
-                description: `Exemple 403.`,
-                schema: propertiesError
             },
             404: {
                 description: `Exemple 404: "Não foi possivel concluir o login, pois login ou senha não conferem`,
                 schema: propertiesError
             },
             500: {
-                description: `Exemple 500.`,
+                description: `Exemple 500. "Internal Server Error"`,
                 schema: propertiesError
             }
         }
     }
 }
 
-export const pathUpdateDoctor = {
+export const pathUpdateUser = {
     put: {
-        tags: ['doctor'],
+        tags: ['user'],
         summary: 'Update a password and activate an user',
         operationId: 'update',
         parameters: [
@@ -65,7 +54,7 @@ export const pathUpdateDoctor = {
             },
             {
                 in: 'body',
-                name: 'updateDoctor',
+                name: 'updateUser',
                 schema: {
                     type: 'object',
                     properties: {
@@ -96,9 +85,9 @@ export const pathUpdateDoctor = {
     }
 }
 
-export const pathDeleteDoctor = {
+export const pathDeleteUser = {
     delete: {
-        tags: ['doctor'],
+        tags: ['user'],
         summary: 'Delete an user',
         operationId: 'delete',
         parameters: [{
@@ -117,7 +106,7 @@ export const pathDeleteDoctor = {
                 schema: propertiesError
             },
             404: {
-                description: `Exemple 404: Could not find any entity of type user matching: login`,
+                description: `Exemple 404: Could not find any entity of type User matching: login`,
                 schema: propertiesError
             },
             500: {
