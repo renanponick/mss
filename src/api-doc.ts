@@ -1,4 +1,5 @@
-import { pathUserEx } from "./api-doc/doctor";
+import { pathDeleteUser, pathLoginUser, pathUpdateUser } from "./api-doc/user";
+import { pathDeleteDoctor, pathDoctor, pathUpdateDoctor } from "./api-doc/doctor";
 
 export const apiDoc = {
   swagger: "2.0",
@@ -10,6 +11,10 @@ export const apiDoc = {
   },
 
   tags: [
+    {
+      name: 'user',
+      description: 'Endpoints about the user'
+    },
     {
       name: 'doctor',
       description: 'Endpoints about the doctors'
@@ -29,6 +34,11 @@ export const apiDoc = {
   ],
 
   paths: {
-    '/v1/ex': pathUserEx,
+    '/v1/signin': pathLoginUser,
+    '/v1/updateUser/{userId}': pathUpdateUser,
+    '/v1/delete/{userId}': pathDeleteUser,
+    '/v1/doctor': pathDoctor,
+    '/v1/doctor/{userId}': pathUpdateDoctor,
+    '/v1/doctor/{userId} ': pathDeleteDoctor,
   }
 }

@@ -1,19 +1,13 @@
-export const userEx = {
-    type: 'object',
-    properties: {
-        email: {
-            type: 'string'
-        },
-        password: {
-            type: 'string'
-        },
-        userType: {
-            type: 'number'
-        }
-    }
+export const user = {
+    login: {
+        type: 'string'
+    },
+    password: {
+        type: 'string'
+    },
 }
 
-export const newUserEx = {
+export const newUser = {
     type: 'object',
     properties: {
         email: {
@@ -34,7 +28,7 @@ export const newUserEx = {
 export const propertiesError = {
     type: 'object',
     properties: {
-        details: {
+        message: {
             type: 'string',
         }
     }

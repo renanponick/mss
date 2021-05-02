@@ -45,7 +45,7 @@ function middleware(types: number[], reactive = false): RequestHandler {
             const findType = types.find(type => type === userType)
     
             if(findType === undefined){
-                res.status(404).send({ message: messageError(8) })
+                res.status(400).send({ message: messageError(8) })
                 return
             }
     
@@ -53,14 +53,14 @@ function middleware(types: number[], reactive = false): RequestHandler {
                 !user.isActive
                 && !reactive
             ){
-                res.status(404).send({ message: messageError(9) })
+                res.status(400).send({ message: messageError(9) })
                 return
             }
             req.body.userId = user.id
             
             next()
         } catch (error) {
-            res.status(404).send({ message: error.message })
+            res.status(400).send({ message: error.message })
             return
         }
 

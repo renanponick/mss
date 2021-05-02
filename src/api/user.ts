@@ -1,7 +1,6 @@
 import { Request, Response } from 'express'
 import { messageError } from '../error'
 import AuthToken from '../middlewares/auth/auth'
-import bcrypt from 'bcrypt'
 
 import UserService from "../services/user"
 import { AuthUser, UpdateUser } from '../type'
@@ -34,12 +33,12 @@ export default class UserApi {
         const authUser = body.userId
     
         if(!UpdateUser.is(body)){
-            res.status(404).send({ message: messageError(7) })
+            res.status(400).send({ message: messageError(7) })
             return
         }
         
         if(userId != authUser){
-            res.status(404).send({ message: messageError(8) })
+            res.status(400).send({ message: messageError(8) })
             return
         }
 
@@ -56,7 +55,7 @@ export default class UserApi {
         const userId = req.params.userId
 
         if(userId != authUser){
-            res.status(404).send({ message: messageError(8) })
+            res.status(400).send({ message: messageError(8) })
             return
         }
 
