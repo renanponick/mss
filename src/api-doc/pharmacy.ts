@@ -1,13 +1,13 @@
 import {
     user,
-    returnDoctor,
+    returnPharmacy,
     propertiesError
 } from "./objects"
 
-export const pathDoctor = {
+export const pathPharmacy = {
     post: {
-        tags: ['doctor'],
-        summary: 'Create a doctor',
+        tags: ['pharmacy'],
+        summary: 'Create a pharmacy',
         operationId: 'login',
         parameters: [
             {
@@ -36,7 +36,7 @@ export const pathDoctor = {
         responses: {
             200: {
                 description: 'Logged in user',
-                schema: returnDoctor
+                schema: returnPharmacy
             },
             400: {
                 description: `Exemple 400.`,
@@ -62,10 +62,10 @@ export const pathDoctor = {
     }
 }
 
-export const pathUpdateDoctor = {
+export const pathUpdatePharmacy = {
     put: {
-        tags: ['doctor'],
-        summary: 'Update a doctor',
+        tags: ['pharmacy'],
+        summary: 'Update a pharmacy',
         operationId: 'update',
         parameters: [
             {
@@ -76,7 +76,7 @@ export const pathUpdateDoctor = {
             },
             {
                 in: 'body',
-                name: 'updateDoctor',
+                name: 'updatePharmacy',
                 schema: {
                     type: 'object',
                     properties: {
@@ -99,7 +99,7 @@ export const pathUpdateDoctor = {
         responses: {
             200: {
                 description: 'Updated user ',
-                schema: returnDoctor
+                schema: returnPharmacy
             },
             400: {
                 description: `Exemple 400: "Seu usuário não ter permissão para acessa esta rotina" or "A senha anterior não confere"`,
@@ -117,21 +117,21 @@ export const pathUpdateDoctor = {
     }
 }
 
-export const pathGetDoctor = {
+export const pathGetPharmacy = {
     get: {
-        tags: ['doctor'],
-        summary: 'Get a doctor',
+        tags: ['pharmacy'],
+        summary: 'Get a pharmacy',
         operationId: 'get',
         parameters: [{
             in: 'path',
-            name: 'doctorId',
+            name: 'pharmacyId',
             required: true,
             type: 'string'
         }],
         responses: {
             200: {
                 description: 'Get user',
-                schema: returnDoctor
+                schema: returnPharmacy
             },
             400: {
                 description: `Exemple 400: Seu usuário não ter permissão para acessa esta rotina`,

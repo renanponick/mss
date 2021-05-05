@@ -1,5 +1,6 @@
 import { pathDeleteUser, pathLoginUser, pathUpdateUser } from "./api-doc/user";
-import { pathDeleteDoctor, pathDoctor, pathUpdateDoctor } from "./api-doc/doctor";
+import { pathGetDoctor, pathDoctor, pathUpdateDoctor } from "./api-doc/doctor";
+import { pathGetPharmacy, pathPharmacy, pathUpdatePharmacy } from "./api-doc/pharmacy";
 
 export const apiDoc = {
   swagger: "2.0",
@@ -37,8 +38,11 @@ export const apiDoc = {
     '/v1/signin': pathLoginUser,
     '/v1/updateUser/{userId}': pathUpdateUser,
     '/v1/delete/{userId}': pathDeleteUser,
+    '/v1/doctor/{userId} ': pathGetDoctor,
     '/v1/doctor': pathDoctor,
     '/v1/doctor/{userId}': pathUpdateDoctor,
-    '/v1/doctor/{userId} ': pathDeleteDoctor,
+    '/v1/pharmacy/{userId} ': pathGetPharmacy,
+    '/v1/pharmacy': pathPharmacy,
+    '/v1/pharmacy/{userId}': pathUpdatePharmacy,
   }
 }
