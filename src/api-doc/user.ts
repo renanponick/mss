@@ -11,10 +11,7 @@ export const pathLoginUser = {
         parameters: [{
                 in: 'body',
                 name: 'login',
-                schema: {
-                    type: 'object',
-                    properties: user,
-                }
+                schema: user,
         }],
         responses: {
             200: {

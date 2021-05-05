@@ -93,21 +93,10 @@ async function run() {
         log.info(`Servidor rodando: http://localhost:3000`)
     })
 
-    // OpenAPI routes
-    initialize({
-        app,
-        apiDoc,
-        paths: path.resolve(__dirname, './api'),
-    })
-
     app.use(
         '/api-doc', 
         swaggerUi.serve,
-        swaggerUi.setup(undefined, {
-            swaggerOptions: {
-                url: 'http://localhost:3000/mss/api-docs',
-            },
-        })
+        swaggerUi.setup(apiDoc)
     )
 }
 
