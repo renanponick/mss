@@ -4,7 +4,7 @@ import {
     propertiesError
 } from "./objects"
 
-export const pathDoctor = {
+export const pathPrescription = {
     post: {
         tags: ['doctor'],
         summary: 'Create a doctor',
@@ -62,7 +62,7 @@ export const pathDoctor = {
     }
 }
 
-export const pathUpdateDoctor = {
+export const pathUpdatePrescription = {
     put: {
         tags: ['doctor'],
         summary: 'Update a doctor',
@@ -117,7 +117,115 @@ export const pathUpdateDoctor = {
     }
 }
 
-export const pathGetDoctor = {
+export const pathTakePrescription = {
+    get: {
+        tags: ['doctor'],
+        summary: 'Get a doctor',
+        operationId: 'get',
+        parameters: [{
+            in: 'path',
+            name: 'doctorId',
+            required: true,
+            type: 'string'
+        }],
+        responses: {
+            200: {
+                description: 'Get user',
+                schema: returnDoctor
+            },
+            400: {
+                description: `Exemple 400: Seu usuário não ter permissão para acessa esta rotina`,
+                schema: propertiesError
+            },
+            401: {
+                description: `Exemple 401: Usuário não autenticado. Favor realizar o login e tentar novamente`,
+                schema: propertiesError
+            },
+            404: {
+                description: `Exemple 404: Não foi possivel concluir a consulta. Doutor com id [ID] não encontrado.`,
+                schema: propertiesError
+            },
+            500: {
+                description: `Exemple 500. "Internal Server Error"`,
+                schema: propertiesError
+            }
+        }
+    }
+}
+
+export const pathDeletePrescription = {
+    get: {
+        tags: ['doctor'],
+        summary: 'Get a doctor',
+        operationId: 'get',
+        parameters: [{
+            in: 'path',
+            name: 'doctorId',
+            required: true,
+            type: 'string'
+        }],
+        responses: {
+            200: {
+                description: 'Get user',
+                schema: returnDoctor
+            },
+            400: {
+                description: `Exemple 400: Seu usuário não ter permissão para acessa esta rotina`,
+                schema: propertiesError
+            },
+            401: {
+                description: `Exemple 401: Usuário não autenticado. Favor realizar o login e tentar novamente`,
+                schema: propertiesError
+            },
+            404: {
+                description: `Exemple 404: Não foi possivel concluir a consulta. Doutor com id [ID] não encontrado.`,
+                schema: propertiesError
+            },
+            500: {
+                description: `Exemple 500. "Internal Server Error"`,
+                schema: propertiesError
+            }
+        }
+    }
+}
+
+export const pathGetPrescriptions = {
+    get: {
+        tags: ['doctor'],
+        summary: 'Get a doctor',
+        operationId: 'get',
+        parameters: [{
+            in: 'path',
+            name: 'doctorId',
+            required: true,
+            type: 'string'
+        }],
+        responses: {
+            200: {
+                description: 'Get user',
+                schema: returnDoctor
+            },
+            400: {
+                description: `Exemple 400: Seu usuário não ter permissão para acessa esta rotina`,
+                schema: propertiesError
+            },
+            401: {
+                description: `Exemple 401: Usuário não autenticado. Favor realizar o login e tentar novamente`,
+                schema: propertiesError
+            },
+            404: {
+                description: `Exemple 404: Não foi possivel concluir a consulta. Doutor com id [ID] não encontrado.`,
+                schema: propertiesError
+            },
+            500: {
+                description: `Exemple 500. "Internal Server Error"`,
+                schema: propertiesError
+            }
+        }
+    }
+}
+
+export const pathGetPrescription = {
     get: {
         tags: ['doctor'],
         summary: 'Get a doctor',

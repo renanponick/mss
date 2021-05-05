@@ -17,16 +17,13 @@ export const pathPharmacy = {
                     type: 'object',
                     properties: {
                         user: user,
-                        name: {
+                        socialName: {
                             type: 'string'
                         },
-                        crx: {
+                        address: {
                             type: 'string'
                         },
-                        ufCrx: {
-                            type: 'string'
-                        },
-                        cpf: {
+                        cnpj: {
                             type: 'string'
                         }
                     }
@@ -35,23 +32,11 @@ export const pathPharmacy = {
         ],
         responses: {
             200: {
-                description: 'Logged in user',
+                description: 'Successfully registered',
                 schema: returnPharmacy
             },
             400: {
-                description: `Exemple 400.`,
-                schema: propertiesError
-            },
-            401: {
-                description: `Exemple 401: Usuário não autenticado. Favor realizar o login e tentar novamente`,
-                schema: propertiesError
-            },
-            403: {
-                description: `Exemple 403.`,
-                schema: propertiesError
-            },
-            404: {
-                description: `Exemple 404: "Não foi possivel concluir o login, pois login ou senha não conferem`,
+                description: `Exemple 400: Dados inválidos ou faltantes no corpo da requisição, favor conferir.`,
                 schema: propertiesError
             },
             500: {
@@ -70,7 +55,7 @@ export const pathUpdatePharmacy = {
         parameters: [
             {
                 in: 'path',
-                name: 'userId',
+                name: 'pharmacyId',
                 required: true,
                 type: 'string'
             },
@@ -80,16 +65,13 @@ export const pathUpdatePharmacy = {
                 schema: {
                     type: 'object',
                     properties: {
-                        name: {
+                        socialName: {
                             type: 'string'
                         },
-                        crx: {
+                        address: {
                             type: 'string'
                         },
-                        ufCrx: {
-                            type: 'string'
-                        },
-                        cpf: {
+                        cnpj: {
                             type: 'string'
                         }
                     }

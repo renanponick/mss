@@ -39,19 +39,7 @@ export const pathDoctor = {
                 schema: returnDoctor
             },
             400: {
-                description: `Exemple 400.`,
-                schema: propertiesError
-            },
-            401: {
-                description: `Exemple 401: Usuário não autenticado. Favor realizar o login e tentar novamente`,
-                schema: propertiesError
-            },
-            403: {
-                description: `Exemple 403.`,
-                schema: propertiesError
-            },
-            404: {
-                description: `Exemple 404: "Não foi possivel concluir o login, pois login ou senha não conferem`,
+                description: `Exemple 400: Dados inválidos ou faltantes no corpo da requisição, favor conferir.`,
                 schema: propertiesError
             },
             500: {
