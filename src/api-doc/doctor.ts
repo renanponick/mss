@@ -70,7 +70,7 @@ export const pathUpdateDoctor = {
         parameters: [
             {
                 in: 'path',
-                name: 'userId',
+                name: 'doctorId',
                 required: true,
                 type: 'string'
             },

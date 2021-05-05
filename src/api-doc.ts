@@ -38,11 +38,11 @@ export const apiDoc = {
     '/v1/signin': pathLoginUser,
     '/v1/updateUser/{userId}': pathUpdateUser,
     '/v1/delete/{userId}': pathDeleteUser,
-    '/v1/doctor/{userId} ': pathGetDoctor,
+    '/v1/doctor/{doctorId} ': pathGetDoctor,
     '/v1/doctor': pathDoctor,
-    '/v1/doctor/{userId}': pathUpdateDoctor,
-    '/v1/pharmacy/{userId} ': pathGetPharmacy,
+    '/v1/doctor/{doctorId}': pathUpdateDoctor,
+    '/v1/pharmacy/{pharmacyId} ': pathGetPharmacy,
     '/v1/pharmacy': pathPharmacy,
-    '/v1/pharmacy/{userId}': pathUpdatePharmacy,
+    '/v1/pharmacy/{pharmacyId}': pathUpdatePharmacy,
   }
 }
