@@ -1,0 +1,8 @@
+src/api-doc/*
+test/*
+seeds/*
+nginx/*
+src/doc.ts
+src/errors/*
+src/server.ts
+src/error.ts

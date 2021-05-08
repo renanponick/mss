@@ -1,16 +1,17 @@
-import { 
-    Column, 
+import {
+    Column,
     Entity,
     ManyToOne,
     PrimaryColumn
 } from 'typeorm'
+
 import { CreateDateColumn, JoinOnTableId, UpdateDateColumn } from './decorators'
 import Doctor from './doctor'
 import Patient from './patient'
 import Pharmacy from './pharmacy'
 
 @Entity('prescription')
-export default class Prescription{
+export default class Prescription {
 
     @PrimaryColumn(
         'uuid',
@@ -66,4 +67,5 @@ export default class Prescription{
         { nullable: true }
     )
     pharmacy?: Pharmacy
+
 }

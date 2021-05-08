@@ -1,7 +1,7 @@
 import {
     user,
     propertiesError
-} from "./objects"
+} from './objects'
 
 export const pathLoginUser = {
     post: {
@@ -9,9 +9,9 @@ export const pathLoginUser = {
         summary: 'Login with an user',
         operationId: 'login',
         parameters: [{
-                in: 'body',
-                name: 'login',
-                schema: user,
+            in: 'body',
+            name: 'login',
+            schema: user
         }],
         responses: {
             200: {
@@ -20,7 +20,7 @@ export const pathLoginUser = {
                     type: 'object',
                     properties: {
                         token: {
-                            type: 'string',
+                            type: 'string'
                         }
                     }
                 }
@@ -60,7 +60,7 @@ export const pathUpdateUser = {
                         },
                         password: {
                             type: 'string'
-                        },
+                        }
                     }
                 }
             }

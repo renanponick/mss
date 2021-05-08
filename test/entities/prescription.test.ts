@@ -1,6 +1,6 @@
 import { suite, test } from 'mocha-typescript'
-import BaseTest, { expect } from '../utils/base-test'
 
+import BaseTest, { expect } from '../utils/base-test'
 import PrescriptionService from '../../src/services/prescription'
 
 @suite('prescriptions')
@@ -57,7 +57,8 @@ export default class PrescriptionTest extends BaseTest {
             timesDay: 2,
             note: 'Nota',
             doctorId: 'aa7ef6ee-a6e9-11eb-a825-173e511d6e4a',
-            patientId: '860a4700-a6e9-11eb-82b6-2bc550c71cf0'
+            patientId: '860a4700-a6e9-11eb-82b6-2bc550c71cf0',
+            externalId: '999a4700-a6e9-ab89-82b6-2bc550c71999'
         }
         const prescription = await this.prescriptions.update(input)
 
@@ -67,6 +68,7 @@ export default class PrescriptionTest extends BaseTest {
         expect(prescription.note).to.be.equal(input.note)
         expect(prescription.doctorId).to.be.equal(input.doctorId)
         expect(prescription.patientId).to.be.equal(input.patientId)
+        expect(prescription.externalId).to.be.equal(input.externalId)
     }
 
     @test
@@ -86,7 +88,7 @@ export default class PrescriptionTest extends BaseTest {
     async ['should get prescriptions']() {
         const prescription = await this.prescriptions.getPrescriptions('c85570e8-89d0-11eb-a43d-e37781ba023d')
 
-        if(prescription){
+        if (prescription) {
             expect(prescription[0].composed).to.be.equal('Paracetamol 200ml')
             expect(prescription[0].dosage).to.be.equal('1 a cada 2 dias')
             expect(prescription[0].timesDay).to.be.equal(1)

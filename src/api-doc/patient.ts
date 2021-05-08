@@ -2,7 +2,7 @@ import {
     user,
     returnDoctor,
     propertiesError
-} from "./objects"
+} from './objects'
 
 export const pathPatient = {
     post: {
@@ -16,7 +16,7 @@ export const pathPatient = {
                 schema: {
                     type: 'object',
                     properties: {
-                        user: user,
+                        user,
                         name: {
                             type: 'string'
                         },
@@ -153,7 +153,6 @@ export const pathGetPatient = {
     }
 }
 
-
 export const pathGetPatients = {
     get: {
         tags: ['doctor'],
@@ -189,7 +188,6 @@ export const pathGetPatients = {
         }
     }
 }
-
 
 export const pathGetPatientByCpf = {
     get: {

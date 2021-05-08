@@ -92,7 +92,7 @@ export const propertiesError = {
     type: 'object',
     properties: {
         message: {
-            type: 'string',
+            type: 'string'
         }
     }
 }

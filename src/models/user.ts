@@ -1,7 +1,7 @@
-import { 
+import {
     Column,
-    Entity, 
-    OneToOne, 
+    Entity,
+    OneToOne,
     PrimaryColumn,
     Unique
 } from 'typeorm'
@@ -21,7 +21,7 @@ export default class User {
     )
     id: string
 
-    @Column('boolean', { name: 'is_active', default: true } )
+    @Column('boolean', { name: 'is_active', default: true })
     isActive: boolean
 
     @Column('text')
@@ -44,5 +44,5 @@ export default class User {
 
     @OneToOne(_ => Pharmacy, p => p.user)
     pharmacy: Pharmacy
-    
+
 }

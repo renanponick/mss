@@ -1,4 +1,5 @@
 import { ErrorRequestHandler, Response } from 'express'
+
 import { APIError } from './error'
 
 const sendAPIErrorResponse = (err: APIError, res: Response) => {

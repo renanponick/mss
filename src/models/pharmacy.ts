@@ -1,18 +1,19 @@
-import { 
-    Column, 
+import {
+    Column,
     Entity,
     OneToMany,
     OneToOne,
     PrimaryColumn,
     Unique
 } from 'typeorm'
+
 import { CreateDateColumn, JoinOnTableId, UpdateDateColumn } from './decorators'
 import Prescription from './prescription'
 import User from './user'
 
 @Entity('pharmacy')
 @Unique(['cnpj'])
-export default class Pharmacy{
+export default class Pharmacy {
 
     @PrimaryColumn(
         'uuid',
