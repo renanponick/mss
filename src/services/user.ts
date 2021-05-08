@@ -1,9 +1,10 @@
 import { Service } from 'typedi'
 import { getCustomRepository } from 'typeorm'
 import bcrypt from 'bcrypt'
+import { omit } from 'ramda'
+
 import UserRepository from '../repositories/user'
 import { AuthUser, UpdateUser } from '../type'
-import { omit } from 'ramda'
 
 @Service()
 export default class UserService {
@@ -19,7 +20,6 @@ export default class UserService {
     async create(fields: AuthUser) {
         const repository = getCustomRepository(UserRepository)
         const password = await this.hashPassword(fields.password)
-
         const result = await repository.createAndSave({
             ...fields,
             password
@@ -35,7 +35,7 @@ export default class UserService {
         const user = await repository
             .findOneOrFail({ where: query })
 
-        if(!await bcrypt.compare(fields.lastPassword, user.password)){
+        if (!await bcrypt.compare(fields.lastPassword, user.password)) {
             throw new Error('A senha anterior não confere')
         }
 
@@ -75,12 +75,14 @@ export default class UserService {
 
     async findAll() {
         const repository = getCustomRepository(UserRepository)
+
         return repository.findAll()
     }
 
-    async getByLogin(login: string) {
+    async getByEmail(email: string) {
         const repository = getCustomRepository(UserRepository)
-        return repository.getByLogin(login)
+
+        return repository.getByEmail(email)
     }
 
 }

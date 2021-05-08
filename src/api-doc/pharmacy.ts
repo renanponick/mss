@@ -2,7 +2,7 @@ import {
     user,
     returnPharmacy,
     propertiesError
-} from "./objects"
+} from './objects'
 
 export const pathPharmacy = {
     post: {
@@ -16,7 +16,7 @@ export const pathPharmacy = {
                 schema: {
                     type: 'object',
                     properties: {
-                        user: user,
+                        user,
                         socialName: {
                             type: 'string'
                         },

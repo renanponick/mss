@@ -1,10 +1,11 @@
 import { Request, Response } from 'express'
-import { messageError } from '../error'
 
-import DoctorService from "../services/doctor"
+import { messageError } from '../error'
+import DoctorService from '../services/doctor'
 import { CreateDoctor, UpdateDoctor } from '../type'
 
 export default class DoctorApi {
+
     private doctorService = new DoctorService()
 
     async createDoctor(req: Request, res: Response) {
@@ -29,6 +30,11 @@ export default class DoctorApi {
         const body = req.body
         body.id = req.params.doctorId
 
+        const doctor = await this.doctorService.findUser(body.userId)
+        if (doctor.id !== body.id) {
+            res.status(400).send({ message: messageError(8) })
+        }
+
         if (!UpdateDoctor.is(body) || !req.params.doctorId) {
             res.status(400).send({ message: messageError(5) })
         }
@@ -47,6 +53,11 @@ export default class DoctorApi {
     async getDoctor(req: Request, res: Response) {
         const doctorId = req.params.doctorId
 
+        const doctor = await this.doctorService.findUser(req.body.userId)
+        if (doctor.id !== doctorId) {
+            res.status(400).send({ message: messageError(8) })
+        }
+
         if (!doctorId) {
             res.status(400).send({ message: messageError(5) })
         }
@@ -56,7 +67,10 @@ export default class DoctorApi {
             res.send(result)
         } catch (err) {
             res.status(404).send({
-                message: messageError(4, `Doutor com id ${doctorId} não encontrado.`),
+                message: messageError(
+                    4,
+                    `Doutor com id ${doctorId} não encontrado.`
+                ),
                 err: err.message
             })
         }
@@ -73,4 +87,5 @@ export default class DoctorApi {
             })
         }
     }
+
 }

@@ -1,6 +1,7 @@
 import { Either } from 'fp-ts/lib/Either'
 import * as t from 'io-ts'
 import { PathReporter } from 'io-ts/lib/PathReporter'
+
 import logger from '../logger'
 
 // Recomendation of io-ts docs to create an union of literal strings
@@ -75,8 +76,8 @@ class APIError extends Error {
     readonly usedPayload?: string
 
     constructor(errorCode: ErrorCode, payload = '') {
-        const { status, message, detailedMessage } =
-            errorInfoWith(payload)[errorCode]
+        const { status, message, detailedMessage }
+            = errorInfoWith(payload)[errorCode]
 
         super(message)
         this.code = errorCode
@@ -85,7 +86,7 @@ class APIError extends Error {
         this.usedPayload = payload
 
         // Recomendation for Built-ins, see the TypeScript Wiki
-        // tslint:disable-next-line: max-line-length
+        // Tslint:disable-next-line: max-line-length
         // https://github.com/Microsoft/TypeScript-wiki/blob/master/Breaking-Changes.md
         Object.setPrototypeOf(this, APIError.prototype)
     }
@@ -115,8 +116,8 @@ const raiseErrorFromDecode = <T>(result: Either<t.Errors, T>) => {
     for (const error of errors) {
         // 'Invalid value undefined supplied to... /id: string'
         // It will match 'id' and 'string'
-        const [, attribute, type] =
-            error.match(/.+\/(.+): (.+)$/) || []
+        const [, attribute, type]
+            = error.match(/.+\/(.+): (.+)$/) || []
 
         if (!attribute && !type) {
             continue

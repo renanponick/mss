@@ -1,16 +1,19 @@
-import { 
-    Column, 
+import {
+    Column,
     Entity,
     OneToMany,
     OneToOne,
-    PrimaryColumn
+    PrimaryColumn,
+    Unique
 } from 'typeorm'
+
 import { CreateDateColumn, JoinOnTableId, UpdateDateColumn } from './decorators'
 import Prescription from './prescription'
 import User from './user'
 
 @Entity('patient')
-export default class Patient{
+@Unique(['cpf'])
+export default class Patient {
 
     @PrimaryColumn(
         'uuid',
@@ -29,6 +32,12 @@ export default class Patient{
 
     @Column('text')
     address: string
+
+    @Column('text')
+    city: string
+
+    @Column('text')
+    province: string
 
     @CreateDateColumn()
     createdAt: Date

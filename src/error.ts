@@ -1,4 +1,4 @@
-export function messageError(req: number, complement?: string){
+export function messageError(req: number, complement?: string) {
     let message = 'Não foi possivel concluir'
 
     switch (req) {
@@ -38,11 +38,9 @@ export function messageError(req: number, complement?: string){
         default:
             message += '.'
             break
-
     }
 
     return complement
         ? message += `${complement}`
         : message
-    
 }

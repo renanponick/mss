@@ -137,7 +137,7 @@ function overrideConfig(env: string) {
         case 'production':
             return {
                 port: process.env.PORT || 80,
-                endpoint: endpoint,
+                endpoint,
                 developmentResolver:
                 process.env.ENABLE_DEVELOPMENT_RESOLVERS === 'true',
                 logs: { color: false, db: false },

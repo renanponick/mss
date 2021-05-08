@@ -1,7 +1,7 @@
-import { skip, suite, test } from 'mocha-typescript'
-import BaseTest, { expect } from '../utils/base-test'
+import { suite, test } from 'mocha-typescript'
 import bcrypt from 'bcrypt'
 
+import BaseTest, { expect } from '../utils/base-test'
 import DoctorService from '../../src/services/doctor'
 import UserService from '../../src/services/user'
 
@@ -24,18 +24,21 @@ export default class UserTest extends BaseTest {
     async ['should create an user']() {
         const input = {
             user: {
-                login: 'test doctor',
+                email: 'test doctor',
                 password: 'abc123'
-                },
+            },
             name: 'Doutor',
             crx: '123',
             ufCrx: 'SC',
-            cpf: '11111111111'
+            cpf: '11111111111',
+            address: 'Rua',
+            city: 'Joinville',
+            province: 'SC'
         }
         const doctor = await this.doctors.create(input)
         const user = await this.users.find(doctor.userId)
 
-        expect(user.login).to.be.equal(input.user.login)
+        expect(user.email).to.be.equal(input.user.email)
         expect(await bcrypt.compare(input.user.password, user.password))
             .to.be.equal(true)
         expect(user.type).to.be.equal(0)
@@ -83,12 +86,11 @@ export default class UserTest extends BaseTest {
 
         await this.users.update(input)
         const user = await this.users.find(input.userId)
-        
+
         expect(user.id).to.be.equal(input.userId)
         expect(await bcrypt.compare(input.password, user.password))
             .to.be.equal(true)
         expect(user.isActive).to.be.equal(true)
     }
-
 
 }

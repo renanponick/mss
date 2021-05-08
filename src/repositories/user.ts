@@ -7,7 +7,7 @@ import { AuthUser } from '../type'
 @EntityRepository(User)
 export default class UserRepository extends Repository<User> {
 
-    async findAll() { 
+    async findAll() {
         return this
             .createQueryBuilder('user')
             .getMany()
@@ -15,11 +15,12 @@ export default class UserRepository extends Repository<User> {
 
     async createAndSave(fields: AuthUser) {
         const entity = plainToClass(User, fields)
+
         return this.save(entity)
     }
 
-    async getByLogin(login: string) {
-        return this.findOneOrFail({ login })
+    async getByEmail(email: string) {
+        return this.findOneOrFail({ email })
     }
 
 }

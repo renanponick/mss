@@ -2,7 +2,7 @@ import {
     user,
     returnDoctor,
     propertiesError
-} from "./objects"
+} from './objects'
 
 export const pathPrescription = {
     post: {
@@ -16,7 +16,7 @@ export const pathPrescription = {
                 schema: {
                     type: 'object',
                     properties: {
-                        user: user,
+                        user,
                         name: {
                             type: 'string'
                         },

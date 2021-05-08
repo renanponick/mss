@@ -2,7 +2,7 @@ import {
     user,
     returnDoctor,
     propertiesError
-} from "./objects"
+} from './objects'
 
 export const pathDoctor = {
     post: {
@@ -16,7 +16,7 @@ export const pathDoctor = {
                 schema: {
                     type: 'object',
                     properties: {
-                        user: user,
+                        user,
                         name: {
                             type: 'string'
                         },

@@ -4,6 +4,7 @@ import { getCustomRepository } from 'typeorm'
 
 import PharmacyRepository from '../repositories/pharmacy'
 import { CreatePharmacy, UpdatePharmacy } from '../type'
+
 import UserService from './user'
 
 @Service()
@@ -13,7 +14,7 @@ export default class PharmacyService {
         const repository = getCustomRepository(PharmacyRepository)
         const users: UserService = new UserService()
         const input = {
-            login: fields.user.login,
+            email: fields.user.email,
             password: fields.user.password,
             type: 2
         }
@@ -57,6 +58,7 @@ export default class PharmacyService {
 
     async findAll() {
         const repository = getCustomRepository(PharmacyRepository)
+
         return repository.findAll()
     }
 

@@ -3,3 +3,4 @@
 
 1-init-db 2021-04-03T14:13:00Z Renan Ponick <warreir@gmail.com> # Initialize models
 2-modify-user 2021-04-26T20:43:00Z Renan Ponick <warreir@gmail.com> # Modify user
+3-add-address-and-email 2021-04-26T20:43:00Z Renan Ponick <warreir@gmail.com> # Add address is actors and email in user

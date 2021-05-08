@@ -1,9 +1,11 @@
 import { Service } from 'typedi'
-import { CreatePrescription, TakePrescription, UpdatePrescription } from '../type'
-import PrescriptionRepository from '../repositories/prescription'
 import { getCustomRepository } from 'typeorm'
 import { isToday, isAfter } from 'date-fns'
 import { omit } from 'ramda'
+
+import PrescriptionRepository from '../repositories/prescription'
+import { CreatePrescription, TakePrescription, UpdatePrescription } from '../type'
+
 import UserService from './user'
 import DoctorService from './doctor'
 import PatientService from './patient'
@@ -19,6 +21,7 @@ export default class PrescriptionService {
 
     async create(fields: CreatePrescription) {
         const repository = getCustomRepository(PrescriptionRepository)
+
         return repository.createAndSave(
             omit(['userId'], fields)
         )
@@ -30,11 +33,11 @@ export default class PrescriptionService {
         const prescription = await repository
             .findOneOrFail({ where: query })
 
-        if(!isToday(prescription.createdAt)){
+        if (!isToday(prescription.createdAt)) {
             throw new Error('Não é possivel alterar uma prescrição gerada a mais de um dia.')
         }
 
-        if(prescription.pharmacyId){
+        if (prescription.pharmacyId) {
             throw new Error('Não é possivel alterar uma receita já dispensada.')
         }
 
@@ -52,11 +55,11 @@ export default class PrescriptionService {
         const prescription = await repository
             .findOneOrFail({ where: query })
 
-        if(isAfter(new Date(), new Date(prescription.validity))){
+        if (isAfter(new Date(), new Date(prescription.validity))) {
             throw new Error('Receita vencida.')
         }
 
-        if(prescription.pharmacyId){
+        if (prescription.pharmacyId) {
             throw new Error('Receita já dispensada.')
         }
 
@@ -72,11 +75,11 @@ export default class PrescriptionService {
         const query = { id }
         const prescription = await repository.findOneOrFail(query)
 
-        if(!isToday(prescription.createdAt)){
+        if (!isToday(prescription.createdAt)) {
             throw new Error('Não é possivel excluir uma receita gerada a mais de um dia.')
         }
 
-        if(prescription.pharmacyId){
+        if (prescription.pharmacyId) {
             throw new Error('Não é possivel excluir uma receita já dispensada.')
         }
 
@@ -100,24 +103,25 @@ export default class PrescriptionService {
                 result = await this.findByPharmacy(id)
             }
 
-            if(result && result.length > 0){
+            if (result && result.length > 0) {
                 return result.find(prescription => prescription.id === prescriptionId)
             } else {
-                throw new Error('Receita não encontrada para usuário logado.');
+                throw new Error('Receita não encontrada para usuário logado.')
             }
         } catch (err) {
-            throw new Error(err);
+            throw new Error(err)
         }
     }
 
     async find(id: string) {
         const repository = getCustomRepository(PrescriptionRepository)
         const query = { id }
+        // Precisa retornar o nome do doutor
 
         return repository.findOneOrFail({ where: query })
     }
 
-    async getPrescriptions(userId: string){
+    async getPrescriptions(userId: string) {
         const { type } = await this.userService.find(userId)
         try {
             if (type === 0) {
@@ -135,9 +139,9 @@ export default class PrescriptionService {
                 const result = await this.findByPharmacy(id)
 
                 return result
-            }           
+            }
         } catch (err) {
-            throw new Error(err);
+            throw new Error(err)
         }
     }
 

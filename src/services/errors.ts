@@ -1,5 +1,6 @@
 import { path } from 'ramda'
 import { QueryFailedError } from 'typeorm'
+
 import logger from '../logger'
 
 import appErrorMessages from './app-error-messages'
@@ -7,7 +8,7 @@ import appErrorMessages from './app-error-messages'
 export type BusinessErrorCode =
     | 'FORBIDDEN'
     | 'AUTHENTICATION_FAILED'
-    | 'ENTITY_NOT_FOUND'   
+    | 'ENTITY_NOT_FOUND'
     | 'ENTITY_NOT_FOUND'
     | 'DUPLICATED_ENTITY'
     | 'ENTITY_IS_STILL_REFERENCED'
@@ -84,7 +85,6 @@ const dbErrors = {
     foreignKeyViolation: '23503',
     uniqueViolation: '23505'
 }
-
 
 export function errorFromEntityNotFound(
     name: string

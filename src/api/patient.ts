@@ -1,10 +1,11 @@
 import { Request, Response } from 'express'
-import { messageError } from '../error'
 
-import PatientService from "../services/patient"
+import { messageError } from '../error'
+import PatientService from '../services/patient'
 import { CreatePatient, UpdatePatient } from '../type'
 
 export default class PatientApi {
+
     private patientService = new PatientService()
 
     async createPatient(req: Request, res: Response) {
@@ -12,7 +13,7 @@ export default class PatientApi {
 
         if (!CreatePatient.is(body)) {
             res.status(400).send({ message: messageError(5) })
-        } 
+        }
 
         try {
             const result = await this.patientService.create(body)
@@ -28,7 +29,12 @@ export default class PatientApi {
     async updatePatient(req: Request, res: Response) {
         const body = req.body
         body.id = req.params.patientId
-    
+
+        const patient = await this.patientService.findUser(body.userId)
+        if (patient.id !== body.id) {
+            res.status(400).send({ message: messageError(8) })
+        }
+
         if (!UpdatePatient.is(body) || !req.params.patientId) {
             res.status(400).send({ message: messageError(5) })
         }
@@ -47,6 +53,11 @@ export default class PatientApi {
     async getPatient(req: Request, res: Response) {
         const patientId = req.params.patientId
 
+        const patient = await this.patientService.findUser(req.body.userId)
+        if (patient.id !== patientId) {
+            res.status(400).send({ message: messageError(8) })
+        }
+
         if (!patientId) {
             res.status(400).send({ message: messageError(5) })
         }
@@ -56,7 +67,10 @@ export default class PatientApi {
             res.send(result)
         } catch (err) {
             res.status(404).send({
-                message: messageError(4, `Paciente com id ${patientId} não encontrado.`),
+                message: messageError(
+                    4,
+                    `Paciente com id ${patientId} não encontrado.`
+                ),
                 err: err.message
             })
         }
@@ -74,7 +88,10 @@ export default class PatientApi {
             res.send(result)
         } catch (err) {
             res.status(404).send({
-                message: messageError(4, `Paciente com CPF: ${cpf} não encontrado.`),
+                message: messageError(
+                    4,
+                    `Paciente com CPF: ${cpf} não encontrado.`
+                ),
                 err: err.message
             })
         }
@@ -91,4 +108,5 @@ export default class PatientApi {
             })
         }
     }
+
 }

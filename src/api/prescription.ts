@@ -1,8 +1,12 @@
 import { Request, Response } from 'express'
-import { messageError } from '../error'
 
-import PrescriptionService from "../services/prescription"
-import { CreatePrescription, TakePrescription, UpdatePrescription } from '../type'
+import { messageError } from '../error'
+import PrescriptionService from '../services/prescription'
+import {
+    CreatePrescription,
+    TakePrescription,
+    UpdatePrescription
+} from '../type'
 
 export default class PrescriptionApi {
 
@@ -98,7 +102,8 @@ export default class PrescriptionApi {
 
     async getPrescriptions(req: Request, res: Response) {
         try {
-            const result = await this.prescriptionService.getPrescriptions(req.body.userId)
+            const result = await this.prescriptionService
+                .getPrescriptions(req.body.userId)
             res.send(result)
         } catch (err) {
             res.status(500).send({
