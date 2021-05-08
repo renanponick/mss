@@ -4,12 +4,17 @@ import { isToday, isAfter } from 'date-fns'
 import { omit } from 'ramda'
 
 import PrescriptionRepository from '../repositories/prescription'
-import { CreatePrescription, TakePrescription, UpdatePrescription } from '../type'
+import {
+    CreatePrescription,
+    TakePrescription,
+    UpdatePrescription
+} from '../type'
 
 import UserService from './user'
 import DoctorService from './doctor'
 import PatientService from './patient'
 import PharmacyService from './pharmacy'
+import DocuSign from './docusign/integration'
 
 @Service()
 export default class PrescriptionService {
@@ -20,6 +25,8 @@ export default class PrescriptionService {
     private pharmacyService = new PharmacyService()
 
     async create(fields: CreatePrescription) {
+        const  docu = new DocuSign()
+        console.log(await docu.getToken())
         const repository = getCustomRepository(PrescriptionRepository)
 
         return repository.createAndSave(
@@ -34,7 +41,9 @@ export default class PrescriptionService {
             .findOneOrFail({ where: query })
 
         if (!isToday(prescription.createdAt)) {
-            throw new Error('Não é possivel alterar uma prescrição gerada a mais de um dia.')
+            throw new Error(
+                'Não é possivel alterar uma prescrição gerada a mais de um dia.'
+            )
         }
 
         if (prescription.pharmacyId) {
@@ -76,7 +85,9 @@ export default class PrescriptionService {
         const prescription = await repository.findOneOrFail(query)
 
         if (!isToday(prescription.createdAt)) {
-            throw new Error('Não é possivel excluir uma receita gerada a mais de um dia.')
+            throw new Error(
+                'Não é possivel excluir uma receita gerada a mais de um dia.'
+            )
         }
 
         if (prescription.pharmacyId) {
@@ -104,7 +115,9 @@ export default class PrescriptionService {
             }
 
             if (result && result.length > 0) {
-                return result.find(prescription => prescription.id === prescriptionId)
+                return result.find(
+                    prescription => prescription.id === prescriptionId
+                )
             } else {
                 throw new Error('Receita não encontrada para usuário logado.')
             }
@@ -116,7 +129,6 @@ export default class PrescriptionService {
     async find(id: string) {
         const repository = getCustomRepository(PrescriptionRepository)
         const query = { id }
-        // Precisa retornar o nome do doutor
 
         return repository.findOneOrFail({ where: query })
     }
