@@ -3,13 +3,15 @@ import {
     Entity,
     OneToMany,
     OneToOne,
-    PrimaryColumn
+    PrimaryColumn,
+    Unique
 } from 'typeorm'
 import { CreateDateColumn, JoinOnTableId, UpdateDateColumn } from './decorators'
 import Prescription from './prescription'
 import User from './user'
 
 @Entity('pharmacy')
+@Unique(['cnpj'])
 export default class Pharmacy{
 
     @PrimaryColumn(
@@ -29,6 +31,12 @@ export default class Pharmacy{
 
     @Column('text')
     address: string
+
+    @Column('text')
+    city: string
+
+    @Column('text')
+    province: string
 
     @CreateDateColumn()
     createdAt: Date

@@ -113,6 +113,7 @@ export default class PrescriptionService {
     async find(id: string) {
         const repository = getCustomRepository(PrescriptionRepository)
         const query = { id }
+        // precisa retornar o nome do doutor
 
         return repository.findOneOrFail({ where: query })
     }

@@ -48,6 +48,9 @@ export default class Prescription{
     @UpdateDateColumn()
     updatedAt: Date
 
+    @Column('text', { name: 'external_id', nullable: true })
+    externalId: string
+
     @JoinOnTableId('doctor_id')
     @ManyToOne(_ => Doctor, d => d.prescriptions)
     doctor: Doctor

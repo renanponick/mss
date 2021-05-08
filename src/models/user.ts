@@ -12,7 +12,7 @@ import Patient from './patient'
 import Pharmacy from './pharmacy'
 
 @Entity('user')
-@Unique(['login'])
+@Unique(['email'])
 export default class User {
 
     @PrimaryColumn(
@@ -25,7 +25,7 @@ export default class User {
     isActive: boolean
 
     @Column('text')
-    login: string
+    email: string
 
     @Column('text')
     password: string
