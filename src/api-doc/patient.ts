@@ -1,18 +1,18 @@
 import {
     user,
-    returnDoctor,
+    returnPatient,
     propertiesError
 } from './objects'
 
 export const pathPatient = {
     post: {
-        tags: ['doctor'],
-        summary: 'Create a doctor',
-        operationId: 'login',
+        tags: ['patient'],
+        summary: 'Create a patient',
+        operationId: 'createPatient',
         parameters: [
             {
                 in: 'body',
-                name: 'login',
+                name: 'createPatient',
                 schema: {
                     type: 'object',
                     properties: {
@@ -20,13 +20,16 @@ export const pathPatient = {
                         name: {
                             type: 'string'
                         },
-                        crx: {
-                            type: 'string'
-                        },
-                        ufCrx: {
-                            type: 'string'
-                        },
                         cpf: {
+                            type: 'string'
+                        },
+                        province: {
+                            type: 'string'
+                        },
+                        city: {
+                            type: 'string'
+                        },
+                        address: {
                             type: 'string'
                         }
                     }
@@ -36,7 +39,7 @@ export const pathPatient = {
         responses: {
             200: {
                 description: 'Logged in user',
-                schema: returnDoctor
+                schema: returnPatient
             },
             400: {
                 description: `Exemple 400.`,
@@ -64,32 +67,35 @@ export const pathPatient = {
 
 export const pathUpdatePatient = {
     put: {
-        tags: ['doctor'],
-        summary: 'Update a doctor',
-        operationId: 'update',
+        tags: ['patient'],
+        summary: 'Update patient',
+        operationId: 'updatePatient',
         parameters: [
             {
                 in: 'path',
-                name: 'userId',
+                name: 'patientId',
                 required: true,
                 type: 'string'
             },
             {
                 in: 'body',
-                name: 'updateDoctor',
+                name: 'updatePatient',
                 schema: {
                     type: 'object',
                     properties: {
                         name: {
                             type: 'string'
                         },
-                        crx: {
-                            type: 'string'
-                        },
-                        ufCrx: {
-                            type: 'string'
-                        },
                         cpf: {
+                            type: 'string'
+                        },
+                        province: {
+                            type: 'string'
+                        },
+                        city: {
+                            type: 'string'
+                        },
+                        address: {
                             type: 'string'
                         }
                     }
@@ -98,8 +104,8 @@ export const pathUpdatePatient = {
         ],
         responses: {
             200: {
-                description: 'Updated user ',
-                schema: returnDoctor
+                description: 'Updated patient',
+                schema: returnPatient
             },
             400: {
                 description: `Exemple 400: "Seu usuário não ter permissão para acessa esta rotina" or "A senha anterior não confere"`,
@@ -119,19 +125,19 @@ export const pathUpdatePatient = {
 
 export const pathGetPatient = {
     get: {
-        tags: ['doctor'],
-        summary: 'Get a doctor',
-        operationId: 'get',
+        tags: ['patient'],
+        summary: 'Get a patient',
+        operationId: 'getPatient',
         parameters: [{
             in: 'path',
-            name: 'doctorId',
+            name: 'patientId',
             required: true,
             type: 'string'
         }],
         responses: {
             200: {
-                description: 'Get user',
-                schema: returnDoctor
+                description: 'Get patient',
+                schema: returnPatient
             },
             400: {
                 description: `Exemple 400: Seu usuário não ter permissão para acessa esta rotina`,
@@ -142,7 +148,7 @@ export const pathGetPatient = {
                 schema: propertiesError
             },
             404: {
-                description: `Exemple 404: Não foi possivel concluir a consulta. Doutor com id [ID] não encontrado.`,
+                description: `Exemple 404: Não foi possivel concluir a consulta. Paciente com id [ID] não encontrado.`,
                 schema: propertiesError
             },
             500: {
@@ -155,19 +161,14 @@ export const pathGetPatient = {
 
 export const pathGetPatients = {
     get: {
-        tags: ['doctor'],
-        summary: 'Get a doctor',
-        operationId: 'get',
-        parameters: [{
-            in: 'path',
-            name: 'doctorId',
-            required: true,
-            type: 'string'
-        }],
+        tags: ['patient'],
+        summary: 'Get patients',
+        operationId: 'getPatients',
+        parameters: [],
         responses: {
             200: {
-                description: 'Get user',
-                schema: returnDoctor
+                description: 'Get patient',
+                schema: returnPatient
             },
             400: {
                 description: `Exemple 400: Seu usuário não ter permissão para acessa esta rotina`,
@@ -178,7 +179,7 @@ export const pathGetPatients = {
                 schema: propertiesError
             },
             404: {
-                description: `Exemple 404: Não foi possivel concluir a consulta. Doutor com id [ID] não encontrado.`,
+                description: `Exemple 404: Não foi possivel concluir a consulta. Paciente com id [ID] não encontrado.`,
                 schema: propertiesError
             },
             500: {
@@ -191,19 +192,19 @@ export const pathGetPatients = {
 
 export const pathGetPatientByCpf = {
     get: {
-        tags: ['doctor'],
-        summary: 'Get a doctor',
-        operationId: 'get',
+        tags: ['patient'],
+        summary: 'Get a patient by CPF',
+        operationId: 'getPatientCpf',
         parameters: [{
             in: 'path',
-            name: 'doctorId',
+            name: 'patientId',
             required: true,
             type: 'string'
         }],
         responses: {
             200: {
-                description: 'Get user',
-                schema: returnDoctor
+                description: 'Get patient',
+                schema: returnPatient
             },
             400: {
                 description: `Exemple 400: Seu usuário não ter permissão para acessa esta rotina`,
@@ -214,7 +215,7 @@ export const pathGetPatientByCpf = {
                 schema: propertiesError
             },
             404: {
-                description: `Exemple 404: Não foi possivel concluir a consulta. Doutor com id [ID] não encontrado.`,
+                description: `Exemple 404: Não foi possivel concluir a consulta. Paciente com id [ID] não encontrado.`,
                 schema: propertiesError
             },
             500: {

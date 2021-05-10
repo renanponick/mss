@@ -1,32 +1,39 @@
 import {
-    user,
-    returnDoctor,
+    returnPrescription,
     propertiesError
 } from './objects'
 
 export const pathPrescription = {
     post: {
-        tags: ['doctor'],
-        summary: 'Create a doctor',
-        operationId: 'login',
+        tags: ['prescription'],
+        summary: 'Create a prescription',
+        operationId: 'createPrescription',
         parameters: [
             {
                 in: 'body',
-                name: 'login',
+                name: 'createPrescription',
                 schema: {
                     type: 'object',
                     properties: {
-                        user,
-                        name: {
+                        patientId: {
                             type: 'string'
                         },
-                        crx: {
+                        doctorId: {
                             type: 'string'
                         },
-                        ufCrx: {
+                        composed: {
                             type: 'string'
                         },
-                        cpf: {
+                        dosage: {
+                            type: 'string'
+                        },
+                        timesDay: {
+                            type: 'number'
+                        },
+                        note: {
+                            type: 'string'
+                        },
+                        validity: {
                             type: 'string'
                         }
                     }
@@ -36,7 +43,7 @@ export const pathPrescription = {
         responses: {
             200: {
                 description: 'Logged in user',
-                schema: returnDoctor
+                schema: returnPrescription
             },
             400: {
                 description: `Exemple 400.`,
@@ -64,32 +71,44 @@ export const pathPrescription = {
 
 export const pathUpdatePrescription = {
     put: {
-        tags: ['doctor'],
-        summary: 'Update a doctor',
-        operationId: 'update',
+        tags: ['prescription'],
+        summary: 'Update a prescription',
+        operationId: 'updatePrescription',
         parameters: [
             {
                 in: 'path',
-                name: 'userId',
+                name: 'prescriptionId',
                 required: true,
                 type: 'string'
             },
             {
                 in: 'body',
-                name: 'updateDoctor',
+                name: 'updatePrescription',
                 schema: {
                     type: 'object',
                     properties: {
-                        name: {
+                        id: {
                             type: 'string'
                         },
-                        crx: {
+                        patientId: {
                             type: 'string'
                         },
-                        ufCrx: {
+                        doctorId: {
                             type: 'string'
                         },
-                        cpf: {
+                        composed: {
+                            type: 'string'
+                        },
+                        dosage: {
+                            type: 'string'
+                        },
+                        timesDay: {
+                            type: 'number'
+                        },
+                        note: {
+                            type: 'string'
+                        },
+                        validity: {
                             type: 'string'
                         }
                     }
@@ -99,7 +118,7 @@ export const pathUpdatePrescription = {
         responses: {
             200: {
                 description: 'Updated user ',
-                schema: returnDoctor
+                schema: returnPrescription
             },
             400: {
                 description: `Exemple 400: "Seu usuário não ter permissão para acessa esta rotina" or "A senha anterior não confere"`,
@@ -110,7 +129,9 @@ export const pathUpdatePrescription = {
                 schema: propertiesError
             },
             500: {
-                description: `Exemple 500. "Internal Server Error"`,
+                description: `Exemple 500. "Não é possivel alterar uma prescrição gerada a mais de um dia."
+                                            "Internal Server Error"
+                                            "Não é possivel alterar uma receita já dispensada"`,
                 schema: propertiesError
             }
         }
@@ -118,20 +139,32 @@ export const pathUpdatePrescription = {
 }
 
 export const pathTakePrescription = {
-    get: {
-        tags: ['doctor'],
-        summary: 'Get a doctor',
-        operationId: 'get',
+    put: {
+        tags: ['prescription'],
+        summary: 'Take a prescription',
+        operationId: 'takePrescription',
         parameters: [{
             in: 'path',
-            name: 'doctorId',
+            name: 'prescriptionId',
             required: true,
             type: 'string'
+        },
+        {
+            in: 'body',
+            name: 'takePrescription',
+            schema: {
+                type: 'object',
+                properties: {
+                    pharmacyId: {
+                        type: 'string'
+                    }
+                }
+            }
         }],
         responses: {
             200: {
                 description: 'Get user',
-                schema: returnDoctor
+                schema: returnPrescription
             },
             400: {
                 description: `Exemple 400: Seu usuário não ter permissão para acessa esta rotina`,
@@ -142,7 +175,7 @@ export const pathTakePrescription = {
                 schema: propertiesError
             },
             404: {
-                description: `Exemple 404: Não foi possivel concluir a consulta. Doutor com id [ID] não encontrado.`,
+                description: `Exemple 404: Não foi possivel concluir a consulta. Receita com id [ID] não encontrada.`,
                 schema: propertiesError
             },
             500: {
@@ -154,20 +187,20 @@ export const pathTakePrescription = {
 }
 
 export const pathDeletePrescription = {
-    get: {
-        tags: ['doctor'],
-        summary: 'Get a doctor',
-        operationId: 'get',
+    delete: {
+        tags: ['prescription'],
+        summary: 'Delete a prescription',
+        operationId: 'deletePRescription',
         parameters: [{
             in: 'path',
-            name: 'doctorId',
+            name: 'prescriptionId',
             required: true,
             type: 'string'
         }],
         responses: {
             200: {
-                description: 'Get user',
-                schema: returnDoctor
+                description: 'Prescription deleted',
+                schema: returnPrescription
             },
             400: {
                 description: `Exemple 400: Seu usuário não ter permissão para acessa esta rotina`,
@@ -178,11 +211,13 @@ export const pathDeletePrescription = {
                 schema: propertiesError
             },
             404: {
-                description: `Exemple 404: Não foi possivel concluir a consulta. Doutor com id [ID] não encontrado.`,
+                description: `Exemple 404: Não foi possivel concluir a consulta. Receita com id [ID] não encontrada.`,
                 schema: propertiesError
             },
             500: {
-                description: `Exemple 500. "Internal Server Error"`,
+                description: `Exemple 500. "Não é possivel excluir uma prescrição gerada a mais de um dia."
+                                            "Internal Server Error"
+                                            "Não é possivel excluir uma receita já dispensada`,
                 schema: propertiesError
             }
         }
@@ -191,19 +226,14 @@ export const pathDeletePrescription = {
 
 export const pathGetPrescriptions = {
     get: {
-        tags: ['doctor'],
-        summary: 'Get a doctor',
-        operationId: 'get',
-        parameters: [{
-            in: 'path',
-            name: 'doctorId',
-            required: true,
-            type: 'string'
-        }],
+        tags: ['prescription'],
+        summary: 'Get prescriptions',
+        operationId: 'getPrescriptions',
+        parameters: [],
         responses: {
             200: {
-                description: 'Get user',
-                schema: returnDoctor
+                description: 'Get prescriptions',
+                schema: returnPrescription
             },
             400: {
                 description: `Exemple 400: Seu usuário não ter permissão para acessa esta rotina`,
@@ -214,7 +244,7 @@ export const pathGetPrescriptions = {
                 schema: propertiesError
             },
             404: {
-                description: `Exemple 404: Não foi possivel concluir a consulta. Doutor com id [ID] não encontrado.`,
+                description: `Exemple 404: Não foi possivel concluir a consulta. Receita com id [ID] não encontrada.`,
                 schema: propertiesError
             },
             500: {
@@ -227,19 +257,19 @@ export const pathGetPrescriptions = {
 
 export const pathGetPrescription = {
     get: {
-        tags: ['doctor'],
-        summary: 'Get a doctor',
+        tags: ['prescription'],
+        summary: 'Get a prescription',
         operationId: 'get',
         parameters: [{
             in: 'path',
-            name: 'doctorId',
+            name: 'prescriptionId',
             required: true,
             type: 'string'
         }],
         responses: {
             200: {
                 description: 'Get user',
-                schema: returnDoctor
+                schema: returnPrescription
             },
             400: {
                 description: `Exemple 400: Seu usuário não ter permissão para acessa esta rotina`,
@@ -250,7 +280,7 @@ export const pathGetPrescription = {
                 schema: propertiesError
             },
             404: {
-                description: `Exemple 404: Não foi possivel concluir a consulta. Doutor com id [ID] não encontrado.`,
+                description: `Exemple 404: Não foi possivel concluir a consulta. Receita com id [ID] não encontrada.`,
                 schema: propertiesError
             },
             500: {

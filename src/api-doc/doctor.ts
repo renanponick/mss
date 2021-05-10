@@ -8,11 +8,11 @@ export const pathDoctor = {
     post: {
         tags: ['doctor'],
         summary: 'Create a doctor',
-        operationId: 'login',
+        operationId: 'createDoctor',
         parameters: [
             {
                 in: 'body',
-                name: 'login',
+                name: 'createDoctor',
                 schema: {
                     type: 'object',
                     properties: {
@@ -27,6 +27,15 @@ export const pathDoctor = {
                             type: 'string'
                         },
                         cpf: {
+                            type: 'string'
+                        },
+                        province: {
+                            type: 'string'
+                        },
+                        city: {
+                            type: 'string'
+                        },
+                        address: {
                             type: 'string'
                         }
                     }
@@ -54,7 +63,7 @@ export const pathUpdateDoctor = {
     put: {
         tags: ['doctor'],
         summary: 'Update a doctor',
-        operationId: 'update',
+        operationId: 'updateDoctor',
         parameters: [
             {
                 in: 'path',
@@ -78,6 +87,15 @@ export const pathUpdateDoctor = {
                             type: 'string'
                         },
                         cpf: {
+                            type: 'string'
+                        },
+                        province: {
+                            type: 'string'
+                        },
+                        city: {
+                            type: 'string'
+                        },
+                        address: {
                             type: 'string'
                         }
                     }
@@ -109,7 +127,7 @@ export const pathGetDoctor = {
     get: {
         tags: ['doctor'],
         summary: 'Get a doctor',
-        operationId: 'get',
+        operationId: 'getDoctor',
         parameters: [{
             in: 'path',
             name: 'doctorId',

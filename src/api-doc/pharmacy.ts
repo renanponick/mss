@@ -8,16 +8,22 @@ export const pathPharmacy = {
     post: {
         tags: ['pharmacy'],
         summary: 'Create a pharmacy',
-        operationId: 'login',
+        operationId: 'createPharmacy',
         parameters: [
             {
                 in: 'body',
-                name: 'login',
+                name: 'createPharmacy',
                 schema: {
                     type: 'object',
                     properties: {
                         user,
                         socialName: {
+                            type: 'string'
+                        },
+                        province: {
+                            type: 'string'
+                        },
+                        city: {
                             type: 'string'
                         },
                         address: {
@@ -51,7 +57,7 @@ export const pathUpdatePharmacy = {
     put: {
         tags: ['pharmacy'],
         summary: 'Update a pharmacy',
-        operationId: 'update',
+        operationId: 'updatePharmacy',
         parameters: [
             {
                 in: 'path',
@@ -66,6 +72,12 @@ export const pathUpdatePharmacy = {
                     type: 'object',
                     properties: {
                         socialName: {
+                            type: 'string'
+                        },
+                        province: {
+                            type: 'string'
+                        },
+                        city: {
                             type: 'string'
                         },
                         address: {
@@ -103,7 +115,7 @@ export const pathGetPharmacy = {
     get: {
         tags: ['pharmacy'],
         summary: 'Get a pharmacy',
-        operationId: 'get',
+        operationId: 'getPharmacy',
         parameters: [{
             in: 'path',
             name: 'pharmacyId',
@@ -124,7 +136,7 @@ export const pathGetPharmacy = {
                 schema: propertiesError
             },
             404: {
-                description: `Exemple 404: Não foi possivel concluir a consulta. Doutor com id [ID] não encontrado.`,
+                description: `Exemple 404: Não foi possivel concluir a consulta. Farmacia com id [ID] não encontrado.`,
                 schema: propertiesError
             },
             500: {

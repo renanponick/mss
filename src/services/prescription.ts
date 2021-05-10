@@ -25,8 +25,8 @@ export default class PrescriptionService {
     private pharmacyService = new PharmacyService()
 
     async create(fields: CreatePrescription) {
-        const  docu = new DocuSign()
-        console.log(await docu.getToken())
+        const docu = new DocuSign()
+        //console.log(await docu.getToken())
         const repository = getCustomRepository(PrescriptionRepository)
 
         return repository.createAndSave(
