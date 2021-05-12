@@ -1,10 +1,10 @@
-import docusign, {
+import docusign/* , {
     Document,
     EnvelopeDefinition,
     RecipientViewRequest,
     Signer,
     SignHere
-} from 'docusign-esign'
+}*/ from 'docusign-esign'
 
 import config from '../../config'
 
@@ -73,7 +73,7 @@ export default class DocuSign {
             }
         }
     }
-
+    /* -
     private makeEnvelope(
         file: string,
         recipients: string,
@@ -102,7 +102,8 @@ export default class DocuSign {
                         recipientSignatureProviders: recipient.icp
                             ? [{
                                 // eslint-disable-next-line max-len
-                                signatureProviderName: 'UniversalSignaturePen_ICP_SmartCard_TSP',
+                                signatureProviderName:
+                                'UniversalSignaturePen_ICP_SmartCard_TSP',
                                 signatureProviderOptions: {
                                     cpfNumber: recipient.icp.cpf,
                                     signerRole: recipient.icp.role
@@ -255,5 +256,6 @@ export default class DocuSign {
             return error
         }
     }
+*/
 
 }

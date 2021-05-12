@@ -14,7 +14,7 @@ import UserService from './user'
 import DoctorService from './doctor'
 import PatientService from './patient'
 import PharmacyService from './pharmacy'
-import DocuSign from './docusign/integration'
+// - import DocuSign from './docusign/integration'
 
 @Service()
 export default class PrescriptionService {
@@ -25,8 +25,8 @@ export default class PrescriptionService {
     private pharmacyService = new PharmacyService()
 
     async create(fields: CreatePrescription) {
-        const docu = new DocuSign()
-        //console.log(await docu.getToken())
+        // - const docu = new DocuSign()
+        // - console.log(await docu.getToken())
         const repository = getCustomRepository(PrescriptionRepository)
 
         return repository.createAndSave(
