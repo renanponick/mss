@@ -53,11 +53,11 @@ export default class Prescription {
     externalId: string
 
     @JoinOnTableId('doctor_id')
-    @ManyToOne(_ => Doctor, d => d.prescriptions)
+    @ManyToOne(_ => Doctor, d => d.prescriptions, { eager: true })
     doctor: Doctor
 
     @JoinOnTableId('patient_id')
-    @ManyToOne(_ => Patient, d => d.prescriptions)
+    @ManyToOne(_ => Patient, d => d.prescriptions, { eager: true })
     patient: Patient
 
     @JoinOnTableId('pharmacy_id')
