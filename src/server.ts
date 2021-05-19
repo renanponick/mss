@@ -16,6 +16,7 @@ import PharmacyApi from './api/pharmacy'
 import PrescriptionApi from './api/prescription'
 import UserApi from './api/user'
 import AuthMiddleware from './middlewares/auth'
+import config from './config'
 
 async function gracefulExit(signal: NodeJS.Signals) {
     log.info(`Signal "${signal}" received, shutting down...`)
@@ -89,8 +90,8 @@ app.delete('/mss/v1/removeUser/:userId', AuthMiddleware([0,1,2]), binder(userSer
 async function run() {
     await dbConnection
 
-    app.listen(3000, () => {
-        log.info(`Servidor rodando: http://localhost:3000`)
+    app.listen(config.port, () => {
+        log.info(`Servidor rodando: ${config.port}`)
     })
 
     app.use(
