@@ -1,10 +1,7 @@
-import path from 'path'
-
 import express, { Request, Response } from 'express'
 import bodyParser from 'body-parser'
 import swaggerUi from 'swagger-ui-express'
 import { delay, race } from 'bluebird'
-import { initialize } from 'express-openapi'
 
 import log from './logger'
 import dbConnection from './database'
@@ -91,7 +88,7 @@ async function run() {
     await dbConnection
 
     app.listen(config.port, () => {
-        log.info(`Servidor rodando: ${config.port}`)
+        log.info(`Servidor rodando aqui: ${config.port}`)
     })
 
     app.use(
