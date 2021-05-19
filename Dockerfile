@@ -1,24 +1,13 @@
-FROM node:12.16.3-alpine3.10
+FROM node:12
 
-WORKDIR /app
-ENV NODE_ENV production
+USER node
+RUN mkdir /home/node/app
+WORKDIR /home/node/app
+COPY --chown=node:node . ./
 
-COPY . ./
+RUN yarn \
+    && yarn workspaces run build \
+    && rm -rf server/src \
+    && mv server/build/src server
 
-RUN apk --no-cache --virtual build-dependencies add \
-    python3 \
-    make \
-    g++ \
-    && NODE_ENV=development yarn --no-progress --non-interactive \
-    && yarn build \
-    && rm -rf node_modules \
-    && yarn --no-progress --non-interactive \
-    && rm -rf ~/.cache/yarn \
-    && apk del build-dependencies
-
-RUN apk --no-cache add bash
-
-EXPOSE 8090
-
-ENTRYPOINT [ "./docker-entrypoint.sh" ]
-CMD ["start"]
+CMD ["node", "server/src/server.js"]
