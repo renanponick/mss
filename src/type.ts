@@ -48,9 +48,6 @@ export const UpdateDoctor = t.partial({
     user: User,
     id: t.string,
     name: t.string,
-    crx: t.string,
-    ufCrx: t.string,
-    cpf: t.string,
     address: t.string,
     city: t.string,
     province: t.string

@@ -12,7 +12,8 @@ import Prescription from './prescription'
 import User from './user'
 
 @Entity('doctor')
-@Unique(['ufCrx', 'cpf'])
+// Arrumar numero + estado
+@Unique(['crx', 'cpf'])
 export default class Doctor {
 
     @PrimaryColumn(
