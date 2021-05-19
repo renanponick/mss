@@ -94,6 +94,6 @@
     "dev:init": "run-s dev:down dev:up",
     "test:setup": "yarn -s db:clean && yarn -s db deploy && yarn -s db:seed apply default",
     "dev:watch": "ts-node-dev --respawn --transpileOnly src/server.ts",
-    "start" : "yarn build && node build/src/server.js"
+    "start" : "node build/src/server.js"
   }
 }
