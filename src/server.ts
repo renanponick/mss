@@ -86,8 +86,9 @@ app.delete('/mss/v1/removeUser/:userId', AuthMiddleware([0,1,2]), binder(userSer
 
 async function run() {
     await dbConnection
-
-    app.listen(config.port, () => {
+    const teste = process.env.PORT
+    console.log(teste)
+    app.listen(teste, () => {
         log.info(`Servidor rodando aqui: ${config.port}`)
     })
 
