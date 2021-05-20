@@ -98,7 +98,10 @@ TypeORM.createConnection({
     extra: {
         max: poolSize,
         connectionTimeoutMillis: postgres.connectionTimeoutMillis
-            || connectionTimeoutMillis
+            || connectionTimeoutMillis,
+        ssl: {
+            rejectUnauthorized: false
+        }
     },
     type: 'postgres',
     url: postgres.url })
