@@ -115,3 +115,6 @@ TypeORM.createConnection({
 
         return connection
     })
+    .catch(err => {
+        log.error(err)
+    })

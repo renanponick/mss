@@ -18,8 +18,9 @@ import config from './config'
 async function gracefulExit(signal: NodeJS.Signals) {
     log.info(`Signal "${signal}" received, shutting down...`)
     const connection = await dbConnection
-
-    await race([delay(5000), connection.close()])
+    if (connection) {
+        await race([delay(5000), connection.close()])
+    }
     process.exit(0)
 }
 
