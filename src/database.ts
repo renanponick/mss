@@ -96,6 +96,8 @@ TypeORM.createConnection({
     namingStrategy: new AppNamingStrategy(),
     logging: logs.db ? 'all' : false,
     ssl: true,
+    synchronize: true,
+    dropSchema: false,
     extra: {
         max: poolSize,
         connectionTimeoutMillis: postgres.connectionTimeoutMillis
