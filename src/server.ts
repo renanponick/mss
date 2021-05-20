@@ -90,7 +90,7 @@ async function run() {
     log.info('Finish db')
 
     log.info('Start listen')
-    app.listen(process.env.PORT || config.port, () => {
+    app.listen(config.port, () => {
         log.info(`Servidor rodando: ${config.port}`)
     })
 }

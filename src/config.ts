@@ -48,7 +48,6 @@ type Config = {
         connectionTimeoutMillis: number
     }
     cache: CacheConfig
-    mail: MailConfig
     amqpUrl: string
     testingDomain?: string
     disableRateLimit: boolean
@@ -103,17 +102,6 @@ const userIdDocusign = 'e76cd356-109c-40d1-9c4b-3d0845497093'
 const accountId = '3b130f7c-62c6-4d06-8231-423899155a3d'
 const endpoint = process.env.APP_ENDPOINT
 const logLevel = getLogLevel(process.env.LOG_LEVEL)
-const defaultSenderEmail = process.env.EMAIL_DEFAULT_SENDER
-    || 'contact@app.com'
-const defaultSender = `App <${defaultSenderEmail}>`
-
-function getMailConfig(): MailConfig {
-    return {
-        kind: 'smtp',
-        sender: defaultSender,
-        host: process.env.SMTP_HOST || 'localhost',
-        port: Number(process.env.SMTP_PORT) || 1025 }
-}
 
 function getCacheConfig(): CacheConfig {
     const { REDIS_HOST, REDIS_PORT } = process.env
@@ -155,7 +143,6 @@ const defaultConfig: Config = {
         connectionTimeoutMillis: 100000
     },
 
-    mail: getMailConfig(),
     cache: getCacheConfig(),
 
     amqpUrl: process.env.AMQP_URL || 'amqp://localhost',
