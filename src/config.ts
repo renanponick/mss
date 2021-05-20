@@ -150,9 +150,8 @@ const defaultConfig: Config = {
     },
 
     postgres: {
-        url: process.env.DATABASE_URL
-            // eslint-disable-next-line max-len
-            || 'postgres://ypxhngsxutfbhk:d9431ca8d466f69cecd356c10b4bce02206950413811288f2c0dd1c3b512d0ec@ec2-54-166-167-192.compute-1.amazonaws.com:5432/d4v529nlf89k7l',
+        // eslint-disable-next-line max-len
+        url: 'postgres://ypxhngsxutfbhk:d9431ca8d466f69cecd356c10b4bce02206950413811288f2c0dd1c3b512d0ec@ec2-54-166-167-192.compute-1.amazonaws.com:5432/d4v529nlf89k7l',
         connectionTimeoutMillis: 100000
     },
 
