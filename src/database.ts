@@ -1,6 +1,6 @@
 import { snakeCase } from 'change-case'
 import { dropLast } from 'ramda'
-import { Container } from 'typedi'
+//import { Container } from 'typedi'
 import * as TypeORM from 'typeorm'
 
 import config from './config'
@@ -83,8 +83,6 @@ class AppNamingStrategy extends TypeORM.DefaultNamingStrategy {
 
 const poolSize = 20
 const connectionTimeoutMillis = 30000
-
-TypeORM.useContainer(Container)
 
 const { logs, postgres } = config
 
