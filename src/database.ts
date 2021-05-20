@@ -1,6 +1,6 @@
 import { snakeCase } from 'change-case'
 import { dropLast } from 'ramda'
-//import { Container } from 'typedi'
+// A import { Container } from 'typedi'
 import * as TypeORM from 'typeorm'
 
 import config from './config'
@@ -84,15 +84,14 @@ class AppNamingStrategy extends TypeORM.DefaultNamingStrategy {
 const poolSize = 20
 const connectionTimeoutMillis = 30000
 
-const { logs, postgres } = config
+const { postgres } = config
 
 export default
 TypeORM.createConnection({
     entities: [
-        `${__dirname}/models/*`
+        `build/src/models/**/*.js`
     ],
     namingStrategy: new AppNamingStrategy(),
-    logging: logs.db ? 'all' : false,
     ssl: true,
     synchronize: true,
     dropSchema: false,
