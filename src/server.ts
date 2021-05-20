@@ -89,6 +89,12 @@ async function run() {
     await dbConnection
     log.info('Finish db')
 
+    app.use(
+        '/api-doc',
+        swaggerUi.serve,
+        swaggerUi.setup(apiDoc)
+    )
+
     log.info('Start listen')
     app.listen(config.port, () => {
         log.info(`Servidor rodando: ${config.port}`)
