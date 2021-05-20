@@ -106,7 +106,7 @@ TypeORM.createConnection({
         }
     },
     type: 'postgres',
-    url: postgres.url })
+    url: process.env.DATABASE_URL })
     .then(connection => {
         const safeUrl = postgres.url.replace(/:.*@/, '@')
         log.info(`Connected to ${safeUrl}`)
