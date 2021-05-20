@@ -81,7 +81,7 @@ class AppNamingStrategy extends TypeORM.DefaultNamingStrategy {
 
 }
 
-const poolSize = 20
+const poolSize = 100
 const connectionTimeoutMillis = 30000
 
 const { postgres } = config
@@ -99,13 +99,14 @@ TypeORM.createConnection({
         max: poolSize,
         connectionTimeoutMillis: postgres.connectionTimeoutMillis
             || connectionTimeoutMillis,
+        idleTimeoutMillis: 30000,
         ssl: {
             require: true,
             rejectUnauthorized: false
         }
     },
     type: 'postgres',
-    url: process.env.DATABASE_URL })
+    url: 'postgres://ypxhngsxutfbhk:d9431ca8d466f69cecd356c10b4bce02206950413811288f2c0dd1c3b512d0ec@ec2-54-166-167-192.compute-1.amazonaws.com:5432/d4v529nlf89k7l' })
     .then(connection => {
         const safeUrl = postgres.url.replace(/:.*@/, '@')
         log.info(`Connected to ${safeUrl}`)
