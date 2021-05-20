@@ -18,9 +18,8 @@ import config from './config'
 async function gracefulExit(signal: NodeJS.Signals) {
     log.info(`Signal "${signal}" received, shutting down...`)
     const connection = await dbConnection
-    if (connection) {
-        await race([delay(5000), connection.close()])
-    }
+
+    await race([delay(5000), connection.close()])
     process.exit(0)
 }
 
@@ -86,7 +85,7 @@ app.put('/mss/v1/updateUser', AuthMiddleware([0,1,2], true), binder(userService,
 app.delete('/mss/v1/removeUser', AuthMiddleware([0,1,2]), binder(userService, 'removeUser'))
 
 async function run() {
-    log.info('Start db'+__dirname)
+    log.info('Start db')
     await dbConnection
     log.info('Finish db')
 

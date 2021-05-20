@@ -148,18 +148,15 @@ class CheckRunner {
 }
 
 async function run() {
-    if (connectionPromise) {
-        const connection = connectionPromise as Promise<Connection>
-        const runner = await new CheckRunner().initialize(connection)
+    const runner = await new CheckRunner().initialize(connectionPromise)
 
-        await runner.checkModelDifferences()
+    await runner.checkModelDifferences()
 
-        await runner.checkDeferredConstraints('public')
+    await runner.checkDeferredConstraints('public')
 
-        await runner.close()
+    await runner.close()
 
-        runner.reportErrors()
-    }
+    runner.reportErrors()
 }
 
 run().catch(bail)
