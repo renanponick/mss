@@ -85,7 +85,7 @@ app.put('/mss/v1/updateUser', AuthMiddleware([0,1,2], true), binder(userService,
 app.delete('/mss/v1/removeUser', AuthMiddleware([0,1,2]), binder(userService, 'removeUser'))
 
 async function run() {
-    log.info('Start db')
+    log.info('Start db'+__dirname)
     //await dbConnection
     log.info('Finish db')
 
