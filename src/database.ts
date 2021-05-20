@@ -100,6 +100,7 @@ TypeORM.createConnection({
         connectionTimeoutMillis: postgres.connectionTimeoutMillis
             || connectionTimeoutMillis,
         ssl: {
+            require: true,
             rejectUnauthorized: false
         }
     },
