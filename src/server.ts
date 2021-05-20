@@ -99,6 +99,7 @@ async function run() {
 }
 
 export default run().catch(err => {
+    log.error('Deu ruim Aqui ')
     log.error(err)
     log.error(err.stack)
     process.exit(1)
