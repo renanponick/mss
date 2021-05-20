@@ -86,7 +86,7 @@ app.delete('/mss/v1/removeUser', AuthMiddleware([0,1,2]), binder(userService, 'r
 
 async function run() {
     log.info('Start db')
-    await dbConnection
+    //await dbConnection
     log.info('Finish db')
 
     log.info('Start listen')
