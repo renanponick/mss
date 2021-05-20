@@ -28,14 +28,10 @@ export default class PatientApi {
 
     async updatePatient(req: Request, res: Response) {
         const body = req.body
-        body.id = req.params.patientId
+        const { id } = await this.patientService.findUser(body.userId)
+        body.id = id
 
-        const patient = await this.patientService.findUser(body.userId)
-        if (patient.id !== body.id) {
-            res.status(400).send({ message: messageError(8) })
-        }
-
-        if (!UpdatePatient.is(body) || !req.params.patientId) {
+        if (!UpdatePatient.is(body)) {
             res.status(400).send({ message: messageError(5) })
         }
 
@@ -51,25 +47,19 @@ export default class PatientApi {
     }
 
     async getPatient(req: Request, res: Response) {
-        const patientId = req.params.patientId
-
         const patient = await this.patientService.findUser(req.body.userId)
-        if (patient.id !== patientId) {
+        if (patient.id) {
             res.status(400).send({ message: messageError(8) })
         }
 
-        if (!patientId) {
-            res.status(400).send({ message: messageError(5) })
-        }
-
         try {
-            const result = await this.patientService.find(patientId)
+            const result = await this.patientService.find(patient.id)
             res.send(result)
         } catch (err) {
             res.status(404).send({
                 message: messageError(
                     4,
-                    `Paciente com id ${patientId} não encontrado.`
+                    `Paciente com id ${patient.id} não encontrado.`
                 ),
                 err: err.message
             })

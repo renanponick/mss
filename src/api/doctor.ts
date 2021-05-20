@@ -28,12 +28,8 @@ export default class DoctorApi {
 
     async updateDoctor(req: Request, res: Response) {
         const body = req.body
-        body.id = req.params.doctorId
-
-        const doctor = await this.doctorService.findUser(body.userId)
-        if (doctor.id !== body.id) {
-            res.status(400).send({ message: messageError(8) })
-        }
+        const { id } = await this.doctorService.findUser(body.userId)
+        body.id = id
 
         if (!UpdateDoctor.is(body) || !req.params.doctorId) {
             res.status(400).send({ message: messageError(5) })
@@ -51,25 +47,18 @@ export default class DoctorApi {
     }
 
     async getDoctor(req: Request, res: Response) {
-        const doctorId = req.params.doctorId
-
         const doctor = await this.doctorService.findUser(req.body.userId)
-        if (doctor.id !== doctorId) {
+        if (doctor.id) {
             res.status(400).send({ message: messageError(8) })
         }
-
-        if (!doctorId) {
-            res.status(400).send({ message: messageError(5) })
-        }
-
         try {
-            const result = await this.doctorService.find(doctorId)
+            const result = await this.doctorService.find(doctor.id)
             res.send(result)
         } catch (err) {
             res.status(404).send({
                 message: messageError(
                     4,
-                    `Doutor com id ${doctorId} não encontrado.`
+                    `Doutor com id ${doctor.id} não encontrado.`
                 ),
                 err: err.message
             })
