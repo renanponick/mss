@@ -31,17 +31,9 @@ export default class UserApi {
 
     async updateUser(req: Request, res: Response) {
         const body = req.body
-        const userId = req.params.userId
-        const authUser = body.userId
 
         if (!UpdateUser.is(body)) {
             res.status(400).send({ message: messageError(7) })
-
-            return
-        }
-
-        if (userId !== authUser) {
-            res.status(400).send({ message: messageError(8) })
 
             return
         }
@@ -56,15 +48,8 @@ export default class UserApi {
 
     async removeUser(req: Request, res: Response) {
         const authUser = req.body.userId
-        const userId = req.params.userId
 
-        if (userId !== authUser) {
-            res.status(400).send({ message: messageError(8) })
-
-            return
-        }
-
-        const result = await this.userService.remove(userId)
+        const result = await this.userService.remove(authUser)
         res.send({ message: result })
     }
 

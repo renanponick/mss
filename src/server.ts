@@ -54,21 +54,21 @@ const binder = (api: any, method: string) =>
 
 // Doctor - 0
 app.post('/mss/v1/doctor', binder(doctorApi, 'createDoctor'))
-app.put('/mss/v1/doctor/:doctorId', AuthMiddleware([0]), binder(doctorApi, 'updateDoctor'))
-app.get('/mss/v1/doctor/:doctorId', AuthMiddleware([0]), binder(doctorApi, 'getDoctor'))
+app.put('/mss/v1/doctor', AuthMiddleware([0]), binder(doctorApi, 'updateDoctor'))
+app.get('/mss/v1/doctor', AuthMiddleware([0]), binder(doctorApi, 'getDoctor'))
 // App.get("/mss/v1/doctors", AuthMiddleware([0]), binder(doctorApi, 'getDoctors'))
 
 // Patient - 1
 app.post('/mss/v1/patient', binder(patientApi, 'createPatient'))
-app.put('/mss/v1/patient/:patientId', AuthMiddleware([1]), binder(patientApi, 'updatePatient'))
-app.get('/mss/v1/patient/:patientId', AuthMiddleware([1]), binder(patientApi, 'getPatient'))
+app.put('/mss/v1/patient', AuthMiddleware([1]), binder(patientApi, 'updatePatient'))
+app.get('/mss/v1/patient', AuthMiddleware([1]), binder(patientApi, 'getPatient'))
 app.get('/mss/v1/patients', AuthMiddleware([0]), binder(patientApi, 'getPatients'))
 app.get('/mss/v1/patient/cpf/:cpf', AuthMiddleware([2]), binder(patientApi, 'getPatientByCpf'))
 
 // Phanrmacy - 2
 app.post('/mss/v1/pharmacy', binder(pharmacyApi, 'createPharmacy'))
-app.put('/mss/v1/pharmacy/:pharmacyId', AuthMiddleware([2]), binder(pharmacyApi, 'updatePharmacy'))
-app.get('/mss/v1/pharmacy/:pharmacyId', AuthMiddleware([2]), binder(pharmacyApi, 'getPharmacy'))
+app.put('/mss/v1/pharmacy', AuthMiddleware([2]), binder(pharmacyApi, 'updatePharmacy'))
+app.get('/mss/v1/pharmacy', AuthMiddleware([2]), binder(pharmacyApi, 'getPharmacy'))
 // App.get("/mss/v1/pharmacies", binder(pharmacyApi, 'getPharmacies'))
 
 // Prescription
@@ -81,14 +81,14 @@ app.get('/mss/v1/prescription/:prescriptionId', AuthMiddleware([0,1,2]), binder(
 
 // User
 app.post('/mss/v1/signin', binder(userService, 'loginAuthUser'))
-app.put('/mss/v1/updateUser/:userId', AuthMiddleware([0,1,2], true), binder(userService, 'updateUser'))
-app.delete('/mss/v1/removeUser/:userId', AuthMiddleware([0,1,2]), binder(userService, 'removeUser'))
+app.put('/mss/v1/updateUser', AuthMiddleware([0,1,2], true), binder(userService, 'updateUser'))
+app.delete('/mss/v1/removeUser', AuthMiddleware([0,1,2]), binder(userService, 'removeUser'))
 
 async function run() {
     await dbConnection
 
     app.listen(config.port, () => {
-        log.info(`Servidor rodando aqui: ${config.port}`)
+        log.info(`Servidor rodando: ${config.port}`)
     })
 
     app.use(

@@ -28,14 +28,10 @@ export default class PharmacyApi {
 
     async updatePharmacy(req: Request, res: Response) {
         const body = req.body
-        body.id = req.params.pharmacyId
+        const { id } = await this.pharmacyService.findUser(body.userId)
+        body.id = id
 
-        const pharmacy = await this.pharmacyService.findUser(body.userId)
-        if (pharmacy.id !== body.id) {
-            res.status(400).send({ message: messageError(8) })
-        }
-
-        if (!UpdatePharmacy.is(body) || !req.params.pharmacyId) {
+        if (!UpdatePharmacy.is(body)) {
             res.status(400).send({ message: messageError(5) })
         }
 
@@ -51,25 +47,19 @@ export default class PharmacyApi {
     }
 
     async getPharmacy(req: Request, res: Response) {
-        const pharmacyId = req.params.pharmacyId
-
         const pharmacy = await this.pharmacyService.findUser(req.body.userId)
-        if (pharmacy.id !== pharmacyId) {
+        if (pharmacy.id) {
             res.status(400).send({ message: messageError(8) })
         }
 
-        if (!pharmacyId) {
-            res.status(400).send({ message: messageError(5) })
-        }
-
         try {
-            const result = await this.pharmacyService.find(pharmacyId)
+            const result = await this.pharmacyService.find(pharmacy.id)
             res.send(result)
         } catch (err) {
             res.status(404).send({
                 message: messageError(
                     4,
-                    `Farmacia com id ${pharmacyId} não encontrado.`
+                    `Farmacia com id ${pharmacy.id} não encontrado.`
                 ),
                 err: err.message
             })
