@@ -81,8 +81,8 @@ class AppNamingStrategy extends TypeORM.DefaultNamingStrategy {
 
 }
 
-const poolSize = 20
-const connectionTimeoutMillis = 30000
+const poolSize = 200
+const connectionTimeoutMillis = 300000
 
 TypeORM.useContainer(Container)
 
