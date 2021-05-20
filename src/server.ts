@@ -85,17 +85,14 @@ app.put('/mss/v1/updateUser', AuthMiddleware([0,1,2], true), binder(userService,
 app.delete('/mss/v1/removeUser', AuthMiddleware([0,1,2]), binder(userService, 'removeUser'))
 
 async function run() {
+    log.info('Start db')
     await dbConnection
+    log.info('Finish db')
 
+    log.info('Start listen')
     app.listen(config.port, () => {
         log.info(`Servidor rodando: ${config.port}`)
     })
-
-    app.use(
-        '/api-doc',
-        swaggerUi.serve,
-        swaggerUi.setup(apiDoc)
-    )
 }
 
 export default run().catch(err => {
