@@ -85,7 +85,6 @@ app.put('/mss/v1/updateUser/:userId', AuthMiddleware([0,1,2], true), binder(user
 app.delete('/mss/v1/removeUser/:userId', AuthMiddleware([0,1,2]), binder(userService, 'removeUser'))
 
 async function run() {
-    await dbConnection
     const teste = process.env.PORT
     console.log(teste)
     app.listen(teste, () => {
