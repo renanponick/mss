@@ -60,25 +60,30 @@ export const apiDoc = {
         }
     ],
 
+    securityDefinitions: {
+        BearerJWT: {
+            in: 'header',
+            description: 'Authorization with JWT',
+            name: 'authorization',
+            type: 'apiKey'
+        }
+    },
+
     paths: {
         '/v1/signin': pathLoginUser,
-        '/v1/updateUser/{userId}': pathUpdateUser,
-        '/v1/delete/{userId}': pathDeleteUser,
-
-        '/v1/doctor/{doctorId} ': pathGetDoctor,
-        '/v1/doctor': pathDoctor,
-        '/v1/doctor/{doctorId}': pathUpdateDoctor,
-
-        '/v1/pharmacy/{pharmacyId} ': pathGetPharmacy,
-        '/v1/pharmacy': pathPharmacy,
-        '/v1/pharmacy/{pharmacyId}': pathUpdatePharmacy,
-
+        '/v1/updateUser': pathUpdateUser,
+        '/v1/delete': pathDeleteUser,
+        '/v1/doctor ': pathDoctor,
+        '/v1/doctor': pathGetDoctor,
+        '/v1/doctor  ': pathUpdateDoctor,
+        '/v1/pharmacy ': pathPharmacy,
+        '/v1/pharmacy': pathGetPharmacy,
+        '/v1/pharmacy  ': pathUpdatePharmacy,
         '/v1/patient': pathPatient,
-        '/v1/patient/{patientId}': pathUpdatePatient,
-        '/v1/patient/{patientId} ': pathGetPatient,
+        '/v1/patient ': pathUpdatePatient,
+        '/v1/patient  ': pathGetPatient,
         '/v1/patients': pathGetPatients,
         '/v1/patient/cpf/{cpf}': pathGetPatientByCpf,
-
         '/v1/prescription': pathPrescription,
         '/v1/prescription/{prescriptionId}': pathUpdatePrescription,
         '/v1/prescription/take/{prescriptionId}': pathTakePrescription,

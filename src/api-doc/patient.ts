@@ -6,6 +6,7 @@ import {
 
 export const pathPatient = {
     post: {
+        security: [],
         tags: ['patient'],
         summary: 'Create a patient',
         operationId: 'createPatient',
@@ -67,16 +68,11 @@ export const pathPatient = {
 
 export const pathUpdatePatient = {
     put: {
+        security: [{ BearerJWT: [] }],
         tags: ['patient'],
         summary: 'Update patient',
         operationId: 'updatePatient',
         parameters: [
-            {
-                in: 'path',
-                name: 'patientId',
-                required: true,
-                type: 'string'
-            },
             {
                 in: 'body',
                 name: 'updatePatient',
@@ -125,15 +121,10 @@ export const pathUpdatePatient = {
 
 export const pathGetPatient = {
     get: {
+        security: [{ BearerJWT: [] }],
         tags: ['patient'],
         summary: 'Get a patient',
         operationId: 'getPatient',
-        parameters: [{
-            in: 'path',
-            name: 'patientId',
-            required: true,
-            type: 'string'
-        }],
         responses: {
             200: {
                 description: 'Get patient',
@@ -161,10 +152,10 @@ export const pathGetPatient = {
 
 export const pathGetPatients = {
     get: {
+        security: [{ BearerJWT: [] }],
         tags: ['patient'],
         summary: 'Get patients',
         operationId: 'getPatients',
-        parameters: [],
         responses: {
             200: {
                 description: 'Get patient',
@@ -192,12 +183,13 @@ export const pathGetPatients = {
 
 export const pathGetPatientByCpf = {
     get: {
+        security: [{ BearerJWT: [] }],
         tags: ['patient'],
         summary: 'Get a patient by CPF',
         operationId: 'getPatientCpf',
         parameters: [{
             in: 'path',
-            name: 'patientId',
+            name: 'cpf',
             required: true,
             type: 'string'
         }],

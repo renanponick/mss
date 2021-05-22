@@ -17,9 +17,10 @@ export default class UserApi {
             messageError(6)
         }
         try {
-            const token = await this.auth.generateToken(body)
+            const { token, type } = await this.auth.generateToken(body)
+            res.send({ token, type })
 
-            res.send({ token })
+            return
         } catch (err) {
             res.status(404).send({ message: messageError(7, err.message) })
 
@@ -41,16 +42,21 @@ export default class UserApi {
         try {
             const result = await this.userService.update(body)
             res.send({ message: result })
+
+            return
         } catch (err) {
             res.status(400).send({ message: err.message })
+
+            return
         }
     }
 
     async removeUser(req: Request, res: Response) {
         const authUser = req.body.userId
-
         const result = await this.userService.remove(authUser)
         res.send({ message: result })
+
+        return
     }
 
 }

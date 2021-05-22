@@ -13,16 +13,22 @@ export default class DoctorApi {
 
         if (!CreateDoctor.is(body)) {
             res.status(400).send({ message: messageError(5) })
+
+            return
         }
 
         try {
             const result = await this.doctorService.create(body)
             res.send(result)
+
+            return
         } catch (err) {
             res.status(500).send({
                 message: messageError(1),
                 err: err.message
             })
+
+            return
         }
     }
 
@@ -31,18 +37,24 @@ export default class DoctorApi {
         const { id } = await this.doctorService.findUser(body.userId)
         body.id = id
 
-        if (!UpdateDoctor.is(body) || !req.params.doctorId) {
+        if (!UpdateDoctor.is(body)) {
             res.status(400).send({ message: messageError(5) })
+
+            return
         }
 
         try {
             const result = await this.doctorService.update(body)
             res.send(result)
+
+            return
         } catch (err) {
             res.status(500).send({
                 message: messageError(2),
                 err: err.message
             })
+
+            return
         }
     }
 
@@ -50,10 +62,14 @@ export default class DoctorApi {
         const doctor = await this.doctorService.findUser(req.body.userId)
         if (doctor.id) {
             res.status(400).send({ message: messageError(8) })
+
+            return
         }
         try {
             const result = await this.doctorService.find(doctor.id)
             res.send(result)
+
+            return
         } catch (err) {
             res.status(404).send({
                 message: messageError(
@@ -62,6 +78,8 @@ export default class DoctorApi {
                 ),
                 err: err.message
             })
+
+            return
         }
     }
 
@@ -69,11 +87,15 @@ export default class DoctorApi {
         try {
             const result = await this.doctorService.findAll()
             res.send(result)
+
+            return
         } catch (err) {
             res.status(404).send({
                 message: messageError(4),
                 err: err.message
             })
+
+            return
         }
     }
 

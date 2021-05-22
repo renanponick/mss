@@ -5,6 +5,7 @@ import {
 
 export const pathPrescription = {
     post: {
+        security: [{ BearerJWT: [] }],
         tags: ['prescription'],
         summary: 'Create a prescription',
         operationId: 'createPrescription',
@@ -71,6 +72,7 @@ export const pathPrescription = {
 
 export const pathUpdatePrescription = {
     put: {
+        security: [{ BearerJWT: [] }],
         tags: ['prescription'],
         summary: 'Update a prescription',
         operationId: 'updatePrescription',
@@ -140,16 +142,11 @@ export const pathUpdatePrescription = {
 
 export const pathTakePrescription = {
     put: {
+        security: [{ BearerJWT: [] }],
         tags: ['prescription'],
         summary: 'Take a prescription',
         operationId: 'takePrescription',
         parameters: [{
-            in: 'path',
-            name: 'prescriptionId',
-            required: true,
-            type: 'string'
-        },
-        {
             in: 'body',
             name: 'takePrescription',
             schema: {
@@ -188,6 +185,7 @@ export const pathTakePrescription = {
 
 export const pathDeletePrescription = {
     delete: {
+        security: [{ BearerJWT: [] }],
         tags: ['prescription'],
         summary: 'Delete a prescription',
         operationId: 'deletePRescription',
@@ -226,6 +224,7 @@ export const pathDeletePrescription = {
 
 export const pathGetPrescriptions = {
     get: {
+        security: [{ BearerJWT: [] }],
         tags: ['prescription'],
         summary: 'Get prescriptions',
         operationId: 'getPrescriptions',
@@ -257,6 +256,7 @@ export const pathGetPrescriptions = {
 
 export const pathGetPrescription = {
     get: {
+        security: [{ BearerJWT: [] }],
         tags: ['prescription'],
         summary: 'Get a prescription',
         operationId: 'get',

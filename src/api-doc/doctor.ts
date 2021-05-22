@@ -6,6 +6,7 @@ import {
 
 export const pathDoctor = {
     post: {
+        security: [],
         tags: ['doctor'],
         summary: 'Create a doctor',
         operationId: 'createDoctor',
@@ -61,47 +62,40 @@ export const pathDoctor = {
 
 export const pathUpdateDoctor = {
     put: {
+        security: [{ BearerJWT: [] }],
         tags: ['doctor'],
         summary: 'Update a doctor',
         operationId: 'updateDoctor',
-        parameters: [
-            {
-                in: 'path',
-                name: 'doctorId',
-                required: true,
-                type: 'string'
-            },
-            {
-                in: 'body',
-                name: 'updateDoctor',
-                schema: {
-                    type: 'object',
-                    properties: {
-                        name: {
-                            type: 'string'
-                        },
-                        crx: {
-                            type: 'string'
-                        },
-                        ufCrx: {
-                            type: 'string'
-                        },
-                        cpf: {
-                            type: 'string'
-                        },
-                        province: {
-                            type: 'string'
-                        },
-                        city: {
-                            type: 'string'
-                        },
-                        address: {
-                            type: 'string'
-                        }
+        parameters: [{
+            in: 'body',
+            name: 'updateDoctor',
+            schema: {
+                type: 'object',
+                properties: {
+                    name: {
+                        type: 'string'
+                    },
+                    crx: {
+                        type: 'string'
+                    },
+                    ufCrx: {
+                        type: 'string'
+                    },
+                    cpf: {
+                        type: 'string'
+                    },
+                    province: {
+                        type: 'string'
+                    },
+                    city: {
+                        type: 'string'
+                    },
+                    address: {
+                        type: 'string'
                     }
                 }
             }
-        ],
+        }],
         responses: {
             200: {
                 description: 'Updated user ',
@@ -125,15 +119,10 @@ export const pathUpdateDoctor = {
 
 export const pathGetDoctor = {
     get: {
+        security: [{ BearerJWT: [] }],
         tags: ['doctor'],
         summary: 'Get a doctor',
         operationId: 'getDoctor',
-        parameters: [{
-            in: 'path',
-            name: 'doctorId',
-            required: true,
-            type: 'string'
-        }],
         responses: {
             200: {
                 description: 'Get user',
