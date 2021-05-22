@@ -13,16 +13,22 @@ export default class PatientApi {
 
         if (!CreatePatient.is(body)) {
             res.status(400).send({ message: messageError(5) })
+
+            return
         }
 
         try {
             const result = await this.patientService.create(body)
             res.send(result)
+
+            return
         } catch (err) {
             res.status(500).send({
                 message: messageError(1),
                 err: err.message
             })
+
+            return
         }
     }
 
@@ -33,16 +39,22 @@ export default class PatientApi {
 
         if (!UpdatePatient.is(body)) {
             res.status(400).send({ message: messageError(5) })
+
+            return
         }
 
         try {
             const result = await this.patientService.update(body)
             res.send(result)
+
+            return
         } catch (err) {
             res.status(500).send({
                 message: messageError(2),
                 err: err.message
             })
+
+            return
         }
     }
 
@@ -50,11 +62,15 @@ export default class PatientApi {
         const patient = await this.patientService.findUser(req.body.userId)
         if (patient.id) {
             res.status(400).send({ message: messageError(8) })
+
+            return
         }
 
         try {
             const result = await this.patientService.find(patient.id)
             res.send(result)
+
+            return
         } catch (err) {
             res.status(404).send({
                 message: messageError(
@@ -63,6 +79,8 @@ export default class PatientApi {
                 ),
                 err: err.message
             })
+
+            return
         }
     }
 
@@ -76,6 +94,8 @@ export default class PatientApi {
         try {
             const result = await this.patientService.findByCpf(cpf)
             res.send(result)
+
+            return
         } catch (err) {
             res.status(404).send({
                 message: messageError(
@@ -84,6 +104,8 @@ export default class PatientApi {
                 ),
                 err: err.message
             })
+
+            return
         }
     }
 
@@ -91,11 +113,15 @@ export default class PatientApi {
         try {
             const result = await this.patientService.findAll()
             res.send(result)
+
+            return
         } catch (err) {
             res.status(404).send({
                 message: messageError(4),
                 err: err.message
             })
+
+            return
         }
     }
 

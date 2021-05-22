@@ -58,7 +58,7 @@ export default class AuthToken {
             .replace(/\//g, '_')
             .replace(/=/g, '')
 
-        return  `${data}.${signatureUrl}`
+        return  { token: `${data}.${signatureUrl}`, type: user.type }
     }
 
 }

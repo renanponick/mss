@@ -144,12 +144,6 @@ export const pathTakePrescription = {
         summary: 'Take a prescription',
         operationId: 'takePrescription',
         parameters: [{
-            in: 'path',
-            name: 'prescriptionId',
-            required: true,
-            type: 'string'
-        },
-        {
             in: 'body',
             name: 'takePrescription',
             schema: {

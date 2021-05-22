@@ -52,34 +52,25 @@ const binder = (api: any, method: string) =>
         api[method](req, res)
     }
 
-// Doctor - 0
 app.post('/mss/v1/doctor', binder(doctorApi, 'createDoctor'))
 app.put('/mss/v1/doctor', AuthMiddleware([0]), binder(doctorApi, 'updateDoctor'))
 app.get('/mss/v1/doctor', AuthMiddleware([0]), binder(doctorApi, 'getDoctor'))
-// App.get("/mss/v1/doctors", AuthMiddleware([0]), binder(doctorApi, 'getDoctors'))
-
-// Patient - 1
+app.get("/mss/v1/doctors", AuthMiddleware([0]), binder(doctorApi, 'getDoctors'))
 app.post('/mss/v1/patient', binder(patientApi, 'createPatient'))
 app.put('/mss/v1/patient', AuthMiddleware([1]), binder(patientApi, 'updatePatient'))
 app.get('/mss/v1/patient', AuthMiddleware([1]), binder(patientApi, 'getPatient'))
 app.get('/mss/v1/patients', AuthMiddleware([0]), binder(patientApi, 'getPatients'))
-app.get('/mss/v1/patient/cpf/:cpf', AuthMiddleware([2]), binder(patientApi, 'getPatientByCpf'))
-
-// Phanrmacy - 2
+app.get('/mss/v1/patient/cpf/:cpf', AuthMiddleware([0,2]), binder(patientApi, 'getPatientByCpf'))
 app.post('/mss/v1/pharmacy', binder(pharmacyApi, 'createPharmacy'))
 app.put('/mss/v1/pharmacy', AuthMiddleware([2]), binder(pharmacyApi, 'updatePharmacy'))
 app.get('/mss/v1/pharmacy', AuthMiddleware([2]), binder(pharmacyApi, 'getPharmacy'))
-// App.get("/mss/v1/pharmacies", binder(pharmacyApi, 'getPharmacies'))
-
-// Prescription
+app.get("/mss/v1/pharmacies", AuthMiddleware([2]), binder(pharmacyApi, 'getPharmacies'))
 app.post('/mss/v1/prescription', AuthMiddleware([0]), binder(prescriptionService, 'createPrescription'))
 app.put('/mss/v1/prescription/:prescriptionId', AuthMiddleware([0]), binder(prescriptionService, 'updatePrescription'))
 app.put('/mss/v1/prescription/take/:prescriptionId', AuthMiddleware([2]), binder(prescriptionService, 'takePrescription'))
 app.delete('/mss/v1/prescription/:prescriptionId', AuthMiddleware([0]), binder(prescriptionService, 'deletePrescription'))
 app.get('/mss/v1/prescriptions/', AuthMiddleware([0,1,2]), binder(prescriptionService, 'getPrescriptions'))
 app.get('/mss/v1/prescription/:prescriptionId', AuthMiddleware([0,1,2]), binder(prescriptionService, 'getPrescription'))
-
-// User
 app.post('/mss/v1/signin', binder(userService, 'loginAuthUser'))
 app.put('/mss/v1/updateUser', AuthMiddleware([0,1,2], true), binder(userService, 'updateUser'))
 app.delete('/mss/v1/removeUser', AuthMiddleware([0,1,2]), binder(userService, 'removeUser'))

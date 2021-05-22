@@ -21,6 +21,9 @@ export const pathLoginUser = {
                     properties: {
                         token: {
                             type: 'string'
+                        }, 
+                        type: {
+                            type: 'number'
                         }
                     }
                 }
@@ -42,29 +45,21 @@ export const pathUpdateUser = {
         tags: ['user'],
         summary: 'Update a password and activate an user',
         operationId: 'update',
-        parameters: [
-            {
-                in: 'path',
-                name: 'userId',
-                required: true,
-                type: 'string'
-            },
-            {
-                in: 'body',
-                name: 'updateUser',
-                schema: {
-                    type: 'object',
-                    properties: {
-                        lastPassword: {
-                            type: 'string'
-                        },
-                        password: {
-                            type: 'string'
-                        }
+        parameters: [{
+            in: 'body',
+            name: 'updateUser',
+            schema: {
+                type: 'object',
+                properties: {
+                    lastPassword: {
+                        type: 'string'
+                    },
+                    password: {
+                        type: 'string'
                     }
                 }
             }
-        ],
+        }],
         responses: {
             200: {
                 description: 'Updated user ',
@@ -87,12 +82,6 @@ export const pathDeleteUser = {
         tags: ['user'],
         summary: 'Delete an user',
         operationId: 'delete',
-        parameters: [{
-            in: 'path',
-            name: 'userId',
-            required: true,
-            type: 'string'
-        }],
         responses: {
             200: {
                 description: 'Deleted user ',

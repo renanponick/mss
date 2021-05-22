@@ -72,12 +72,6 @@ export const pathUpdatePatient = {
         operationId: 'updatePatient',
         parameters: [
             {
-                in: 'path',
-                name: 'patientId',
-                required: true,
-                type: 'string'
-            },
-            {
                 in: 'body',
                 name: 'updatePatient',
                 schema: {
@@ -128,12 +122,6 @@ export const pathGetPatient = {
         tags: ['patient'],
         summary: 'Get a patient',
         operationId: 'getPatient',
-        parameters: [{
-            in: 'path',
-            name: 'patientId',
-            required: true,
-            type: 'string'
-        }],
         responses: {
             200: {
                 description: 'Get patient',
@@ -164,7 +152,6 @@ export const pathGetPatients = {
         tags: ['patient'],
         summary: 'Get patients',
         operationId: 'getPatients',
-        parameters: [],
         responses: {
             200: {
                 description: 'Get patient',
@@ -197,7 +184,7 @@ export const pathGetPatientByCpf = {
         operationId: 'getPatientCpf',
         parameters: [{
             in: 'path',
-            name: 'patientId',
+            name: 'cpf',
             required: true,
             type: 'string'
         }],

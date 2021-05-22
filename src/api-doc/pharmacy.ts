@@ -9,33 +9,31 @@ export const pathPharmacy = {
         tags: ['pharmacy'],
         summary: 'Create a pharmacy',
         operationId: 'createPharmacy',
-        parameters: [
-            {
-                in: 'body',
-                name: 'createPharmacy',
-                schema: {
-                    type: 'object',
-                    properties: {
-                        user,
-                        socialName: {
-                            type: 'string'
-                        },
-                        province: {
-                            type: 'string'
-                        },
-                        city: {
-                            type: 'string'
-                        },
-                        address: {
-                            type: 'string'
-                        },
-                        cnpj: {
-                            type: 'string'
-                        }
+        parameters: [{
+            in: 'body',
+            name: 'createPharmacy',
+            schema: {
+                type: 'object',
+                properties: {
+                    user,
+                    socialName: {
+                        type: 'string'
+                    },
+                    province: {
+                        type: 'string'
+                    },
+                    city: {
+                        type: 'string'
+                    },
+                    address: {
+                        type: 'string'
+                    },
+                    cnpj: {
+                        type: 'string'
                     }
                 }
             }
-        ],
+        }],
         responses: {
             200: {
                 description: 'Successfully registered',
@@ -58,38 +56,30 @@ export const pathUpdatePharmacy = {
         tags: ['pharmacy'],
         summary: 'Update a pharmacy',
         operationId: 'updatePharmacy',
-        parameters: [
-            {
-                in: 'path',
-                name: 'pharmacyId',
-                required: true,
-                type: 'string'
-            },
-            {
-                in: 'body',
-                name: 'updatePharmacy',
-                schema: {
-                    type: 'object',
-                    properties: {
-                        socialName: {
-                            type: 'string'
-                        },
-                        province: {
-                            type: 'string'
-                        },
-                        city: {
-                            type: 'string'
-                        },
-                        address: {
-                            type: 'string'
-                        },
-                        cnpj: {
-                            type: 'string'
-                        }
+        parameters: [{
+            in: 'body',
+            name: 'updatePharmacy',
+            schema: {
+                type: 'object',
+                properties: {
+                    socialName: {
+                        type: 'string'
+                    },
+                    province: {
+                        type: 'string'
+                    },
+                    city: {
+                        type: 'string'
+                    },
+                    address: {
+                        type: 'string'
+                    },
+                    cnpj: {
+                        type: 'string'
                     }
                 }
             }
-        ],
+        }],
         responses: {
             200: {
                 description: 'Updated user ',
@@ -116,12 +106,6 @@ export const pathGetPharmacy = {
         tags: ['pharmacy'],
         summary: 'Get a pharmacy',
         operationId: 'getPharmacy',
-        parameters: [{
-            in: 'path',
-            name: 'pharmacyId',
-            required: true,
-            type: 'string'
-        }],
         responses: {
             200: {
                 description: 'Get user',

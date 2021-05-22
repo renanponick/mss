@@ -100,14 +100,14 @@ TypeORM.createConnection({
     extra: {
         max: poolSize,
         connectionTimeoutMillis: postgres.connectionTimeoutMillis
-            || connectionTimeoutMillis,
+            || connectionTimeoutMillis/* ,
         ssl: {
             require: true,
             rejectUnauthorized: false
-        }
+        }*/
     },
     type: 'postgres',
-    url: process.env.DATABASE_URL })
+    url: postgres.url })
     .then(connection => {
         const safeUrl = postgres.url.replace(/:.*@/, '@')
         log.info(`Connected to ${safeUrl}`)

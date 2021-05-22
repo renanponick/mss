@@ -13,16 +13,22 @@ export default class PharmacyApi {
 
         if (!CreatePharmacy.is(body)) {
             res.status(400).send({ message: messageError(5) })
+
+            return
         }
 
         try {
             const result = await this.pharmacyService.create(body)
             res.send(result)
+
+            return
         } catch (err) {
             res.status(500).send({
                 message: messageError(1),
                 err: err.message
             })
+
+            return
         }
     }
 
@@ -33,16 +39,22 @@ export default class PharmacyApi {
 
         if (!UpdatePharmacy.is(body)) {
             res.status(400).send({ message: messageError(5) })
+
+            return
         }
 
         try {
             const result = await this.pharmacyService.update(body)
             res.send(result)
+
+            return
         } catch (err) {
             res.status(500).send({
                 message: messageError(2),
                 err: err.message
             })
+
+            return
         }
     }
 
@@ -50,11 +62,15 @@ export default class PharmacyApi {
         const pharmacy = await this.pharmacyService.findUser(req.body.userId)
         if (pharmacy.id) {
             res.status(400).send({ message: messageError(8) })
+
+            return
         }
 
         try {
             const result = await this.pharmacyService.find(pharmacy.id)
             res.send(result)
+
+            return
         } catch (err) {
             res.status(404).send({
                 message: messageError(
@@ -63,6 +79,8 @@ export default class PharmacyApi {
                 ),
                 err: err.message
             })
+
+            return
         }
     }
 
@@ -70,11 +88,15 @@ export default class PharmacyApi {
         try {
             const result = await this.pharmacyService.findAll()
             res.send(result)
+
+            return
         } catch (err) {
             res.status(404).send({
                 message: messageError(4),
                 err: err.message
             })
+
+            return
         }
     }
 
