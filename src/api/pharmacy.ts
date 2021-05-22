@@ -60,7 +60,7 @@ export default class PharmacyApi {
 
     async getPharmacy(req: Request, res: Response) {
         const pharmacy = await this.pharmacyService.findUser(req.body.userId)
-        if (pharmacy.id) {
+        if (!pharmacy.id) {
             res.status(400).send({ message: messageError(8) })
 
             return

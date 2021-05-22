@@ -60,7 +60,7 @@ export default class DoctorApi {
 
     async getDoctor(req: Request, res: Response) {
         const doctor = await this.doctorService.findUser(req.body.userId)
-        if (doctor.id) {
+        if (!doctor.id) {
             res.status(400).send({ message: messageError(8) })
 
             return
