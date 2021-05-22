@@ -1,6 +1,6 @@
 import { Service } from 'typedi'
 import { getCustomRepository } from 'typeorm'
-import { isToday, isAfter } from 'date-fns'
+import { isThisHour, isAfter } from 'date-fns'
 import { omit } from 'ramda'
 
 import PrescriptionRepository from '../repositories/prescription'
@@ -40,9 +40,9 @@ export default class PrescriptionService {
         const prescription = await repository
             .findOneOrFail({ where: query })
 
-        if (!isToday(prescription.createdAt)) {
+        if (!isThisHour(prescription.createdAt)) {
             throw new Error(
-                'Não é possivel alterar uma prescrição gerada a mais de um dia.'
+                'Não é possivel alterar uma prescrição gerada após uma hora.'
             )
         }
 
@@ -84,9 +84,9 @@ export default class PrescriptionService {
         const query = { id }
         const prescription = await repository.findOneOrFail(query)
 
-        if (!isToday(prescription.createdAt)) {
+        if (!isThisHour(prescription.createdAt)) {
             throw new Error(
-                'Não é possivel excluir uma receita gerada a mais de um dia.'
+                'Não é possivel excluir uma receita gerada após uma hora.'
             )
         }
 

@@ -6,6 +6,7 @@ import {
 
 export const pathPharmacy = {
     post: {
+        security: [],
         tags: ['pharmacy'],
         summary: 'Create a pharmacy',
         operationId: 'createPharmacy',
@@ -53,6 +54,7 @@ export const pathPharmacy = {
 
 export const pathUpdatePharmacy = {
     put: {
+        security: [{ BearerJWT: [] }],
         tags: ['pharmacy'],
         summary: 'Update a pharmacy',
         operationId: 'updatePharmacy',
@@ -103,6 +105,7 @@ export const pathUpdatePharmacy = {
 
 export const pathGetPharmacy = {
     get: {
+        security: [{ BearerJWT: [] }],
         tags: ['pharmacy'],
         summary: 'Get a pharmacy',
         operationId: 'getPharmacy',

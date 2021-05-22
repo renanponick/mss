@@ -6,6 +6,7 @@ import {
 export const pathLoginUser = {
     post: {
         tags: ['user'],
+        security: [],
         summary: 'Login with an user',
         operationId: 'login',
         parameters: [{
@@ -42,6 +43,7 @@ export const pathLoginUser = {
 
 export const pathUpdateUser = {
     put: {
+        security: [{ BearerJWT: [] }],
         tags: ['user'],
         summary: 'Update a password and activate an user',
         operationId: 'update',
@@ -79,6 +81,7 @@ export const pathUpdateUser = {
 
 export const pathDeleteUser = {
     delete: {
+        security: [{ BearerJWT: [] }],
         tags: ['user'],
         summary: 'Delete an user',
         operationId: 'delete',

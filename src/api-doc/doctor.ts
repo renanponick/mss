@@ -6,6 +6,7 @@ import {
 
 export const pathDoctor = {
     post: {
+        security: [],
         tags: ['doctor'],
         summary: 'Create a doctor',
         operationId: 'createDoctor',
@@ -61,6 +62,7 @@ export const pathDoctor = {
 
 export const pathUpdateDoctor = {
     put: {
+        security: [{ BearerJWT: [] }],
         tags: ['doctor'],
         summary: 'Update a doctor',
         operationId: 'updateDoctor',
@@ -117,6 +119,7 @@ export const pathUpdateDoctor = {
 
 export const pathGetDoctor = {
     get: {
+        security: [{ BearerJWT: [] }],
         tags: ['doctor'],
         summary: 'Get a doctor',
         operationId: 'getDoctor',

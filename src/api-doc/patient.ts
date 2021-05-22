@@ -6,6 +6,7 @@ import {
 
 export const pathPatient = {
     post: {
+        security: [],
         tags: ['patient'],
         summary: 'Create a patient',
         operationId: 'createPatient',
@@ -67,6 +68,7 @@ export const pathPatient = {
 
 export const pathUpdatePatient = {
     put: {
+        security: [{ BearerJWT: [] }],
         tags: ['patient'],
         summary: 'Update patient',
         operationId: 'updatePatient',
@@ -119,6 +121,7 @@ export const pathUpdatePatient = {
 
 export const pathGetPatient = {
     get: {
+        security: [{ BearerJWT: [] }],
         tags: ['patient'],
         summary: 'Get a patient',
         operationId: 'getPatient',
@@ -149,6 +152,7 @@ export const pathGetPatient = {
 
 export const pathGetPatients = {
     get: {
+        security: [{ BearerJWT: [] }],
         tags: ['patient'],
         summary: 'Get patients',
         operationId: 'getPatients',
@@ -179,6 +183,7 @@ export const pathGetPatients = {
 
 export const pathGetPatientByCpf = {
     get: {
+        security: [{ BearerJWT: [] }],
         tags: ['patient'],
         summary: 'Get a patient by CPF',
         operationId: 'getPatientCpf',

@@ -60,15 +60,24 @@ export const apiDoc = {
         }
     ],
 
+    securityDefinitions: {
+        BearerJWT: {
+            in: 'header',
+            description: 'Authorization with JWT',
+            name: 'authorization',
+            type: 'apiKey'
+        }
+    },
+
     paths: {
         '/v1/signin': pathLoginUser,
         '/v1/updateUser': pathUpdateUser,
         '/v1/delete': pathDeleteUser,
-        '/v1/doctor': pathGetDoctor,
         '/v1/doctor ': pathDoctor,
+        '/v1/doctor': pathGetDoctor,
         '/v1/doctor  ': pathUpdateDoctor,
-        '/v1/pharmacy': pathGetPharmacy,
         '/v1/pharmacy ': pathPharmacy,
+        '/v1/pharmacy': pathGetPharmacy,
         '/v1/pharmacy  ': pathUpdatePharmacy,
         '/v1/patient': pathPatient,
         '/v1/patient ': pathUpdatePatient,
