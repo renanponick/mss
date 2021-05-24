@@ -81,6 +81,9 @@ export const pathUpdateDoctor = {
                     ufCrx: {
                         type: 'string'
                     },
+                    role: {
+                        type: 'string'
+                    },
                     cpf: {
                         type: 'string'
                     },

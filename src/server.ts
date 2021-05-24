@@ -14,6 +14,7 @@ import PrescriptionApi from './api/prescription'
 import UserApi from './api/user'
 import AuthMiddleware from './middlewares/auth'
 import config from './config'
+import DocusignService from './services/docusign'
 
 async function gracefulExit(signal: NodeJS.Signals) {
     log.info(`Signal "${signal}" received, shutting down...`)
@@ -35,6 +36,7 @@ const pharmacyApi = new PharmacyApi()
 const patientApi = new PatientApi()
 const prescriptionService = new PrescriptionApi()
 const userService = new UserApi()
+const docusignService = new DocusignService()
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -74,6 +76,8 @@ app.get('/mss/v1/prescription/:prescriptionId', AuthMiddleware([0,1,2]), binder(
 app.post('/mss/v1/signin', binder(userService, 'loginAuthUser'))
 app.put('/mss/v1/updateUser', AuthMiddleware([0,1,2], true), binder(userService, 'updateUser'))
 app.delete('/mss/v1/removeUser', AuthMiddleware([0,1,2]), binder(userService, 'removeUser'))
+
+app.post('/mss/v1/docusign', AuthMiddleware([0]), binder(docusignService, 'returnPrescription'))
 
 async function run() {
     log.info('Start db')

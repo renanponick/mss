@@ -14,7 +14,7 @@ import UserService from './user'
 import DoctorService from './doctor'
 import PatientService from './patient'
 import PharmacyService from './pharmacy'
-// - import DocuSign from './docusign/integration'
+import DocusignService from './docusign'
 
 @Service()
 export default class PrescriptionService {
@@ -23,15 +23,26 @@ export default class PrescriptionService {
     private doctorService = new DoctorService()
     private patientService = new PatientService()
     private pharmacyService = new PharmacyService()
+    private docusign = new DocusignService()
 
     async create(fields: CreatePrescription) {
-        // - const docu = new DocuSign()
-        // - console.log(await docu.getToken())
         const repository = getCustomRepository(PrescriptionRepository)
+        try {
+            const prescription = await repository.createAndSave(
+                omit(['userId'], fields)
+            )
 
-        return repository.createAndSave(
-            omit(['userId'], fields)
-        )
+            const result = await this.docusign.signEmbedded(prescription)
+
+            await this.update({
+                ...prescription,
+                externalId: result.externalId
+            })
+
+            return result.viewEnvelop
+        } catch (error) {
+            throw new Error(`Erro na geração da receita. ${error}`)
+        }
     }
 
     async update(fields: UpdatePrescription) {

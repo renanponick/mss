@@ -1,4 +1,4 @@
-import { suite, test } from 'mocha-typescript'
+import { skip, suite, test } from 'mocha-typescript'
 
 import BaseTest, { expect } from '../utils/base-test'
 import PrescriptionService from '../../src/services/prescription'
@@ -15,7 +15,7 @@ export default class PrescriptionTest extends BaseTest {
         this.prescriptions = prescriptions
     }
 
-    @test
+    @test @skip
     async ['should create a prescription']() {
         const input = {
             composed: 'Composição',
@@ -37,7 +37,7 @@ export default class PrescriptionTest extends BaseTest {
         expect(prescription.patientId).to.be.equal(input.patientId)
     }
 
-    @test
+    @test @skip
     async ['should update a prescription']() {
         const newInput = {
             composed: 'Composição',

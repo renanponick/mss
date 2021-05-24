@@ -70,8 +70,8 @@
     "swagger-ui": "3.47.1",
     "swagger-ui-express": "4.1.6",
     "ts-node-dev": "1.0.0-pre.44",
-    "typedoc": "0.20.12",
     "typedi": "0.8.0",
+    "typedoc": "0.20.12",
     "typeorm": "0.2.25",
     "typeorm-typedi-extensions": "0.2.3",
     "typescript": "3.7.2",
@@ -94,6 +94,6 @@
     "dev:init": "run-s dev:down dev:up",
     "test:setup": "yarn -s db:clean && yarn -s db deploy && yarn -s db:seed apply default",
     "dev:watch": "ts-node-dev --respawn --transpileOnly src/server.ts",
-    "start" : "node build/src/server.js"
+    "start": "node build/src/server.js"
   }
 }

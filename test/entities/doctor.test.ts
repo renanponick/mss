@@ -28,17 +28,18 @@ export default class DoctorTest extends BaseTest {
             cpf: '11111111111',
             address: 'Rua',
             city: 'Joinville',
-            province: 'SC'
+            province: 'SC',
+            role: 'Psiquiatra'
         }
         const doctor = await this.doctors.create(input)
 
         expect(doctor.name).to.be.equal(input.name)
-        expect(doctor.crx).to.be.equal(input.crx)
-        expect(doctor.ufCrx).to.be.equal(input.ufCrx)
+        expect(doctor.crx).to.be.equal(`${input.crx}@${input.ufCrx}`)
         expect(doctor.cpf).to.be.equal(input.cpf)
         expect(doctor.address).to.be.equal(input.address)
         expect(doctor.city).to.be.equal(input.city)
         expect(doctor.province).to.be.equal(input.province)
+        expect(doctor.role).to.be.equal(input.role)
     }
 
     @test
@@ -46,22 +47,20 @@ export default class DoctorTest extends BaseTest {
         const input = {
             id: 'aa7ef6ee-a6e9-11eb-a825-173e511d6e4a',
             name: 'DoutorEditado',
-            crx: '123456',
-            ufCrx: 'AC',
             cpf: '222222222',
             address: 'Rua 2123',
             city: 'Joinville',
-            province: 'SC'
+            province: 'SC',
+            role: 'Psiquiatra'
         }
         const doctor = await this.doctors.update(input)
 
         expect(doctor.name).to.be.equal(input.name)
-        expect(doctor.crx).to.be.equal(input.crx)
-        expect(doctor.ufCrx).to.be.equal(input.ufCrx)
         expect(doctor.cpf).to.be.equal(input.cpf)
         expect(doctor.address).to.be.equal(input.address)
         expect(doctor.city).to.be.equal(input.city)
         expect(doctor.province).to.be.equal(input.province)
+        expect(doctor.role).to.be.equal(input.role)
     }
 
     @test
@@ -70,12 +69,12 @@ export default class DoctorTest extends BaseTest {
             .find('aa7ef6ee-a6e9-11eb-a825-173e511d6e4a')
 
         expect(doctor.name).to.be.equal('Patricia')
-        expect(doctor.crx).to.be.equal('12332')
-        expect(doctor.ufCrx).to.be.equal('SC')
+        expect(doctor.crx).to.be.equal('12332@SC')
         expect(doctor.cpf).to.be.equal('123.456.789-32')
         expect(doctor.address).to.be.equal('Rua Pascoali')
         expect(doctor.city).to.be.equal('Joinville')
         expect(doctor.province).to.be.equal('SC')
+        expect(doctor.role).to.be.equal('Psiquiatra')
     }
 
     @test
@@ -83,8 +82,7 @@ export default class DoctorTest extends BaseTest {
         const doctor = await this.doctors.findAll()
 
         expect(doctor[0].name).to.be.equal('Patricia')
-        expect(doctor[0].crx).to.be.equal('12332')
-        expect(doctor[0].ufCrx).to.be.equal('SC')
+        expect(doctor[0].crx).to.be.equal('12332@SC')
         expect(doctor[0].cpf).to.be.equal('123.456.789-32')
         expect(doctor[0].address).to.be.equal('Rua Pascoali')
         expect(doctor[0].city).to.be.equal('Joinville')

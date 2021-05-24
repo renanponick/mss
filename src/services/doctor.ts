@@ -19,10 +19,12 @@ export default class DoctorService {
             type: 0
         }
         const user = await users.create(input)
+        const crx = `${fields.crx}@${fields.ufCrx}`
 
         const doctor = {
             userId: user.id,
-            ...omit(['user'], fields)
+            ...omit(['user','ufCrx'], fields),
+            crx
         }
 
         return repository.createAndSave(doctor)
