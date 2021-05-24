@@ -6,7 +6,7 @@ import UserService from './user'
 
 export default class DocusignService {
 
-    private readonly docusigns = new DocuSign()
+    private readonly docusign = new DocuSign()
     private readonly doctorService = new DoctorService()
     private readonly userService = new UserService()
 
@@ -24,11 +24,15 @@ export default class DocusignService {
             }
         }
         try {
-            return this.docusigns.workerEmbedded(envelopeArgs)
+            return this.docusign.workerEmbedded(envelopeArgs)
         }
         catch (error) {
             throw new Error(`Erro na geração da receita. ${error}`)
         }
+    }
+
+    downloadPrescription(envelopeId: string) {
+        return this.docusign.downloadPrescription(envelopeId)
     }
 
 }

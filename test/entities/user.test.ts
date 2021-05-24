@@ -33,7 +33,8 @@ export default class UserTest extends BaseTest {
             cpf: '11111111111',
             address: 'Rua',
             city: 'Joinville',
-            province: 'SC'
+            province: 'SC',
+            role: 'Psiquiatra'
         }
         const doctor = await this.doctors.create(input)
         const user = await this.users.find(doctor.userId)

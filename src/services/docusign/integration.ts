@@ -191,4 +191,33 @@ export default class DocuSign {
         return viewRequest
     }
 
+    async downloadPrescription(idEnvelope: string) {
+        const returnToken = await this.getToken()
+        if (!returnToken.token) {
+            return returnToken
+        }
+        const clientApi = new docusign.ApiClient(this.opts)
+        clientApi.addDefaultHeader(
+            'Authorization',
+            `Bearer ${returnToken.token}`
+        )
+        const envelopesApi = new docusign.EnvelopesApi(clientApi)
+        const documentOptions = {
+            certificate: 'true',
+            language: 'pt_BR'
+        }
+        try {
+            const result = await envelopesApi.getDocument(
+                config.accountId,
+                idEnvelope,
+                'archive',
+                documentOptions
+            )
+
+            return result
+        } catch (error) {
+            return error
+        }
+    }
+
 }

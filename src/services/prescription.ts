@@ -189,4 +189,35 @@ export default class PrescriptionService {
         return repository.find({ where: query })
     }
 
+    async downloadPrescription(userId: string, prescriptionId: string) {
+        const { type } = await this.userService.find(userId)
+        try {
+            let result
+            if (type === 0) {
+                const { id } = await this.doctorService.findUser(userId)
+                result = await this.findByDoctor(id)
+            } else if (type === 1) {
+                const { id } = await this.patientService.findUser(userId)
+                result = await this.findByPatient(id)
+            } else if (type === 2) {
+                const { id } = await this.pharmacyService.findUser(userId)
+                result = await this.findByPharmacy(id)
+            }
+
+            if (result && result.length > 0) {
+                const prescription = result.find(
+                    prescription => prescription.id === prescriptionId
+                )
+                if (prescription) {
+                    return this.docusign
+                        .downloadPrescription(prescription.externalId)
+                }
+            } else {
+                throw new Error('Receita não encontrada para usuário logado.')
+            }
+        } catch (err) {
+            throw new Error(err)
+        }
+    }
+
 }

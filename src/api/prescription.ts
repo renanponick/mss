@@ -153,4 +153,23 @@ export default class PrescriptionApi {
         }
     }
 
+    async downloadPrescription(req: Request, res: Response) {
+        try {
+            const userId = req.body.userId
+            const prescriptionId = req.params.prescriptionId
+            const result = await this.prescriptionService
+                .downloadPrescription(userId, prescriptionId)
+            res.send(result)
+
+            return
+        } catch (err) {
+            res.status(500).send({
+                message: messageError(4),
+                err: err.message
+            })
+
+            return
+        }
+    }
+
 }
