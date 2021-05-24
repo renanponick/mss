@@ -12,7 +12,6 @@ import Prescription from './prescription'
 import User from './user'
 
 @Entity('doctor')
-// Arrumar numero + estado
 @Unique(['crx', 'cpf'])
 export default class Doctor {
 
@@ -31,8 +30,8 @@ export default class Doctor {
     @Column('text')
     crx: string
 
-    @Column('text', { name: 'uf_crx' })
-    ufCrx: string
+    @Column('text')
+    role: string
 
     @Column('text')
     cpf: string

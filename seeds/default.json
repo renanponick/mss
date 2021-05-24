@@ -4,7 +4,7 @@
         "rows": [
             {
                 "id": "c85570e8-89d0-11eb-a43d-e37781ba023d",
-                "email": "doctor",
+                "email": "teste@teste.com",
                 "type": 0,
                 "password": "$2b$10$E4nt2ahNUEHXYTofHEIwAOzkDz9q4c6NtIFG6RnpsUONUvUgwTEru",
                 "created_at": "2021-03-20T19:59:39.677Z",
@@ -12,7 +12,7 @@
             },
             {
                 "id": "c4a41b1c-a6e9-11eb-8317-179d314b887c",
-                "email": "phar",
+                "email": "teste1@teste.com",
                 "type": 2,
                 "password": "$2b$10$E4nt2ahNUEHXYTofHEIwAOzkDz9q4c6NtIFG6RnpsUONUvUgwTEru",
                 "created_at": "2021-03-20T19:59:39.677Z",
@@ -20,7 +20,7 @@
             },
             {
                 "id": "c4a2b9fc-a6e9-11eb-8317-ef2708a65201",
-                "email": "patient",
+                "email": "teste2@teste.com",
                 "type": 1,
                 "password": "$2b$10$E4nt2ahNUEHXYTofHEIwAOzkDz9q4c6NtIFG6RnpsUONUvUgwTEru",
                 "created_at": "2021-03-20T19:59:39.677Z",
@@ -35,14 +35,14 @@
                 "id": "aa7ef6ee-a6e9-11eb-a825-173e511d6e4a",
                 "user_id": "c85570e8-89d0-11eb-a43d-e37781ba023d",
                 "name": "Patricia",
-                "crx": "12332",
-                "uf_crx": "SC",
-                "cpf": "123.456.789-32",
+                "crx": "12332@SC",
+                "cpf": "32423882084",
                 "created_at": "2021-03-20T19:59:39.677Z",
                 "updated_at": "2021-03-20T19:59:39.677Z",
                 "address": "Rua Pascoali",
                 "city": "Joinville",
-                "province": "SC"
+                "province": "SC",
+                "role": "Psiquiatra"
             }
         ]
     },

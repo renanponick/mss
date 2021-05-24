@@ -83,7 +83,7 @@ CREATE TABLE "public"."doctor" (
     "user_id" uuid NOT NULL,
     "name" text NOT NULL,
     "crx" text NOT NULL,
-    "uf_crx" text NOT NULL,
+    "role" text NOT NULL,
     "cpf" text NOT NULL,
     "created_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
     "updated_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),

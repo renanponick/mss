@@ -12,7 +12,7 @@ BEGIN;
     ALTER TABLE "public"."doctor" ADD "address" text NOT NULL;
     ALTER TABLE "public"."doctor" ADD "city" text NOT NULL;
     ALTER TABLE "public"."doctor" ADD "province" text NOT NULL;
-    ALTER TABLE "public"."doctor" ADD CONSTRAINT "doctor_uf_crx_cpf_idx" UNIQUE ("uf_crx", "cpf");
+    ALTER TABLE "public"."doctor" ADD CONSTRAINT "doctor_crx_cpf_idx" UNIQUE ("crx", "cpf");
     COMMENT ON COLUMN "public"."pharmacy"."cnpj" IS NULL;
     COMMENT ON COLUMN "public"."patient"."cpf" IS NULL;
 

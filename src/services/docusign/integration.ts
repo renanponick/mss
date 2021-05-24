@@ -1,12 +1,14 @@
-import docusign/* , {
+/* eslint-disable max-len */
+import docusign, {
     Document,
     EnvelopeDefinition,
     RecipientViewRequest,
     Signer,
     SignHere
-}*/ from 'docusign-esign'
+} from 'docusign-esign'
 
 import config from '../../config'
+import { EnvelopeArgs } from '../../type'
 
 export default class DocuSign {
 
@@ -73,189 +75,120 @@ export default class DocuSign {
             }
         }
     }
-    /* -
-    private makeEnvelope(
-        file: string,
-        recipients: string,
-        emailSubject: string
-    ) {
-        const signers: Signer[] = []
-        if (recipients.length > 0) {
-            recipients.map((recipient, index) => {
-                const recipientId = (index + 1).toString()
-                if (recipient.action === 0) {
-                    const signHere: SignHere = {
-                        anchorString: recipient.anchorString,
-                        anchorYOffset: '10',
-                        anchorUnits: 'pixels',
-                        anchorXOffset: '20'
-                    }
 
-                    signers.push({
-                        name: recipient.name,
-                        email: recipient.email,
-                        routingOrder: recipient.workflow || '0',
-                        recipientId,
-                        tabs: {
-                            signHereTabs: [signHere]
-                        },
-                        recipientSignatureProviders: recipient.icp
-                            ? [{
-                                // eslint-disable-next-line max-len
-                                signatureProviderName:
-                                'UniversalSignaturePen_ICP_SmartCard_TSP',
-                                signatureProviderOptions: {
-                                    cpfNumber: recipient.icp.cpf,
-                                    signerRole: recipient.icp.role
-                                }
-                            }]
-                            : []
-                    })
-                }
-            })
+    async workerEmbedded(envelopeArgs: EnvelopeArgs) {
+        const returnToken = await this.getToken()
+        if (!returnToken.token) {
+            return returnToken
         }
+        const clientApi = new docusign.ApiClient(this.opts)
+        clientApi.addDefaultHeader(
+            'Authorization',
+            `Bearer ${returnToken.token}`
+        )
+        const envelopesApi = new docusign.EnvelopesApi(clientApi)
 
-        const document: Document = {
-            documentBase64: file.fileBase64,
-            name: file.name,
-            fileExtension: file.type,
+        const envelope = this.makeEnvelope(envelopeArgs)
+
+        const results = await envelopesApi.createEnvelope(
+            config.accountId,
+            { envelopeDefinition: envelope }
+        )
+
+        if (results.envelopeId) {
+            const viewRequest = this.makeRecipientViewRequest(envelopeArgs)
+
+            const viewEnvelop = await envelopesApi.createRecipientView(
+                config.accountId,
+                results.envelopeId,
+                { recipientViewRequest: viewRequest }
+            )
+
+            return { viewEnvelop,  externalId: results.envelopeId }
+        } else {
+            throw new Error('Erro na criação do envelope')
+        }
+    }
+
+    private makeEnvelope(envelopeArgs: EnvelopeArgs) {
+        const docb64 = Buffer
+            .from(this.prescriptionHtml(envelopeArgs))
+            .toString('base64')
+        const doc: Document = {
+            documentBase64: docb64,
+            name: 'Receita',
+            fileExtension: 'html',
             documentId: '1'
         }
-
-        const envelop: EnvelopeDefinition = {
-            emailSubject,
-            documents: [document],
-            status: 'created',
+        const signHere: SignHere = {
+            anchorString: '**signature_1**',
+            anchorYOffset: '10',
+            anchorUnits: 'pixels',
+            anchorXOffset: '20'
+        }
+        const signer: Signer = {
+            email: envelopeArgs.signerEmail,
+            name: envelopeArgs.signerName,
+            clientUserId: '1000',
+            recipientId: '1',
+            tabs: { signHereTabs: [signHere] },
+            recipientSignatureProviders: [{
+                // eslint-disable-next-line max-len
+                signatureProviderName: 'UniversalSignaturePen_ICP_SmartCard_TSP',
+                signatureProviderOptions: {
+                    cpfNumber: envelopeArgs.icp.cpf,
+                    signerRole: envelopeArgs.icp.role
+                }
+            }]
+        }
+        const env: EnvelopeDefinition = {
+            emailSubject: 'Receita médica',
+            brandId: 'bf40158b-b21d-4d0e-9e76-dde9da509de6',
+            documents: [doc],
             recipients: {
-                signers
-            }
+                signers: [signer]
+            },
+            status: 'sent'
         }
 
-        return envelop
+        return env
     }
 
-    public async sendDocument(
-        file: string,
-        emailSubject: string
-    ) {
-        const returnToken = await this.getToken()
-        if (!returnToken.token) {
-            return returnToken
-        }
-        const clientApi = new docusign.ApiClient(this.opts)
-        clientApi.addDefaultHeader(
-            'Authorization',
-            `Bearer ${returnToken.token}`
-        )
-        const envelopesApi = new docusign.EnvelopesApi(clientApi)
-
-        const envelope = this.makeEnvelope([], file, emailSubject)
-        try {
-            const result = await envelopesApi.createEnvelope(
-                config.accountId,
-                { envelopeDefinition: envelope }
-            )
-
-            return result
-        } catch (error) {
-            return error
-        }
+    private prescriptionHtml(envelopeArgs: EnvelopeArgs) {
+        return `
+        <!DOCTYPE html>
+        <html>
+            <head>
+            <meta charset="UTF-8">
+            </head>
+            <body style="font-family:sans-serif;margin-left:2em;">
+            <h1 style="font-family: 'Trebuchet MS', Helvetica, sans-serif;
+                color: darkblue;margin-bottom: 0;">World Wide Corp</h1>
+            <h2 style="font-family: 'Trebuchet MS', Helvetica, sans-serif;
+            margin-top: 0px;margin-bottom: 3.5em;font-size: 1em;
+            color: darkblue;">Order Processing Division</h2>
+            <h4>Ordered by ${envelopeArgs.signerName}</h4>
+            <p style="margin-top:0em; margin-bottom:0em;">Email: ${envelopeArgs.signerEmail}</p>
+            <p style="margin-top:3em;">
+    Candy bonbon pastry jujubes lollipop wafer biscuit biscuit. Topping brownie sesame snaps sweet roll pie. Croissant danish biscuit soufflé caramels jujubes jelly. Dragée danish caramels lemon drops dragée. Gummi bears cupcake biscuit tiramisu sugar plum pastry. Dragée gummies applicake pudding liquorice. Donut jujubes oat cake jelly-o. Dessert bear claw chocolate cake gummies lollipop sugar plum ice cream gummies cheesecake.
+            </p>
+            <!-- Note the anchor tag for the signature field is in white. -->
+            <h3 style="margin-top:3em;">Agreed: <span style="color:white;">**signature_1**/</span></h3>
+            </body>
+        </html>
+    `
     }
 
-    public async getDocument(idEnvelope: string) {
-        const returnToken = await this.getToken()
-        if (!returnToken.token) {
-            return returnToken
-        }
-        const clientApi = new docusign.ApiClient(this.opts)
-        clientApi.addDefaultHeader(
-            'Authorization',
-            `Bearer ${returnToken.token}`
-        )
-        const envelopesApi = new docusign.EnvelopesApi(clientApi)
-
-        try {
-            const result = await envelopesApi.getEnvelope(
-                config.accountId,
-                idEnvelope
-            )
-
-            return result
-        } catch (error) {
-            return error
-        }
-    }
-
-    public async downloadDocument(idEnvelope: string) {
-        const returnToken = await this.getToken()
-        if (!returnToken.token) {
-            return returnToken
-        }
-        const clientApi = new docusign.ApiClient(this.opts)
-        clientApi.addDefaultHeader(
-            'Authorization',
-            `Bearer ${returnToken.token}`
-        )
-        const envelopesApi = new docusign.EnvelopesApi(clientApi)
-        const documentOptions = {
-            certificate: 'true',
-            language: 'pt_BR'
-        }
-        try {
-            const result = await envelopesApi.getDocument(
-                config.accountId,
-                idEnvelope,
-                'archive',
-                documentOptions
-            )
-
-            return result
-        } catch (error) {
-            return error
-        }
-    }
-
-    public makeRecipientViewRequest(signerInfo: string) {
+    private makeRecipientViewRequest(envelopeArgs: EnvelopeArgs) {
         const viewRequest: RecipientViewRequest = {
-            returnUrl: `${signerInfo.returnUrl}?state=123`,
+            returnUrl: `${envelopeArgs.dsReturnUrl}?state=123`,
             authenticationMethod: 'none',
-            email: signerInfo.email,
-            userName: signerInfo.userName,
-            userId: signerInfo.userId
+            email: envelopeArgs.signerEmail,
+            userName: envelopeArgs.signerName,
+            clientUserId: '1000'
         }
 
         return viewRequest
     }
-
-    public async signing(
-        idEnvelope: string,
-        signerInfo: string
-    ) {
-        const returnToken = await this.getToken()
-        if (!returnToken.token) {
-            return returnToken
-        }
-        const clientApi = new docusign.ApiClient(this.opts)
-        clientApi.addDefaultHeader(
-            'Authorization',
-            `Bearer ${returnToken.token}`
-        )
-        const envelopesApi = new docusign.EnvelopesApi(clientApi)
-
-        try {
-            const viewRequest = this.makeRecipientViewRequest(signerInfo)
-
-            const result = await envelopesApi.createRecipientView(
-                config.accountId,
-                idEnvelope,
-                { recipientViewRequest: viewRequest }
-            )
-
-            return result
-        } catch (error) {
-            return error
-        }
-    }
-*/
 
 }

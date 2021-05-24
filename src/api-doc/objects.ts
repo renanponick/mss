@@ -25,7 +25,7 @@ export const returnDoctor = {
         crx: {
             type: 'string'
         },
-        ufCrx: {
+        role: {
             type: 'string'
         },
         cpf: {
@@ -133,7 +133,7 @@ export const returnPrescription = {
                 crx: {
                     type: 'string'
                 },
-                ufCrx: {
+                role: {
                     type: 'string'
                 },
                 cpf: {

@@ -39,7 +39,8 @@ export const CreateDoctor = t.type({
     cpf: t.string,
     address: t.string,
     city: t.string,
-    province: t.string
+    province: t.string,
+    role: t.string
 })
 
 export type CreateDoctor = t.TypeOf<typeof CreateDoctor>
@@ -50,7 +51,8 @@ export const UpdateDoctor = t.partial({
     name: t.string,
     address: t.string,
     city: t.string,
-    province: t.string
+    province: t.string,
+    role: t.string
 })
 
 export type UpdateDoctor = t.TypeOf<typeof UpdateDoctor>
@@ -133,3 +135,17 @@ export const UpdatePrescription = t.partial({
 })
 
 export type UpdatePrescription = t.TypeOf<typeof UpdatePrescription>
+
+const IcpBrasil = t.type({
+    cpf: t.string,
+    role: t.string
+})
+
+export const EnvelopeArgs = t.type({
+    signerEmail: t.string,
+    signerName: t.string,
+    dsReturnUrl: t.string,
+    icp: IcpBrasil
+})
+
+export type EnvelopeArgs = t.TypeOf<typeof EnvelopeArgs>
