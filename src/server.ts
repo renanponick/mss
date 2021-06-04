@@ -15,6 +15,7 @@ import UserApi from './api/user'
 import AuthMiddleware from './middlewares/auth'
 import config from './config'
 import DocusignService from './services/docusign'
+import cors from 'cors'
 
 async function gracefulExit(signal: NodeJS.Signals) {
     log.info(`Signal "${signal}" received, shutting down...`)
@@ -40,6 +41,12 @@ const docusignService = new DocusignService()
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", 'GET,PUT,POST,DELETE');
+    app.use(cors());
+    next();
+});
 
 app.get('/mss/v1/ping', async (_: Request, res: Response) => {
     log.info('Call route /ping')
