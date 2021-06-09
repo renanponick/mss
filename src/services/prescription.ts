@@ -192,7 +192,7 @@ export default class PrescriptionService {
     async getPrescriptionsByToken(token: string) {
         const repository = getCustomRepository(PrescriptionRepository)
 
-        return repository.query(`SELECT * FROM public.prescription WHERE id like %'${token}'`)
+        return repository.query(`select * from prescription where substring(id::text, LENGTH(id::TEXT)-5, LENGTH(id::TEXT)) = '${token}'`)
     }
 
     async downloadPrescription(userId: string, prescriptionId: string) {
