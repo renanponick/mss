@@ -70,7 +70,7 @@ export default class DoctorTest extends BaseTest {
 
         expect(doctor.name).to.be.equal('Patricia')
         expect(doctor.crx).to.be.equal('12332@SC')
-        expect(doctor.cpf).to.be.equal('123.456.789-32')
+        expect(doctor.cpf).to.be.equal('32423882084')
         expect(doctor.address).to.be.equal('Rua Pascoali')
         expect(doctor.city).to.be.equal('Joinville')
         expect(doctor.province).to.be.equal('SC')
@@ -83,7 +83,7 @@ export default class DoctorTest extends BaseTest {
 
         expect(doctor[0].name).to.be.equal('Patricia')
         expect(doctor[0].crx).to.be.equal('12332@SC')
-        expect(doctor[0].cpf).to.be.equal('123.456.789-32')
+        expect(doctor[0].cpf).to.be.equal('32423882084')
         expect(doctor[0].address).to.be.equal('Rua Pascoali')
         expect(doctor[0].city).to.be.equal('Joinville')
         expect(doctor[0].province).to.be.equal('SC')

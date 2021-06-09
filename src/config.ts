@@ -128,7 +128,6 @@ const defaultConfig: Config = {
     developmentResolver: true,
     eventsEnabled: true,
     jobsEnabled: true,
-    testingDomain: process.env.IGNORE_EMAILS_TO,
     disableRateLimit: process.env.DISABLE_RATE_LIMIT === 'true',
 
     logs: {
@@ -169,7 +168,7 @@ function overrideConfig(env: string) {
                 port: process.env.PORT || 80,
                 endpoint,
                 developmentResolver:
-                process.env.ENABLE_DEVELOPMENT_RESOLVERS === 'true',
+                    process.env.ENABLE_DEVELOPMENT_RESOLVERS === 'true',
                 logs: { color: false, db: false },
                 exposeInviteToken: false
             }

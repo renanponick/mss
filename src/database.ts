@@ -89,28 +89,29 @@ TypeORM.useContainer(Container)
 const { logs, postgres } = config
 
 export default
-TypeORM.createConnection({
-    entities: [
-        `${__dirname}/models/*`
-    ],
-    namingStrategy: new AppNamingStrategy(),
-    logging: logs.db ? 'all' : false,
-    synchronize: true,
-    dropSchema: false,
-    extra: {
-        max: poolSize,
-        connectionTimeoutMillis: postgres.connectionTimeoutMillis
-            || connectionTimeoutMillis,
-        ssl: {
-            require: true,
-            rejectUnauthorized: false
-        }
-    },
-    type: 'postgres',
-    url: postgres.url })
-    .then(connection => {
-        const safeUrl = postgres.url.replace(/:.*@/, '@')
-        log.info(`Connected to ${safeUrl}`)
-
-        return connection
+    TypeORM.createConnection({
+        entities: [
+            `${__dirname}/models/*`
+        ],
+        namingStrategy: new AppNamingStrategy(),
+        logging: logs.db ? 'all' : false,
+        synchronize: true,
+        dropSchema: false,
+        extra: {
+            max: poolSize,
+            connectionTimeoutMillis: postgres.connectionTimeoutMillis
+                || connectionTimeoutMillis,
+            ssl: {
+                require: true,
+                rejectUnauthorized: false
+            }
+        },
+        type: 'postgres',
+        url: postgres.url
     })
+        .then(connection => {
+            const safeUrl = postgres.url.replace(/:.*@/, '@')
+            log.info(`Connected to ${safeUrl}`)
+
+            return connection
+        })
