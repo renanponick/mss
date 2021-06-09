@@ -84,7 +84,7 @@
   "scripts": {
     "build": "tsc",
     "db": "cd migrations && ../scripts/sqitch.sh",
-    "db:clean": "echo 'DROP SCHEMA IF EXISTS public, sqitch CASCADE; CREATE SCHEMA public' | psql -h localhost -U postgres ",
+    "db:clean": "echo 'DROP SCHEMA IF EXISTS public, sqitch CASCADE; CREATE SCHEMA public' | psql postgres://postgres:123456@localhost/postgres",
     "test": "cross-env NODE_ENV=test mocha --timeout 10000 --exit -r ts-node/register/transpile-only test/entities/**",
     "lint": "eslint  --ext .ts --cache src test",
     "type-check": "tsc --noEmit",
