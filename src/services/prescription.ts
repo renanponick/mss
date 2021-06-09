@@ -189,6 +189,12 @@ export default class PrescriptionService {
         return repository.find({ where: query })
     }
 
+    async getPrescriptionsByToken(token: string) {
+        const repository = getCustomRepository(PrescriptionRepository)
+
+        return repository.query(`SELECT * FROM public.prescription WHERE id like %'${token}'`)
+    }
+
     async downloadPrescription(userId: string, prescriptionId: string) {
         const { type } = await this.userService.find(userId)
         try {

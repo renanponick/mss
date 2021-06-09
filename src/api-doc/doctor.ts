@@ -27,6 +27,9 @@ export const pathDoctor = {
                         ufCrx: {
                             type: 'string'
                         },
+                        role: {
+                            type: 'string'
+                        },
                         cpf: {
                             type: 'string'
                         },

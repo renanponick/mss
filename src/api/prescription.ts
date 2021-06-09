@@ -117,6 +117,24 @@ export default class PrescriptionApi {
         }
     }
 
+    async getPrescriptionsByToken(req: Request, res: Response) {
+        try {
+            const token = req.params.token
+            const result = await this.prescriptionService
+                .getPrescriptionsByToken(token)
+            res.send(result)
+
+            return
+        } catch (err) {
+            res.status(500).send({
+                message: messageError(4),
+                err: err.message
+            })
+
+            return
+        }
+    }
+
     async getPrescription(req: Request, res: Response) {
         try {
             const userId = req.body.userId
