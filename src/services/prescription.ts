@@ -192,8 +192,9 @@ export default class PrescriptionService {
     async getPrescriptionsByToken(token: string) {
         const repository = getCustomRepository(PrescriptionRepository)
 
-        return repository.query(`select * from prescription as r`
+        return repository.query(`select r.*, p.name as patientName, d.name as doctorName, d.crx from prescription as r`
             + ` JOIN patient AS p ON r.patient_id = p.id`
+            + ` JOIN doctor AS d ON r.doctor_id = d.id`
             + ` where substring(r.id:: text, LENGTH(r.id:: TEXT) - 5, LENGTH(r.id:: TEXT)) = '${token}'`)
     }
 
