@@ -19,11 +19,11 @@ export default class DoctorService {
             type: 0
         }
         const user = await users.create(input)
-        const crx = `${fields.crx}@${fields.ufCrx}`
+        const crx = `${fields.crx}/${fields.ufCrx}`
 
         const doctor = {
             userId: user.id,
-            ...omit(['user','ufCrx'], fields),
+            ...omit(['user', 'ufCrx'], fields),
             crx
         }
 
