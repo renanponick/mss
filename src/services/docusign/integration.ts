@@ -33,9 +33,9 @@ export default class DocuSign {
                         if (body.error && body.error === 'consent_required') {
                             const consentScope = config.scopeDocusign
                             const consentUrl = `${this.opts.oAuthBasePath
-                            }/oauth/auth?response_type=code&scope=${consentScope
-                            }&client_id=${config.integrationKey
-                            }&redirect_uri=${config.endpoint}`
+                                }/oauth/auth?response_type=code&scope=${consentScope
+                                }&client_id=${config.integrationKey
+                                }&redirect_uri=${config.endpoint}`
 
                             return { permission: consentUrl }
                         } else {
@@ -104,7 +104,7 @@ export default class DocuSign {
                 { recipientViewRequest: viewRequest }
             )
 
-            return { viewEnvelop,  externalId: results.envelopeId }
+            return { viewEnvelop, externalId: results.envelopeId }
         } else {
             throw new Error('Erro na criação do envelope')
         }
@@ -132,14 +132,14 @@ export default class DocuSign {
             clientUserId: '1000',
             recipientId: '1',
             tabs: { signHereTabs: [signHere] },
-            recipientSignatureProviders: [{
+            /*recipientSignatureProviders: [{
                 // eslint-disable-next-line max-len
                 signatureProviderName: 'UniversalSignaturePen_ICP_SmartCard_TSP',
                 signatureProviderOptions: {
                     cpfNumber: envelopeArgs.icp.cpf,
                     signerRole: envelopeArgs.icp.role
                 }
-            }]
+            }]*/
         }
         const env: EnvelopeDefinition = {
             emailSubject: 'Receita médica',
