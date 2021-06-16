@@ -32,7 +32,7 @@ export default class PrescriptionService {
                 omit(['userId'], fields)
             )
 
-            const result = await this.docusign.signEmbedded(prescription)
+            const result = await this.docusign.signEmbedded(prescription.id)
 
             await this.update({
                 ...prescription,
