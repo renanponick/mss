@@ -1,18 +1,16 @@
 import Prescription from '../models/prescription'
 
 import DocuSign from './docusign/integration'
-import DoctorService from './doctor'
 import UserService from './user'
 
 export default class DocusignService {
 
     private readonly docusign = new DocuSign()
-    private readonly doctorService = new DoctorService()
     private readonly userService = new UserService()
 
     async signEmbedded(prescription: Prescription) {
-        const { userId, name, cpf, role } = await this.doctorService
-            .find(prescription.doctorId)
+        const id = prescription.id;
+        const { userId, name, cpf, role, crx } = prescription.doctor
         const { email } = await this.userService.find(userId)
         const envelopeArgs = {
             signerEmail: email,
@@ -21,7 +19,21 @@ export default class DocusignService {
             icp: {
                 cpf,
                 role
-            }
+            },
+            doctor: {
+                name,
+                crx,
+                role,
+            },
+            patient: {
+                name: prescription.patient.name,
+            },
+            composed: prescription.composed,
+            dosage: prescription.dosage,
+            timesDay: prescription.timesDay,
+            note: prescription.note,
+            validity: prescription.validity,
+            token: id.substring(id.length - 6)
         }
         try {
             return this.docusign.workerEmbedded(envelopeArgs)

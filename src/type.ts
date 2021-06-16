@@ -145,7 +145,21 @@ export const EnvelopeArgs = t.type({
     signerEmail: t.string,
     signerName: t.string,
     dsReturnUrl: t.string,
-    icp: IcpBrasil
+    icp: IcpBrasil,
+    doctor: t.type({
+        name: t.string,
+        crx: t.string,
+        role: t.string
+    }),
+    patient: t.type({
+        name: t.string
+    }),
+    composed: t.string,
+    dosage: t.string,
+    timesDay: t.number,
+    note: t.string,
+    validity: t.string,
+    token: t.string
 })
 
 export type EnvelopeArgs = t.TypeOf<typeof EnvelopeArgs>
