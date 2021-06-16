@@ -1,4 +1,4 @@
-import PrescriptionService from './prescription'
+import Prescription from '../models/prescription'
 
 import DocuSign from './docusign/integration'
 import UserService from './user'
@@ -6,11 +6,10 @@ import UserService from './user'
 export default class DocusignService {
 
     private readonly docusign = new DocuSign()
-    private readonly prescriptionService = new PrescriptionService()
     private readonly userService = new UserService()
 
-    async signEmbedded(id: string) {
-        const prescription = await this.prescriptionService.find(id)
+    async signEmbedded(prescription: Prescription) {
+        const id = prescription.id
         const { userId, name, cpf, role, crx } = prescription.doctor
         const { email } = await this.userService.find(userId)
         const envelopeArgs = {
