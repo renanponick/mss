@@ -78,7 +78,7 @@ app.post('/mss/v1/prescription', AuthMiddleware([0]), binder(prescriptionService
 app.put('/mss/v1/prescription/:prescriptionId', AuthMiddleware([0]), binder(prescriptionService, 'updatePrescription'))
 app.put('/mss/v1/prescription/take/:prescriptionId', AuthMiddleware([2]), binder(prescriptionService, 'takePrescription'))
 app.delete('/mss/v1/prescription/:prescriptionId', AuthMiddleware([0]), binder(prescriptionService, 'deletePrescription'))
-app.get('/mss/v1/prescription/:token', AuthMiddleware([2]), binder(prescriptionService, 'getPrescriptionsByToken'))
+app.get('/mss/v1/prescription/token/:token', AuthMiddleware([2]), binder(prescriptionService, 'getPrescriptionsByToken'))
 app.get('/mss/v1/prescriptions/', AuthMiddleware([0, 1, 2]), binder(prescriptionService, 'getPrescriptions'))
 app.get('/mss/v1/prescription/:prescriptionId', AuthMiddleware([0, 1, 2]), binder(prescriptionService, 'getPrescription'))
 app.get('/mss/v1/prescription/download/:prescriptionId', AuthMiddleware([0, 1, 2]), binder(prescriptionService, 'downloadPrescription'))
