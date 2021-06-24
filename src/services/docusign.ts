@@ -15,7 +15,7 @@ export default class DocusignService {
         const envelopeArgs = {
             signerEmail: email,
             signerName: name,
-            dsReturnUrl: 'http://localhost:8080/mss/v1/docusign',
+            dsReturnUrl: 'http://localhost:3000/CadastroReceita',
             icp: {
                 cpf,
                 role
