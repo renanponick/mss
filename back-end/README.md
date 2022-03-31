@@ -10,9 +10,13 @@ medical system support
 
 ```bash
 yarn
-yarn init
-yarn setup
-yarn dev
+yarn dev:init
+yarn test:setup
+yarn dev:watch
+
+# se precisar
+sudo netstat -tlpn | grep 8080
+sudo kill -9 67533
 ```
 
 ## Branches e Commits

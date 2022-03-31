@@ -101,10 +101,10 @@ export default
             max: poolSize,
             connectionTimeoutMillis: postgres.connectionTimeoutMillis
                 || connectionTimeoutMillis,
-            ssl: {
-                require: true,
-                rejectUnauthorized: false
-            }
+            // ssl: {
+            //     require: true,
+            //     rejectUnauthorized: false
+            // }
         },
         type: 'postgres',
         url: postgres.url
