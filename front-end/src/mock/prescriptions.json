@@ -1,0 +1,78 @@
+[
+    {
+        "id": "2b21c662-bcf4-11eb-b6af-eb6c6d1113d6",
+        "patientId": "09b4365e-bcf4-11eb-93a3-a3a7824ef2a8",
+        "doctorId": "fcb33798-bcf3-11eb-a0a3-8b2e460094f8",
+        "pharmacyId": null,
+        "composed": "Dipirona Sodica",
+        "dosage": "500mg",
+        "timesDay": 1,
+        "note": "Tomar apos refeicao",
+        "validity": "2021-04-27T03:35:17.687Z",
+        "createdAt": "2021-05-25T00:57:24.646Z",
+        "updatedAt": "2021-05-25T00:57:24.646Z",
+        "externalId": null,
+        "doctor": {
+            "id": "fcb33798-bcf3-11eb-a0a3-8b2e460094f8",
+            "userId": "fcb06f7c-bcf3-11eb-a0a3-1303659c481c",
+            "name": "Doutor",
+            "crx": "123@SC",
+            "role": "SC",
+            "cpf": "11111111112",
+            "address": "adre",
+            "city": "SC",
+            "province": "SC",
+            "createdAt": "2021-05-25T00:56:06.756Z",
+            "updatedAt": "2021-05-25T00:56:06.756Z"
+        },
+        "patient": {
+            "id": "09b4365e-bcf4-11eb-93a3-a3a7824ef2a8",
+            "userId": "09b26c3e-bcf4-11eb-93a3-cf91b0df11d6",
+            "name": "pacient",
+            "cpf": "123",
+            "address": "adre",
+            "city": "SC",
+            "province": "SC",
+            "createdAt": "2021-05-25T00:56:28.576Z",
+            "updatedAt": "2021-05-25T00:56:28.576Z"
+        }
+    },
+    {
+        "id": "462b1a80-bcf4-11eb-bfc7-3f65003e4121",
+        "patientId": "09b4365e-bcf4-11eb-93a3-a3a7824ef2a8",
+        "doctorId": "fcb33798-bcf3-11eb-a0a3-8b2e460094f8",
+        "pharmacyId": null,
+        "composed": "Amoxicila",
+        "dosage": "t.string",
+        "timesDay": 3,
+        "note": "t.string",
+        "validity": "2021-04-27T03:35:17.687Z",
+        "createdAt": "2021-05-25T00:58:10.014Z",
+        "updatedAt": "2021-05-25T00:58:10.014Z",
+        "externalId": null,
+        "doctor": {
+            "id": "fcb33798-bcf3-11eb-a0a3-8b2e460094f8",
+            "userId": "fcb06f7c-bcf3-11eb-a0a3-1303659c481c",
+            "name": "Doutor",
+            "crx": "123@SC",
+            "role": "SC",
+            "cpf": "11111111112",
+            "address": "adre",
+            "city": "SC",
+            "province": "SC",
+            "createdAt": "2021-05-25T00:56:06.756Z",
+            "updatedAt": "2021-05-25T00:56:06.756Z"
+        },
+        "patient": {
+            "id": "09b4365e-bcf4-11eb-93a3-a3a7824ef2a8",
+            "userId": "09b26c3e-bcf4-11eb-93a3-cf91b0df11d6",
+            "name": "pacient",
+            "cpf": "123",
+            "address": "adre",
+            "city": "SC",
+            "province": "SC",
+            "createdAt": "2021-05-25T00:56:28.576Z",
+            "updatedAt": "2021-05-25T00:56:28.576Z"
+        }
+    }
+]

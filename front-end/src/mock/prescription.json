@@ -1,0 +1,38 @@
+{
+    "id": "741a8af2-bcf4-11eb-8ee5-e7f59edabf74",
+    "patientId": "09b4365e-bcf4-11eb-93a3-a3a7824ef2a8",
+    "doctorId": "5cd0dcf2-bcf4-11eb-bd2c-67f8d28a32d8",
+    "pharmacyId": null,
+    "composed": "Amoxicila",
+    "dosage": "500mg",
+    "timesDay": 1,
+    "note": "t.string",
+    "validity": "2021-04-27T03:35:17.687Z",
+    "createdAt": "2021-05-25T00:59:27.084Z",
+    "updatedAt": "2021-05-25T00:59:27.084Z",
+    "externalId": null,
+    "doctor": {
+        "id": "5cd0dcf2-bcf4-11eb-bd2c-67f8d28a32d8",
+        "userId": "5ccfbd68-bcf4-11eb-bd2c-7b6c8cf9e2ec",
+        "name": "Doutor",
+        "crx": "1234@SC",
+        "role": "SC",
+        "cpf": "11111111113",
+        "address": "adre",
+        "city": "SC",
+        "province": "SC",
+        "createdAt": "2021-05-25T00:58:48.015Z",
+        "updatedAt": "2021-05-25T00:58:48.015Z"
+    },
+    "patient": {
+        "id": "09b4365e-bcf4-11eb-93a3-a3a7824ef2a8",
+        "userId": "09b26c3e-bcf4-11eb-93a3-cf91b0df11d6",
+        "name": "pacient",
+        "cpf": "123",
+        "address": "adre",
+        "city": "SC",
+        "province": "SC",
+        "createdAt": "2021-05-25T00:56:28.576Z",
+        "updatedAt": "2021-05-25T00:56:28.576Z"
+    }
+}
